@@ -1,0 +1,1188 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>MATH 371 — Interactive Theorem Visualizations</title>
+  <link rel="stylesheet" href="css/styles.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+  <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.js"></script>
+  <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/contrib/auto-render.min.js"
+    onload="renderMathInElement(document.body,{delimiters:[{left:'$$',right:'$$',display:true},{left:'$',right:'$',display:false}]});">
+  </script>
+</head>
+<body>
+
+<nav class="sidebar">
+  <h2>MATH 371</h2>
+  <div class="search-box sidebar-search">
+    <input type="text" id="searchInput" placeholder="Search theorems or terms..." autocomplete="off">
+  </div>
+  <a href="#glossary" class="glossary-link">📚 Glossary of Terms</a>
+  <h3 class="nav-heading">Theorems</h3>
+  <div id="nav-links">
+    <a href="#thm-1-1">1.1 Handshaking Lemma</a>
+    <a href="#thm-1-2">1.2 Walk → Path</a>
+    <a href="#thm-1-3">1.3 Bipartite ↔ No Odd Cycles</a>
+    <a href="#thm-1-4">1.4 Radius & Diameter</a>
+    <a href="#thm-1-5">1.5 Every Graph is a Center</a>
+    <a href="#thm-1-6">1.6 Periphery Characterization</a>
+    <a href="#thm-1-7">1.7 Adjacency Matrix & Walks</a>
+    <a href="#thm-1-9">1.9 Distances from Matrices</a>
+    <a href="#thm-1-10">1.10 Tree Edge Count</a>
+    <a href="#thm-1-11">1.11 Forest Edge Count</a>
+    <a href="#thm-1-12">1.12-1.13 Tree Equivalences</a>
+    <a href="#thm-1-14">1.14 Trees Have ≥ 2 Leaves</a>
+    <a href="#thm-1-15">1.15 Center of a Tree</a>
+    <a href="#thm-1-16">1.16 Subtrees in Graphs</a>
+    <a href="#thm-1-17">1.17 Kruskal's Algorithm</a>
+    <a href="#thm-1-18">1.18 Cayley's Tree Formula</a>
+    <a href="#thm-1-19">1.19 Matrix Tree Theorem</a>
+    <a href="#thm-1-20">1.20 Eulerian Characterization</a>
+    <a href="#thm-1-22">1.22 Dirac's Theorem</a>
+    <a href="#thm-1-23">1.23 Ore's Theorem</a>
+    <a href="#thm-1-24">1.24 Connectivity & Independence</a>
+    <a href="#thm-1-25">1.25 Goodman-Hedetniemi</a>
+    <a href="#thm-1-31">1.31 Euler's Formula</a>
+    <a href="#thm-1-32">1.32 K₃,₃ is Nonplanar</a>
+    <a href="#thm-1-33">1.33 Planar Edge Bound</a>
+    <a href="#thm-1-34">1.34 K₅ is Nonplanar</a>
+    <a href="#thm-1-35">1.35 Planar Low Degree</a>
+    <a href="#thm-1-37">1.37 Polyhedron Small Faces</a>
+    <a href="#thm-1-38">1.38 Five Platonic Solids</a>
+    <a href="#thm-1-40">1.40 Kuratowski's Theorem</a>
+    <a href="#thm-1-42">1.42 Greedy Coloring Bound</a>
+    <a href="#thm-1-43">1.43 Brooks's Theorem</a>
+    <a href="#thm-1-45">1.45 Independence Bounds</a>
+    <a href="#thm-1-47">1.47 Five Color Theorem</a>
+    <a href="#thm-1-48">1.48 Deletion-Contraction</a>
+    <a href="#thm-1-49">1.49 Chromatic Polynomial</a>
+    <a href="#claim-cycle">Claim: Cycle Graph Formula</a>
+    <a href="#thm-1-50">1.50 Berge's Theorem</a>
+    <a href="#thm-1-51">1.51 Hall's Theorem</a>
+    <a href="#thm-1-52">1.52 SDR</a>
+    <a href="#claim-lecture-27">Lecture 27 Claims</a>
+    <a href="#thm-1-53">1.53 König-Egerváry</a>
+    <a href="#thm-1-61">1.61 Ramsey R(3,3)</a>
+    <a href="#thm-1-62">1.62 Ramsey R(3,4)</a>
+    <a href="#thm-1-64">1.64 Ramsey Bounds</a>
+    <a href="#thm-1-64-star">1.64* Improved Bound</a>
+    <a href="#thm-erdos">Erdős-Szekeres</a>
+  </div>
+
+</nav>
+
+<div class="main">
+  <h1>MATH 371 — Interactive Visualizations</h1>
+  <p class="subtitle">Combinatorics & Graph Theory — Animated theorem companions for exam prep</p>
+
+  <!-- ======================== GLOSSARY ======================== -->
+  <div class="glossary-section" id="glossary">
+    <div class="glossary-header" onclick="this.parentElement.classList.toggle('open')">
+      <h2>📚 Glossary of Graph Theory Terms</h2>
+      <svg class="chevron" viewBox="0 0 24 24"><path d="M7 10l5 5 5-5z"/></svg>
+    </div>
+    <div class="glossary-wrapper">
+      <div class="glossary-grid" id="glossary-grid">
+        <!-- Glossary items will be injected by JS -->
+      </div>
+    </div>
+  </div>
+
+
+  <!-- ======================== THEOREM 1.1 ======================== -->
+  <div class="theorem" id="thm-1-1">
+    <div class="theorem-header" onclick="this.parentElement.classList.toggle('open')">
+      <h2>Theorem 1.1 — Handshaking Lemma</h2>
+      <svg class="chevron" viewBox="0 0 24 24"><path d="M7 10l5 5 5-5z"/></svg>
+    </div>
+    <div class="theorem-content">
+      <div class="statement">$$\sum_{v \in V} \deg(v) = 2|E|$$</div>
+      <div class="intuition">Every edge has 2 endpoints. When we count degrees, each edge gets counted once at each endpoint — so every edge is counted exactly twice!</div>
+      <div class="viz-container">
+        <canvas id="canvas-handshaking" width="600" height="300"></canvas>
+        <div class="viz-controls">
+          <button onclick="vizHandshaking.addEdge()">Add Edge</button>
+          <button class="secondary" onclick="vizHandshaking.reset()">Reset</button>
+        </div>
+        <div class="viz-label">Click "Add Edge" to see how each edge contributes +1 to each endpoint's degree</div>
+      </div>
+      <div class="proof">
+        Let $S = \sum_{v \in V} \deg(v)$. Each edge $\{u,v\}$ contributes +1 to $\deg(u)$ and +1 to $\deg(v)$, so contributes exactly 2 to $S$.
+        Therefore $S = 2|E|$. ∎
+        <br><br><strong>Corollary:</strong> Since $2|E|$ is even, the number of odd-degree vertices must be even.
+      </div>
+    </div>
+  </div>
+
+  <!-- ======================== THEOREM 1.2 ======================== -->
+  <div class="theorem" id="thm-1-2">
+    <div class="theorem-header" onclick="this.parentElement.classList.toggle('open')">
+      <h2>Theorem 1.2 — Walk Contains Path</h2>
+      <svg class="chevron" viewBox="0 0 24 24"><path d="M7 10l5 5 5-5z"/></svg>
+    </div>
+    <div class="theorem-content">
+      <div class="statement">Every $u$-$v$ walk contains a $u$-$v$ path.</div>
+      <div class="intuition">If a walk revisits a vertex, you took a detour — cut out the loop and you get a shorter walk. Keep cutting until no vertex repeats.</div>
+      <div class="viz-container">
+        <canvas id="canvas-walk" width="600" height="250"></canvas>
+        <div class="viz-controls">
+          <button onclick="vizWalk.step()">Cut Next Loop</button>
+          <button class="secondary" onclick="vizWalk.reset()">Reset</button>
+        </div>
+        <div class="viz-label" id="walk-label">Walk: a → b → c → b → d → e → d → f (vertices b, d repeat!)</div>
+      </div>
+      <div class="proof">
+        <strong>Strong induction on walk length $k$.</strong><br>
+        <strong>Base:</strong> $k \le 2$: no room for repeated vertex, so walk is already a path.<br>
+        <strong>Step:</strong> If $w_j = w_r$ for $j < r$, skip $w_{j+1}, \ldots, w_r$ to get a shorter walk. By induction, it contains a path. ∎
+      </div>
+    </div>
+  </div>
+
+  <!-- ======================== THEOREM 1.3 ======================== -->
+  <div class="theorem" id="thm-1-3">
+    <div class="theorem-header" onclick="this.parentElement.classList.toggle('open')">
+      <h2>Theorem 1.3 — Bipartite Characterization</h2>
+      <svg class="chevron" viewBox="0 0 24 24"><path d="M7 10l5 5 5-5z"/></svg>
+    </div>
+    <div class="theorem-content">
+      <div class="statement">$G$ is bipartite $\iff$ $G$ has no odd cycles.</div>
+      <div class="intuition">Walk along a cycle alternating colors: Red, Blue, Red, Blue... Even cycle → you land on your starting color. Odd cycle → you need a DIFFERENT color — clash!</div>
+      <div class="viz-container">
+        <canvas id="canvas-bipartite" width="600" height="300"></canvas>
+        <div class="viz-controls">
+          <button onclick="vizBipartite.toggleCycle()">Toggle Even/Odd Cycle</button>
+          <button onclick="vizBipartite.animate()">Animate Coloring</button>
+          <button class="secondary" onclick="vizBipartite.reset()">Reset</button>
+        </div>
+        <div class="viz-label" id="bipartite-label">Even cycle C₄ — click "Animate Coloring" to see 2-coloring succeed</div>
+      </div>
+      <div class="proof">
+        <strong>(⇒)</strong> Bipartite ⇒ parts $X, Y$, every edge crosses. Any cycle alternates $X, Y, X, Y\ldots$ — to return to the start set, must have even length.<br>
+        <strong>(⇐)</strong> No odd cycles ⇒ pick $v$, set $X = \{$even-dist from $v\}$, $Y = \{$odd-dist$\}$. If two in $X$ were adjacent, their paths + that edge create an odd cycle. Contradiction. ∎
+      </div>
+    </div>
+  </div>
+
+  <!-- ======================== THEOREM 1.4 ======================== -->
+  <div class="theorem" id="thm-1-4">
+    <div class="theorem-header">
+      <h2>Theorem 1.4 — Radius and Diameter Bounds</h2>
+      <svg class="chevron" viewBox="0 0 24 24"><path d="M7 10l5 5 5-5z"/></svg>
+    </div>
+    <div class="theorem-content">
+      <div class="statement">For any connected graph $G$: $$\\text{rad}(G) \\le \\text{diam}(G) \\le 2 \\cdot \\text{rad}(G)$$</div>
+      <div class="intuition">The diameter is always between the radius and twice the radius. You can't have a graph where the farthest pair is more than twice the "best center" distance.</div>
+      <div class="proof">
+        $\\text{rad}(G) \\le \\text{diam}(G)$ is true by definition (min $\\le$ max).<br>
+        For $\\text{diam}(G) \\le 2 \\cdot \\text{rad}(G)$: let $c$ be a center vertex, $u$ and $v$ the farthest pair:<br>
+        $\\text{diam}(G) = d(u,v) \\le d(u,c) + d(c,v) \\le 2 \\cdot \\text{ecc}(c) = 2 \\cdot \\text{rad}(G)$. ∎
+      </div>
+    </div>
+  </div>
+
+  <!-- ======================== THEOREM 1.5 ======================== -->
+  <div class="theorem" id="thm-1-5">
+    <div class="theorem-header">
+      <h2>Theorem 1.5 — Every Graph is a Center</h2>
+      <svg class="chevron" viewBox="0 0 24 24"><path d="M7 10l5 5 5-5z"/></svg>
+    </div>
+    <div class="theorem-content">
+      <div class="statement">Every graph $G$ is isomorphic to the center of some graph $H$.</div>
+      <div class="intuition">No matter what graph $G$ you have, you can "wrap" it inside a bigger graph $H$ by adding antenna-like vertices on the outside. This forces the outside vertices to have higher eccentricity than anything inside $G$.</div>
+      <div class="proof">
+        Construct $H$ by adding 4 new vertices $w, x, y, z$ to $G$. Connect $w-x$ and $y-z$. Connect $x$ and $y$ to every vertex in $G$.<br>
+        Now in $H$: any $v \\in G$ has $\\text{ecc}(v)=2$. $\\text{ecc}(x)=\\text{ecc}(y)=3$, and $\\text{ecc}(w)=\\text{ecc}(z)=4$. So $G$ uniquely rests at the center! ∎
+      </div>
+    </div>
+  </div>
+
+  <!-- ======================== THEOREM 1.6 ======================== -->
+  <div class="theorem" id="thm-1-6">
+    <div class="theorem-header">
+      <h2>Theorem 1.6 — Periphery Characterization</h2>
+      <svg class="chevron" viewBox="0 0 24 24"><path d="M7 10l5 5 5-5z"/></svg>
+    </div>
+    <div class="theorem-content">
+      <div class="statement">A graph $G$ is the periphery of some graph $\\iff$ either every vertex has eccentricity $1$, or no vertex has eccentricity $1$.</div>
+      <div class="intuition">A graph can be made into the "outermost" rim of a bigger graph exactly when it doesn't have a mix of "adjacent-to-everything" and "not-adjacent-to-everything" vertices.</div>
+      <div class="proof">
+        $(\\impliedby)$ If all have ecc 1, $G$ is complete and is its own periphery. If none have ecc 1, add a single universal vertex $w$. Now $w$ has ecc 1, and all of $G$ has ecc 2, making $G$ the periphery.<br>
+        $(\\implies)$ Discarding the mixed case: if some but not all vertices had ecc 1, you can't push the entire graph $G$ out to the same periphery distance because the ecc 1 vertices will always be closer to the center than the others. ∎
+      </div>
+    </div>
+  </div>
+
+  <!-- ======================== THEOREM 1.7 ======================== -->
+  <div class="theorem" id="thm-1-7">
+    <div class="theorem-header">
+      <h2>Theorem 1.7 — Adjacency Matrix & Walks</h2>
+      <svg class="chevron" viewBox="0 0 24 24"><path d="M7 10l5 5 5-5z"/></svg>
+    </div>
+    <div class="theorem-content">
+      <div class="statement">Let $G$ have adjacency matrix $A$. The $(i,j)$ entry of $A^k$ equals the number of walks of length $k$ from $v_i$ to $v_j$.</div>
+      <div class="intuition">Matrix multiplication secretly counts walks! Raising $A$ to the $k$-th power tells you exactly how many ways to walk $k$ steps between any two vertices.</div>
+      <div class="viz-container">
+        <canvas id="canvas-matrix" width="600" height="320"></canvas>
+        <div class="viz-controls">
+          <button onclick="vizMatrix.stepPower()">Next Power ($A^k$)</button>
+          <button class="secondary" onclick="vizMatrix.reset()">Reset to $A^1$</button>
+        </div>
+        <div class="viz-label" id="matrix-label">Showing A¹ (1-step walks — just the edges!)</div>
+      </div>
+      <div class="proof">
+        <strong>Induction on $k$.</strong> Base: $k=1$, $A^1=A$, $(i,j)$ is 1 if edge exists, 0 otherwise.<br>
+        Step: A $k$-walk from $v_i$ to $v_j$ is a $(k-1)$-walk from $v_i$ to some $v_h$, plus edge $v_h \\to v_j$. Summing $[A^{k-1}]_{ih} \\cdot A_{hj}$ over all $h$ is exactly the formula for matrix multiplication $[A^k]_{ij}$. ∎
+      </div>
+    </div>
+  </div>
+
+  <!-- ======================== THEOREM 1.9 ======================== -->
+  <div class="theorem" id="thm-1-9">
+    <div class="theorem-header">
+      <h2>Theorem 1.9 — Distance Metrics from Matrices</h2>
+      <svg class="chevron" viewBox="0 0 24 24"><path d="M7 10l5 5 5-5z"/></svg>
+    </div>
+    <div class="theorem-content">
+      <div class="statement">Define $S_k = I + A + A^2 + \\cdots + A^k$.<br>1. $\\text{ecc}(v_j) = k$ (first $S_k$ where row $j$ has no zeros)<br>2. $\\text{rad}(G) = r$ (first $S_r$ with at least one strictly positive row)<br>3. $\\text{diam}(G) = m$ (first $S_m$ where EVERY entry is strictly positive)</div>
+      <div class="intuition">$S_k$ accumulates all walks of length $\\le k$. Once $[S_k]_{j,i} > 0$, vertex $j$ can reach $i$. When a row fills up, that vertex can reach everyone. When the whole matrix fills up, everyone can reach everyone!</div>
+      <div class="proof">
+        For all $i,j$, $[S_k]_{j,i} > 0$ iff there is a walk from $v_j$ to $v_i$ of length at most $k$ (because $S_k = I + A + \cdots + A^k$ accumulates walk counts).<br><br>
+        <strong>(1) Eccentricity:</strong> The first $k$ where row $j$ has no zeros means $v_j$ can reach every vertex within $k$ steps, and this fails for $k-1$. Hence $\text{ecc}(v_j)=k$.<br><br>
+        <strong>(2) Radius:</strong> Radius is the minimum eccentricity, so it is the first $r$ where <em>some</em> row becomes strictly positive.<br><br>
+        <strong>(3) Diameter:</strong> Diameter is the maximum eccentricity, so it is the first $m$ where <em>every</em> row (equivalently every entry) is strictly positive. ∎
+      </div>
+    </div>
+  </div>
+
+  <!-- ======================== THEOREM 1.10 ======================== -->
+  <div class="theorem" id="thm-1-10">
+    <div class="theorem-header" onclick="this.parentElement.classList.toggle('open')">
+      <h2>Theorem 1.10 — Tree Edge Count</h2>
+      <svg class="chevron" viewBox="0 0 24 24"><path d="M7 10l5 5 5-5z"/></svg>
+    </div>
+    <div class="theorem-content">
+      <div class="statement">A tree of order $n$ has exactly $n - 1$ edges.</div>
+      <div class="intuition">Remove any edge from a tree → it splits into 2 smaller trees. Add up their edges + 1 = the original count. By induction: always $n-1$.</div>
+      <div class="viz-container">
+        <canvas id="canvas-tree" width="600" height="280"></canvas>
+        <div class="viz-controls">
+          <button onclick="vizTree.split()">Remove an Edge (Split)</button>
+          <button class="secondary" onclick="vizTree.reset()">Reset</button>
+        </div>
+        <div class="viz-label" id="tree-label">Tree with 7 vertices, 6 edges (= 7 - 1 ✓)</div>
+      </div>
+      <div class="proof">
+        <strong>Strong induction on $n$.</strong><br>
+        <strong>Base:</strong> $n=1$: 0 edges. ✓<br>
+        <strong>Step:</strong> Remove any edge $e$. Tree splits into $T_1, T_2$ with $k_1 + k_2 = k$ vertices. By hypothesis: $(k_1-1) + (k_2-1) + 1 = k - 1$ edges. ∎
+      </div>
+    </div>
+  </div>
+
+  <!-- ======================== THEOREM 1.11 ======================== -->
+  <div class="theorem" id="thm-1-11">
+    <div class="theorem-header">
+      <h2>Theorem 1.11 — Forest Edge Count</h2>
+      <svg class="chevron" viewBox="0 0 24 24"><path d="M7 10l5 5 5-5z"/></svg>
+    </div>
+    <div class="theorem-content">
+      <div class="statement">If $F$ is a forest of order $n$ containing $k$ connected components, then $F$ has $n - k$ edges.</div>
+      <div class="intuition">A forest is a collection of trees. Each tree uses $n_i - 1$ edges, so we "lose" one edge per component.</div>
+      <div class="proof">
+        Each component $T_i$ is a tree with $n_i$ vertices $\\implies n_i - 1$ edges.<br>
+        Total edges = $\\sum (n_i - 1) = (\\sum n_i) - k = n - k$. ∎
+      </div>
+    </div>
+  </div>
+
+  <!-- ======================== THEOREMS 1.12 & 1.13 ======================== -->
+  <div class="theorem" id="thm-1-12">
+    <div class="theorem-header">
+      <h2>Theorems 1.12 & 1.13 — Tree Equivalences</h2>
+      <svg class="chevron" viewBox="0 0 24 24"><path d="M7 10l5 5 5-5z"/></svg>
+    </div>
+    <div class="theorem-content">
+      <div class="statement">A graph of order $n$ is a tree $\\iff$ it is connected and has $n - 1$ edges $\\iff$ it is acyclic and has $n - 1$ edges.</div>
+      <div class="intuition">To check if something is a tree, you don't need to check BOTH "connected" and "no cycles". The magic edge count ($n-1$) lets you swap one check for the other!</div>
+      <div class="proof">
+        1.12 (Connected + $n-1$ edges): If it had a cycle, you could remove an edge without breaking connectivity until it becomes a tree. But that resulting tree would have strictly fewer than $n-1$ edges, which is impossible.<br>
+        1.13 (Acyclic + $n-1$ edges): Acyclic means it's a forest with $k$ components. Edges = $n-k$. But we are given edges = $n-1$. Therefore $k=1$, meaning it's connected. ∎
+      </div>
+    </div>
+  </div>
+
+  <!-- ======================== THEOREM 1.14 ======================== -->
+  <div class="theorem" id="thm-1-14">
+    <div class="theorem-header" onclick="this.parentElement.classList.toggle('open')">
+      <h2>Theorem 1.14 — Every Tree Has ≥ 2 Leaves</h2>
+      <svg class="chevron" viewBox="0 0 24 24"><path d="M7 10l5 5 5-5z"/></svg>
+    </div>
+    <div class="theorem-content">
+      <div class="statement">If $T$ is a tree with $n \ge 2$, then $T$ has at least two leaves.</div>
+      <div class="intuition">The endpoints of the longest path MUST be leaves — if either had another neighbor, you could extend the path, contradicting "longest."</div>
+      <div class="proof">
+        Let $P=u_0,u_1,\ldots,u_\ell$ be a longest path in $T$.<br><br>
+        Suppose $\deg(u_0)\ge 2$. Then $u_0$ has a neighbor $w\neq u_1$. In a tree, $w$ cannot be elsewhere on $P$ (that would create a cycle), so $w\notin V(P)$. Then
+        $w,u_0,u_1,\ldots,u_\ell$ is a path longer than $P$, contradiction.<br><br>
+        So $\deg(u_0)=1$, i.e. $u_0$ is a leaf. The same argument at $u_\ell$ shows $\deg(u_\ell)=1$. Therefore $T$ has at least two leaves. ∎
+      </div>
+    </div>
+  </div>
+
+  <!-- ======================== THEOREM 1.15 ======================== -->
+  <div class="theorem" id="thm-1-15">
+    <div class="theorem-header" onclick="this.parentElement.classList.toggle('open')">
+      <h2>Theorem 1.15 — Center of a Tree</h2>
+      <svg class="chevron" viewBox="0 0 24 24"><path d="M7 10l5 5 5-5z"/></svg>
+    </div>
+    <div class="theorem-content">
+      <div class="statement">In any tree, the center is a single vertex or two adjacent vertices.</div>
+      <div class="intuition">Peel off ALL leaves → peel new leaves → repeat. You always end up with 1 or 2 vertices. That's the center!</div>
+      <div class="viz-container">
+        <canvas id="canvas-center" width="600" height="280"></canvas>
+        <div class="viz-controls">
+          <button onclick="vizCenter.peel()">Peel Leaves</button>
+          <button class="secondary" onclick="vizCenter.reset()">Reset</button>
+        </div>
+        <div class="viz-label" id="center-label">Click "Peel Leaves" to iteratively remove leaf vertices</div>
+      </div>
+      <div class="proof">
+        Removing all leaves decreases every remaining vertex's eccentricity by exactly 1. Since all eccentricities shift uniformly, the minimizer (center) is preserved. Eventually you reach $K_1$ or $K_2$. ∎
+      </div>
+    </div>
+  </div>
+
+  <!-- ======================== THEOREM 1.16 ======================== -->
+  <div class="theorem" id="thm-1-16">
+    <div class="theorem-header">
+      <h2>Theorem 1.16 — Subtrees in High Degree Graphs</h2>
+      <svg class="chevron" viewBox="0 0 24 24"><path d="M7 10l5 5 5-5z"/></svg>
+    </div>
+    <div class="theorem-content">
+      <div class="statement">Let $T$ be a tree with $k$ edges. If $\delta(G) \ge k$, then $G$ contains $T$ as a subgraph.</div>
+      <div class="intuition">If every vertex in $G$ has degree $\ge k$, then any tree with $k$ edges can be found hiding inside $G$. Highly connected graphs contain all small trees.</div>
+      <div class="proof">
+        <strong>Proof by induction on $k$:</strong>
+        <ul>
+        <li><strong>Base:</strong> $k = 0 \Rightarrow T = K_1$ (single vertex), trivially a subgraph. $k = 1 \Rightarrow T = K_2$, and $\delta(G) \ge 1$ means $G$ has at least one edge.</li>
+        <li><strong>Inductive step:</strong> Assume true for trees with $k-1$ edges.
+          <ul>
+          <li>$T$ has a leaf $v$ (by Theorem 1.14). Let $w$ be its neighbor.</li>
+          <li>$T - v$ has $k-1$ edges. Since $\delta(G) \ge k \ge k-1$, by induction $T - v$ is a subgraph of $G$.</li>
+          <li>In $G$, vertex $w$ (from the copy of $T-v$) has degree $\ge k$, but only $k-1$ vertices of $T-v$ are using its edges. So $w$ has a neighbor $u$ outside the copy.</li>
+          <li>Attach $u$ as the leaf $\Rightarrow$ we've found $T$ inside $G$. ∎</li>
+          </ul>
+        </li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <!-- ======================== THEOREM 1.17 ======================== -->
+  <div class="theorem" id="thm-1-17">
+    <div class="theorem-header">
+      <h2>Theorem 1.17 — Kruskal's Algorithm is Optimal</h2>
+      <svg class="chevron" viewBox="0 0 24 24"><path d="M7 10l5 5 5-5z"/></svg>
+    </div>
+    <div class="theorem-content">
+      <div class="statement">Kruskal's algorithm computes a minimum weight spanning tree.</div>
+      <div class="intuition">Greedy actually works here! Always picking the cheapest non-cycle-forming edge builds the globally cheapest tree.</div>
+      <div class="viz-container">
+        <canvas id="canvas-kruskal" width="600" height="320"></canvas>
+        <div class="viz-controls">
+          <button onclick="vizKruskal.step()">Next Edge</button>
+          <button class="secondary" onclick="vizKruskal.reset()">Reset</button>
+        </div>
+        <div class="viz-label" id="kruskal-label">Click 'Next Edge' to run Kruskal's</div>
+      </div>
+      <div class="proof">
+        <strong>Proof by contradiction:</strong>
+        <ul>
+        <li>Let $T$ = Kruskal's result, with edges added as $e_1, e_2, \dots, e_{n-1}$.</li>
+        <li>Assume $T$ is not an MST. Pick the MST $T'$ that agrees with $T$ for the most edges.</li>
+        <li>Let $e_{k+1}$ be the first edge where they differ ($T'$ has $e_1, \dots, e_k$ but not $e_{k+1}$).</li>
+        <li>Adding $e_{k+1}$ to $T'$ creates a cycle $C$. This cycle has an edge $e' \notin T$ (since $T$ has no cycles).</li>
+        <li>Kruskal's chose $e_{k+1}$ before $e'$, so $w(e_{k+1}) \le w(e')$.</li>
+        <li>Swap: $T' + e_{k+1} - e'$ is a spanning tree with weight $\le$ weight of $T'$, and it agrees with $T$ on one more edge — contradicting our choice of $T'$! ∎</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <!-- ======================== THEOREM 1.18 ======================== -->
+  <div class="theorem" id="thm-1-18">
+    <div class="theorem-header">
+      <h2>Theorem 1.18 — Cayley's Tree Formula</h2>
+      <svg class="chevron" viewBox="0 0 24 24"><path d="M7 10l5 5 5-5z"/></svg>
+    </div>
+    <div class="theorem-content">
+      <div class="statement">There are $n^{n-2}$ distinct labeled trees of order $n$.</div>
+      <div class="intuition">If you label $n$ vertices uniquely, you can wire them into a tree in exactly $n^{n-2}$ ways. E.g., 3 vertices $= 3^1 = 3$ trees.</div>
+      <div class="proof">
+        <strong>Proof via Prüfer sequences (bijection).</strong><br><br>
+        <strong>Tree $\to$ sequence:</strong> Repeat $n-2$ times: choose the smallest labeled leaf, record its neighbor, then delete that leaf.<br><br>
+        <strong>Sequence $\to$ tree:</strong> Start with labels $A=\{1,\dots,n\}$. Reading the sequence left to right, each step connects the smallest label in $A$ not appearing later in the sequence to the current sequence entry, then removes that leaf label from $A$. When the sequence ends, connect the last two labels in $A$.<br><br>
+        These constructions are inverse to each other, so labeled trees on $n$ vertices are in bijection with sequences of length $n-2$ over $\{1,\dots,n\}$. Therefore the count is
+        $$n^{n-2}.$$
+        Also, each vertex $v$ appears exactly $\deg(v)-1$ times in the Prüfer sequence, so sequence length is
+        $$\sum_{v}(\deg(v)-1)=2(n-1)-n=n-2.$$
+        ∎
+      </div>
+    </div>
+  </div>
+
+  <!-- ======================== THEOREM 1.19 ======================== -->
+  <div class="theorem" id="thm-1-19">
+    <div class="theorem-header">
+      <h2>Theorem 1.19 — Matrix Tree Theorem</h2>
+      <svg class="chevron" viewBox="0 0 24 24"><path d="M7 10l5 5 5-5z"/></svg>
+    </div>
+    <div class="theorem-content">
+      <div class="statement">The number of spanning trees of $G$ is any cofactor of its Laplacian matrix $L = D - A$.</div>
+      <div class="intuition">You can count spanning trees purely with linear algebra! Build the Laplacian, delete one row and column, and take the determinant.</div>
+      <div class="proof">
+        <strong>The recipe:</strong>
+        <ol>
+        <li>Build <strong>A</strong> (adjacency matrix) and <strong>D</strong> (diagonal matrix of degrees)</li>
+        <li>Compute $L = D - A$ (called the Laplacian)</li>
+        <li>Delete any one row and matching column from $L$</li>
+        <li>The determinant of what's left = number of spanning trees</li>
+        </ol>
+        <strong>Proof framework:</strong><br>
+        Let $G$ have $n$ vertices and $k$ edges. Define the <em>incidence matrix</em> $N$ ($n \times k$): $[N]_{i,j} = 1$ if vertex $v_i$ touches edge $f_j$, else 0. Each column has exactly two 1s.<br>
+        Create $M$ from $N$ by flipping the top 1 in each column to $-1$ (directed edges).<br><br>
+        <strong>Claim A:</strong> $MM^T = D - A$.<br>
+        - Diagonal $(i=j)$: counts degrees.<br>
+        - Off-diagonal (edge): $+1 \cdot -1 = -1$.<br>
+        - Off-diagonal (no edge): 0.<br><br>
+        <strong>Claim B:</strong> Take any subgraph $H$ with $n$ vertices and $n-1$ edges. Delete row $p$ from $M$, keep only columns for $H$'s edges to get $M'$.<br>
+        - If $H$ is a tree: $|\det(M')| = 1$<br>
+        - If $H$ is not a tree: $\det(M') = 0$<br><br>
+        <strong>Putting it together:</strong><br>
+        Since all row/column sums of $D-A$ are 0, all cofactors are equal. Pick the $(1,1)$ cofactor:<br>
+        $\det((D-A)_{(1|1)}) = \det(M_1 M_1^T)$<br>
+        By the <strong>Cauchy-Binet formula</strong>, this equals the sum of $\det(M')^2$ over all $(n-1)$-column subsets. Each spanning tree contributes $1^2 = 1$ and non-trees contribute 0. $\Rightarrow$ Cofactor = number of spanning trees. ∎
+      </div>
+    </div>
+  </div>
+
+  <!-- ======================== THEOREM 1.20 ======================== -->
+  <div class="theorem" id="thm-1-20">
+    <div class="theorem-header">
+      <h2>Theorem 1.20 — Eulerian Characterization</h2>
+      <svg class="chevron" viewBox="0 0 24 24"><path d="M7 10l5 5 5-5z"/></svg>
+    </div>
+    <div class="theorem-content">
+      <div class="statement">Let $G$ be a connected graph. The following are equivalent:
+      1. $G$ is Eulerian (has a closed trail containing all edges)
+      2. Every vertex of $G$ has even degree
+      3. The edge set $E(G)$ can be partitioned into cycles</div>
+      <div class="intuition">Euler circuit means every time you enter a vertex you must leave it, so degree parity is even. Even degrees let you peel cycles, and cycle pieces can be spliced into one big circuit.</div>
+      <div class="proof">
+        <strong>(1 $\Rightarrow$ 2)</strong> In an Eulerian circuit, each visit to a vertex uses one entering and one leaving edge. Edges at every vertex are paired, so every $\deg(v)$ is even.<br><br>
+        <strong>(2 $\Rightarrow$ 3)</strong> Induct on $|E|$. If all degrees are even and $G$ is connected, $G$ contains a cycle $C$. Remove edges of $C$. Remaining components still have all even degrees; by induction each component's edges partition into cycles. Add back $C$ to get a cycle partition of $E(G)$.<br><br>
+        <strong>(3 $\Rightarrow$ 1)</strong> Take a longest circuit formed by splicing cycles from the partition. If unused edges remain, connectivity gives an unused cycle meeting the circuit at some vertex; splice it in to obtain a longer circuit, contradiction. Hence one circuit uses every edge, so $G$ is Eulerian. ∎<br><br>
+        <strong>Corollary (Euler trail):</strong> A connected graph has an Euler trail iff it has at most two odd-degree vertices.
+      </div>
+    </div>
+  </div>
+
+  <!-- ======================== THEOREM 1.22 ======================== -->
+  <div class="theorem" id="thm-1-22">
+    <div class="theorem-header">
+      <h2>Theorem 1.22 — Dirac's Theorem</h2>
+      <svg class="chevron" viewBox="0 0 24 24"><path d="M7 10l5 5 5-5z"/></svg>
+    </div>
+    <div class="theorem-content">
+      <div class="statement">Let $G$ be a graph of order $n \ge 3$. If $\delta(G) \ge \frac{n}{2}$, then $G$ is Hamiltonian.</div>
+      <div class="intuition">If every individual vertex is connected to at least half the graph, the graph is so dense that a Hamiltonian cycle must exist.</div>
+      <div class="proof">
+        <strong>Using proof by contradiction:</strong>
+        <ol>
+        <li><strong>Assume the Opposite:</strong> Suppose we have a graph where every vertex has degree $\ge n/2$, but there is no Hamiltonian cycle.</li>
+        <li><strong>The Longest Path:</strong> Let $P$ be the longest possible path in this graph, starting at $v_1$ and ending at $v_p$.</li>
+        <li><strong>Endpoints Must Stay on the Path:</strong> Because $P$ is already the "longest," the neighbors of start ($v_1$) and end ($v_p$) must be vertices that are already on that path. If they connected outside, the path could be longer!</li>
+        <li><strong>The "Folding" Trick:</strong> Since $v_1$ and $v_p$ each have at least $n/2$ neighbors on this path, pigeonhole logic proves there must be a spot in the middle where $v_1$ is connected to one vertex ($v_{j+1}$) and $v_p$ is connected to the vertex right before it ($v_j$).</li>
+        <li><strong>Creating the Cycle:</strong> This "crossing" allows you to re-route the path into a cycle.</li>
+        <li><strong>The Contradiction:</strong> If this cycle doesn't include every vertex, the high degree condition ($\ge n/2$) would actually let us find a way to make a path even longer than our "longest path." This is impossible, so our original assumption was wrong. A Hamiltonian cycle must exist. ∎</li>
+        </ol>
+      </div>
+    </div>
+  </div>
+
+  <!-- ======================== THEOREM 1.23 ======================== -->
+  <div class="theorem" id="thm-1-23">
+    <div class="theorem-header">
+      <h2>Theorem 1.23 — Ore's Theorem</h2>
+      <svg class="chevron" viewBox="0 0 24 24"><path d="M7 10l5 5 5-5z"/></svg>
+    </div>
+    <div class="theorem-content">
+      <div class="statement">Let $G$ be a graph of order $n \ge 3$. If $\deg(x) + \deg(y) \ge n$ for all pairs of nonadjacent vertices $x, y$, then $G$ is Hamiltonian.</div>
+      <div class="intuition">A stronger version of Dirac's. You don't need EVERY vertex to have degree $\ge n/2$. You just need any two disconnected vertices to have enough combined friends (at least $n$) to pull the graph together into a cycle.</div>
+      <div class="proof">
+        <strong>The Goal:</strong> Prove that if $\deg(u)+\deg(v) \ge n$ for all nonadjacent vertices, $G$ is Hamiltonian.<br><br>
+        <strong>Step 1: Create a "Maximum" Non-Hamiltonian Graph:</strong> Assume there is a graph $G$ that follows the rule but is not Hamiltonian. We add edges one by one until it is impossible to add another without creating a Hamiltonian cycle. Call this $\overline{G}$.<br><br>
+        <strong>Step 2: Find the Longest Path:</strong> Since $\overline{G}$ is not Hamiltonian, there must be two nonadjacent spots, $u$ and $v$. But adding a road between them would have finished the circle, so there must already be a Hamiltonian path from $u$ to $v$. We label them: $u=v_1, v_2, \dots, v_n=v$.<br><br>
+        <strong>Step 3: The Impossible Connection (Lemma):</strong> If $u$ connects to $v_{i+1}$, then $v$ cannot connect to $v_i$. Why? We could walk $u \to v_{i+1} \dots v \to v_i \dots u$, forming a cycle!<br><br>
+        <strong>Step 4: Counting the Roads:</strong><br>
+        - Let $U$ be the set of spots $v_i$ where $u$ connects to $v_{i+1}$. $|U| = \deg(u)$.<br>
+        - Let $V$ be the spots where $v$ connects to $v_i$. $|V| = \deg(v)$.<br>
+        By Step 3, $U$ and $V$ cannot overlap. They can only map to the $n-1$ other spots, so combined connections $\le n-1$.<br>
+        $\deg(u)+\deg(v) \le n-1$<br>
+        <strong>Logical Conclusion:</strong> We assumed $\deg(u)+\deg(v) \ge n$, creating a contradiction. ∎
+      </div>
+    </div>
+  </div>
+
+  <!-- ======================== THEOREM 1.24 ======================== -->
+  <div class="theorem" id="thm-1-24">
+    <div class="theorem-header">
+      <h2>Theorem 1.24 — Connectivity & Independence</h2>
+      <svg class="chevron" viewBox="0 0 24 24"><path d="M7 10l5 5 5-5z"/></svg>
+    </div>
+    <div class="theorem-content">
+      <div class="statement">Let $G$ be a connected graph of order $n \ge 3$. If $\kappa(G) \ge \alpha(G)$, then $G$ is Hamiltonian.</div>
+      <div class="intuition">If the graph is "hard to break apart" (connectivity is high) and doesn't have large scattered subsets (independence number is low), it must be tightly knit enough to trace a cycle.</div>
+      <div class="proof">
+        Look at the longest cycle $C$ and an excluded vertex $v$. The component $H$ containing $v$ connects to $C$ via $r$ "gatekeeper" vertices. $r$ must be $\ge \kappa(G)$. The vertices immediately following these gatekeepers on $C$ form a set $S$ with $v$. Size of $S$ is $\ge \kappa(G) + 1 \ge \alpha(G) + 1$. Thus, two vertices in $S$ must be adjacent (since $|S| > \alpha$). This creates a detour that makes the cycle longer, contradicting that $C$ was the longest! ∎
+      </div>
+    </div>
+  </div>
+
+  <!-- ======================== THEOREM 1.25 ======================== -->
+  <div class="theorem" id="thm-1-25">
+    <div class="theorem-header">
+      <h2>Theorem 1.25 — Goodman–Hedetniemi</h2>
+      <svg class="chevron" viewBox="0 0 24 24"><path d="M7 10l5 5 5-5z"/></svg>
+    </div>
+    <div class="theorem-content">
+      <div class="statement">If $G$ is 2-connected AND has no induced $K_{1,3}$ (claw) AND has no induced $Z_1$, then $G$ is Hamiltonian.</div>
+      <div class="intuition">You need a graph that can't be easily split (2-connected), but also doesn't contain awkward 3-way forks (claws) that would force a path to "choose" a branch and abandon the others.</div>
+      <div class="viz-container">
+        <canvas id="canvas-goodman" width="600" height="300"></canvas>
+        <div class="viz-controls">
+          <button onclick="vizGoodman.showClaw()">Show Claw ($K_{1,3}$)</button>
+          <button class="secondary" onclick="vizGoodman.showZ1()">Show $Z_1$</button>
+        </div>
+        <div class="viz-label" id="goodman-label">Showing Claw ($K_{1,3}$) — a forbidden induced subgraph</div>
+      </div>
+      <div class="proof">
+        Assume $C$ is the longest cycle, but not Hamiltonian. Because $G$ is 2-connected, there's a vertex $v \notin C$ attached to some $w \in C$. Look at $w$'s neighbours on the cycle: $a$ (before) and $b$ (after). Neither $a$ nor $b$ can connect to $v$, otherwise we get a longer cycle detour. <br><br>
+        If $a$ is not connected to $b$, the vertices $\{w, v, a, b\}$ form a perfect claw $K_{1,3}$ centered at $w$. Contradiction!<br>
+        If $a$ is connected to $b$, the vertices $\{w, v, a, b\}$ form a $Z_1$ graph. Contradiction!<br>
+        Therefore, $C$ must have been Hamiltonian all along. ∎
+      </div>
+    </div>
+  </div>
+
+  <h2 class="section-header">Planarity Theorems</h2>
+
+  <!-- ======================== THEOREM 1.31 ======================== -->
+  <div class="theorem" id="thm-1-31">
+    <div class="theorem-header">
+      <h2>Theorem 1.31 — Euler's Formula</h2>
+      <svg class="chevron" viewBox="0 0 24 24"><path d="M7 10l5 5 5-5z"/></svg>
+    </div>
+    <div class="theorem-content">
+      <div class="statement">For any connected planar graph: $$V - E + F = 2$$ where $V$ is vertices, $E$ is edges, and $F$ is faces (regions).</div>
+      <div class="intuition">Any connected planar graph drawn on a sphere (or plane) creates regions. The relationship between the number of dots, lines, and regions is an unbreakable law of 2D topology.</div>
+      <div class="viz-container">
+        <canvas id="canvas-euler" width="600" height="320"></canvas>
+        <div class="viz-controls">
+          <button onclick="vizEuler.removeEdge()">Delete Cycle Edge</button>
+          <button class="secondary" onclick="vizEuler.reset()">Reset</button>
+        </div>
+        <div class="viz-label" id="euler-label">Euler's Formula: V - E + F = 2</div>
+      </div>
+      <div class="proof">
+        <strong>Induction on $F$.</strong> Base ($F=1$): If there's only 1 face, there are no cycles. The graph is a tree. By Thm 1.10, $E = V - 1$. So $V - (V - 1) + 1 = 2$. Checks out.<br>
+        Step: If $F > 1$, there must be a cycle. Pick any edge $e$ on a cycle and remove it. The graph remains connected, but two faces merge into one ($F \to F-1$), and we lost one edge ($E \to E-1$). Vertices $V$ remain the same. The quantity $V - E + F$ stays perfectly balanced! By induction, the new graph satisfies it, so the old one must too. ∎
+      </div>
+    </div>
+  </div>
+
+  <!-- ======================== THEOREM 1.32 ======================== -->
+  <div class="theorem" id="thm-1-32">
+    <div class="theorem-header">
+      <h2>Theorem 1.32 — $K_{3,3}$ is nonplanar</h2>
+      <svg class="chevron" viewBox="0 0 24 24"><path d="M7 10l5 5 5-5z"/></svg>
+    </div>
+    <div class="theorem-content">
+      <div class="statement">The complete bipartite graph $K_{3,3}$ cannot be drawn in the plane without edge crossings.</div>
+      <div class="intuition">Imagine 3 houses and 3 utilities (gas, water, electricity). Each house must connect to each utility. You cannot draw all 9 connections without two crossing.</div>
+      <div class="proof">
+        Suppose $K_{3,3}$ is planar. Then $n=6, q=9$. By Euler's Formula:<br>
+        $r = 2 - n + q = 2 - 6 + 9 = 5 \text{ faces}$<br><br>
+        Now count boundary edges. Let $C$ = total count of (face, edge) pairs where the edge borders the face. Each edge borders at most 2 faces, so:<br>
+        $C \le 2q = 2 \times 9 = 18$<br><br>
+        Since $K_{3,3}$ is bipartite, it has no triangles. Every face is bounded by at least 4 edges (shortest cycle in a triangle-free graph is 4). So:<br>
+        $C \ge 4r = 4 \times 5 = 20$<br><br>
+        But $C \le 18$ and $C \ge 20$ is impossible. Contradiction. $K_{3,3}$ is nonplanar! ∎
+      </div>
+    </div>
+  </div>
+
+  <!-- ======================== THEOREM 1.33 ======================== -->
+  <div class="theorem" id="thm-1-33">
+    <div class="theorem-header">
+      <h2>Theorem 1.33 — The Planar Edge Bound</h2>
+      <svg class="chevron" viewBox="0 0 24 24"><path d="M7 10l5 5 5-5z"/></svg>
+    </div>
+    <div class="theorem-content">
+      <div class="statement">If $G$ is a connected planar graph with $V \ge 3$, then $E \le 3V - 6$.</div>
+      <div class="intuition">There's a hard mathematical cap on how dense a planar graph can be. If you squeeze in more than $3V-6$ edges, you are mathematically guaranteed to cause a crossing.</div>
+      <div class="proof">
+        Let $C$ = total count of (face, edge) boundary pairs.<br>
+        Since every face is bounded by at least 3 edges (no self-loops, $n \ge 3$, minimum cycle is 3):<br>
+        $C \ge 3r$<br><br>
+        Since each edge borders at most 2 faces:<br>
+        $C \le 2q$<br><br>
+        Combining: $3r \le 2q$. Substitute Euler's formula $r = 2 - n + q$:<br>
+        $3(2 - n + q) \le 2q$<br>
+        $6 - 3n + 3q \le 2q$<br>
+        $q \le 3n - 6$ ∎<br><br>
+        <em>Bonus: Equality holds exactly when every face is a triangle (maximal planar/triangulation).</em>
+      </div>
+    </div>
+  </div>
+
+  <!-- ======================== THEOREM 1.34 ======================== -->
+  <div class="theorem" id="thm-1-34">
+    <div class="theorem-header">
+      <h2>Theorem 1.34 — $K_5$ is nonplanar</h2>
+      <svg class="chevron" viewBox="0 0 24 24"><path d="M7 10l5 5 5-5z"/></svg>
+    </div>
+    <div class="theorem-content">
+      <div class="statement">The complete graph $K_5$ cannot be drawn in the plane without edge crossings.</div>
+      <div class="intuition">5 mutual friends cannot all hold hands with each other without some arms crossing.</div>
+      <div class="proof">
+        $K_5$ has $n = 5$ and $q = 10$.<br>
+        By Theorem 1.33, a planar graph on 5 vertices has bounded edges: $q \le 3(5) - 6 = 9$.<br>
+        Since $10 > 9$, $K_5$ is nonplanar. ∎<br><br>
+        <em>What went wrong without Thm 1.33? Without that bound, we'd have to try drawing $K_5$ in every possible way and check each one. Thm 1.33 gives a clean one-line shortcut.</em>
+      </div>
+    </div>
+  </div>
+
+  <!-- ======================== THEOREM 1.35 ======================== -->
+  <div class="theorem" id="thm-1-35">
+    <div class="theorem-header">
+      <h2>Theorem 1.35 — Planar Low Degree</h2>
+      <svg class="chevron" viewBox="0 0 24 24"><path d="M7 10l5 5 5-5z"/></svg>
+    </div>
+    <div class="theorem-content">
+      <div class="statement">If $G$ is planar, then $\delta(G) \le 5$ (some vertex has degree at most 5).</div>
+      <div class="intuition">No matter how you draw a planar network, there must be at least one "lonely" vertex with 5 or fewer connections. A city can't have EVERY building being a massive $\ge 6$-way intersection without roads crossing.</div>
+      <div class="proof">
+        Suppose for contradiction that every vertex of $G$ has degree $\ge 6$. Then:<br>
+        $\sum_{v \in V} \deg(v) \ge 6n$<br><br>
+        But $\sum \deg(v) = 2q$ (Handshaking Lemma), so $2q \ge 6n$, meaning $q \ge 3n$.<br>
+        But this contradicts Theorem 1.33: planar graphs must have $q \le 3n - 6$.<br>
+        Therefore some vertex must have degree $\le 5$. ∎
+      </div>
+    </div>
+  </div>
+
+  <!-- ======================== THEOREM 1.37 ======================== -->
+  <div class="theorem" id="thm-1-37">
+    <div class="theorem-header">
+      <h2>Theorem 1.37 — Small Faces on Polyhedra</h2>
+      <svg class="chevron" viewBox="0 0 24 24"><path d="M7 10l5 5 5-5z"/></svg>
+    </div>
+    <div class="theorem-content">
+      <div class="statement">For any convex polyhedron, the number of sides on its smallest face $\rho \le 5$.</div>
+      <div class="intuition">You can NEVER have a 3D convex shape made entirely of hexagons (or larger shapes). The surface would lay perfectly flat like honeycomb and never curve to close up. You always need triangles, squares, or pentagons (like on a soccer ball) to create curvature.</div>
+      <div class="proof">
+        <strong>Lower bound ($\rho(P) \ge 3$):</strong> A polygon needs at least 3 edges to enclose an area.<br><br>
+        <strong>Upper bound ($\rho(P) \le 5$):</strong> Assume for contradiction every face has $\ge 6$ edges. Total boundary count $\sum \text{sides} \ge 6F$. This total equals $2E$ (each edge borders 2 faces), so $6F \le 2E \Rightarrow E \ge 3F$.<br><br>
+        Similarly, each vertex has degree $\ge 3$ (must be a 3D corner), so sum of degrees $\ge 3V$. This equals $2E$, giving $V \le 2E/3$.<br>
+        Substitute into Euler's formula $V - E + F = 2$:<br>
+        $2 = V - E + F \le \frac{2}{3}E - E + \frac{1}{3}E = 0$<br>
+        $2 \le 0$ — contradiction! ∎
+      </div>
+    </div>
+  </div>
+
+  <!-- ======================== THEOREM 1.38 ======================== -->
+  <div class="theorem" id="thm-1-38">
+    <div class="theorem-header">
+      <h2>Theorem 1.38 — Only 5 Platonic Solids</h2>
+      <svg class="chevron" viewBox="0 0 24 24"><path d="M7 10l5 5 5-5z"/></svg>
+    </div>
+    <div class="theorem-content">
+      <div class="statement">The only regular convex polyhedra are the tetrahedron, cube, octahedron, dodecahedron, and icosahedron.</div>
+      <div class="intuition">A regular polyhedron needs identical faces and identical corners. Thanks to Euler's formula, the math restricts this to exactly 5 workable combinations. The universe doesn't allow a 6th perfect solid.</div>
+      <div class="proof">
+        Let $P$ have $V$ vertices, $E$ edges, $F$ faces, with $k$ edges per face and $r$ faces per vertex.<br><br>
+        <strong>Two counting facts:</strong><br>
+        - Each face has $k$ edges, shared by 2 faces: $kF = 2E$<br>
+        - Each vertex has $r$ edges, shared by 2 vertices: $rV = 2E$<br><br>
+        Substitute $V = 2E/r$ and $F = 2E/k$ into Euler's Formula $V - E + F = 2$:<br>
+        $2E/r - E + 2E/k = 2$<br>
+        Divide by $2E$:<br>
+        $1/r - 1/2 + 1/k = 1/E$<br>
+        Since $1/E > 0$, we get $1/r + 1/k > 1/2$, or equivalently $2/r + 2/k > 1$.<br><br>
+        From Thm 1.37: $3 \le k \le 5$. And $r \ge 3$ for a 3D corner. Enumerate all combinations:<br>
+        - $k=3, r=3$: sum = $4/3 > 1$ (Tetrahedron)<br>
+        - $k=3, r=4$: sum = $7/6 > 1$ (Octahedron)<br>
+        - $k=3, r=5$: sum = $16/15 > 1$ (Icosahedron)<br>
+        - $k=4, r=3$: sum = $7/6 > 1$ (Cube)<br>
+        - $k=5, r=3$: sum = $16/15 > 1$ (Dodecahedron)<br>
+        All other combinations give $\le 1$. Exactly 5 solutions exist. ∎
+      </div>
+    </div>
+  </div>
+
+  <!-- ======================== THEOREM 1.40 ======================== -->
+  <div class="theorem" id="thm-1-40">
+    <div class="theorem-header">
+      <h2>Theorem 1.40 — Kuratowski's Theorem</h2>
+      <svg class="chevron" viewBox="0 0 24 24"><path d="M7 10l5 5 5-5z"/></svg>
+    </div>
+    <div class="theorem-content">
+      <div class="statement">A graph is planar $\iff$ it contains no subdivision of $K_5$ or $K_{3,3}$.</div>
+      <div class="intuition">Every nonplanar graph, no matter how wildly complex, traces its "nonplanarity" back to one of two hidden culprits (a $K_5$ or $K_{3,3}$), possibly with edges stretched out by extra vertices.</div>
+      <div class="viz-container">
+        <canvas id="canvas-kura" width="600" height="300"></canvas>
+        <div class="viz-controls">
+          <button onclick="vizKura.showK5()">Show $K_5$ (crossings)</button>
+          <button class="secondary" onclick="vizKura.showK33()">Show $K_{3,3}$ (crossings)</button>
+        </div>
+        <div class="viz-label" id="kura-label">Showing K₅, the clique of 5 with an unavoidable crossing</div>
+      </div>
+      <div class="proof">
+        <strong>What is a "subdivision"?</strong> Take a graph and "stretch" edges by inserting degree-2 vertices. Subdividing doesn't change planarity.<br><br>
+        <strong>The two directions:</strong><br>
+        - <em>Easy ($\Rightarrow$)</em>: If $G$ is planar, it obviously can't contain a subdivision of $K_5$ or $K_{3,3}$, since those are nonplanar and a planar graph can't contain a nonplanar subgraph.<br>
+        - <em>Hard ($\Leftarrow$)</em>: If $G$ has no subdivision of $K_5$ or $K_{3,3}$ hidden in it, then $G$ must be planar. This is the remarkable and deep part — you just need to check for these two obstructions.<br><br>
+        <strong>Application:</strong> To prove the Petersen graph is nonplanar, pick 6 specific vertices and find 9 internally vertex-disjoint paths connecting them exactly like a $K_{3,3}$! By Kuratowski's theorem, it is nonplanar. ∎
+      </div>
+    </div>
+  </div>
+
+  <h2 class="section-header">Quiz 4 — Graph Coloring</h2>
+
+  <!-- ======================== THEOREM 1.42 ======================== -->
+  <div class="theorem" id="thm-1-42">
+    <div class="theorem-header" onclick="this.parentElement.classList.toggle('open')">
+      <h2>Theorem 1.42 — Greedy Coloring Bound</h2>
+      <svg class="chevron" viewBox="0 0 24 24"><path d="M7 10l5 5 5-5z"/></svg>
+    </div>
+    <div class="theorem-content">
+      <div class="statement">$$\chi(G) \le \Delta(G) + 1$$</div>
+      <div class="intuition">Line up vertices. Each has at most $\Delta$ neighbors, so at most $\Delta$ colors "taken." With $\Delta+1$ crayons, there's always one free!</div>
+      <div class="viz-container">
+        <canvas id="canvas-greedy" width="600" height="320"></canvas>
+        <div class="viz-controls">
+          <button onclick="vizGreedy.step()">Color Next Vertex</button>
+          <button onclick="vizGreedy.autoPlay()">▶ Auto Play</button>
+          <button class="secondary" onclick="vizGreedy.reset()">Reset</button>
+        </div>
+        <div class="viz-label" id="greedy-label">Click "Color Next Vertex" to step through the greedy algorithm</div>
+      </div>
+      <div class="proof">
+        Order vertices arbitrarily as $v_1,\ldots,v_n$, and color greedily in that order.<br><br>
+        When coloring $v_i$, it has at most $\Delta(G)$ neighbors total, so among already-colored vertices, at most $\Delta(G)$ colors are forbidden. Using a palette of $\Delta(G)+1$ colors, at least one color remains available for $v_i$.<br><br>
+        Proceeding through all vertices yields a proper coloring with at most $\Delta(G)+1$ colors. Therefore $\chi(G)\le \Delta(G)+1$. ∎
+      </div>
+    </div>
+  </div>
+
+  <!-- ======================== THEOREM 1.43 ======================== -->
+  <div class="theorem" id="thm-1-43">
+    <div class="theorem-header" onclick="this.parentElement.classList.toggle('open')">
+      <h2>Theorem 1.43 — Brooks's Theorem</h2>
+      <svg class="chevron" viewBox="0 0 24 24"><path d="M7 10l5 5 5-5z"/></svg>
+    </div>
+    <div class="theorem-content">
+      <div class="statement">If $G$ is connected and is neither $K_n$ nor an odd cycle, then $\chi(G) \le \Delta(G)$.</div>
+      <div class="intuition">The "+1" from greedy is only needed for complete graphs ($K_n$) and odd cycles ($C_{2k+1}$). Everyone else can be cleverly ordered so greedy uses only $\Delta$ colors.</div>
+      <div class="memory">
+        <strong>Two exceptions → need $\Delta+1$:</strong><br>
+        • $K_n$: everyone connected to everyone → need $n = \Delta+1 colors.<br>
+        • Odd cycle: alternate 2 colors around ring, odd length forces a 3rd = $\Delta+1$.<br>
+        <strong>Everyone else</strong>: find non-adjacent $u, w$ sharing a neighbor $v$. Give $u, w$ the SAME color. Process $v$ last → its $\Delta$ neighbors only use $\Delta-1$ distinct colors → free slot!
+      </div>
+      <div class="proof">
+        <strong>Case 1: $G$ not 2-connected.</strong> Then $G$ has a cut vertex; color each block with at most $\Delta(G)$ colors and match colors at shared cut vertices. This gives a global $\Delta(G)$-coloring.<br><br>
+        <strong>Case 2: $G$ 2-connected, not complete, not an odd cycle.</strong> Choose a vertex $v$ of degree $\Delta$, and two nonadjacent neighbors $u,w$ of $v$. Order vertices so $u=v_1$, $w=v_2$, $v=v_n$, and every intermediate vertex has a later neighbor. Color greedily in this order, first giving $u,w$ the same color.<br><br>
+        For each intermediate vertex, at least one neighbor is uncolored, so at most $\Delta-1$ neighbor colors are forbidden; one of $\Delta$ colors is free. At the last vertex $v$, its $\Delta$ neighbors include $u,w$ with the same color, so at most $\Delta-1$ distinct colors appear around $v$; one color is free for $v$. Hence $\chi(G)\le\Delta(G)$. ∎
+      </div>
+    </div>
+  </div>
+
+  <!-- ======================== THEOREM 1.45 ======================== -->
+  <div class="theorem" id="thm-1-45">
+    <div class="theorem-header" onclick="this.parentElement.classList.toggle('open')">
+      <h2>Theorem 1.45 — Independence Number Bounds</h2>
+      <svg class="chevron" viewBox="0 0 24 24"><path d="M7 10l5 5 5-5z"/></svg>
+    </div>
+    <div class="theorem-content">
+      <div class="statement">$$\frac{n}{\alpha(G)} \le \chi(G) \le n + 1 - \alpha(G)$$</div>
+      <div class="intuition">
+        <strong>Lower:</strong> Each color class is independent (≤ $\alpha$ vertices), so need ≥ $n/\alpha$ classes.<br>
+        <strong>Upper:</strong> Color biggest independent set with 1 color, give everyone else their own → $1 + (n-\alpha) = n+1-\alpha$.
+      </div>
+      <div class="viz-container">
+        <canvas id="canvas-independence" width="600" height="300"></canvas>
+        <div class="viz-controls">
+          <button onclick="vizIndependence.highlightSet()">Show Max Independent Set</button>
+          <button onclick="vizIndependence.colorUpper()">Color (Upper Bound)</button>
+          <button class="secondary" onclick="vizIndependence.reset()">Reset</button>
+        </div>
+        <div class="viz-label" id="independence-label">C₅: n=5, α=2 → bounds: ⌈5/2⌉=3 ≤ χ ≤ 5+1-2=4. Actual: χ=3</div>
+      </div>
+      <div class="proof">
+        <strong>Lower bound:</strong> In any proper coloring with $\chi(G)$ colors, each color class is an independent set, so each class has size at most $\alpha(G)$. Therefore
+        $$n \le \chi(G)\,\alpha(G)\quad\Rightarrow\quad \chi(G)\ge \frac{n}{\alpha(G)}.$$
+        <strong>Upper bound:</strong> Let $S$ be a maximum independent set with $|S|=\alpha(G)$. Color all vertices of $S$ with one color. Color each of the remaining $n-\alpha(G)$ vertices with a distinct fresh color. Total colors used:
+        $$1+(n-\alpha(G))=n+1-\alpha(G).$$
+        Hence $\chi(G)\le n+1-\alpha(G)$. ∎
+      </div>
+    </div>
+  </div>
+
+  <!-- ======================== THEOREM 1.47 ======================== -->
+  <div class="theorem" id="thm-1-47">
+    <div class="theorem-header" onclick="this.parentElement.classList.toggle('open')">
+      <h2>Theorem 1.47 — Five Color Theorem</h2>
+      <svg class="chevron" viewBox="0 0 24 24"><path d="M7 10l5 5 5-5z"/></svg>
+    </div>
+    <div class="theorem-content">
+      <div class="statement">Every planar graph is 5-colorable.</div>
+      <div class="intuition">Every planar graph has a vertex with deg ≤ 5 (Thm 1.35). Remove it, color the rest by induction, put it back. If stuck → Kempe chain swap!</div>
+      <div class="viz-container">
+        <canvas id="canvas-kempe" width="600" height="350"></canvas>
+        <div class="viz-controls">
+          <button onclick="vizKempe.step()">Next Step</button>
+          <button class="secondary" onclick="vizKempe.reset()">Reset</button>
+        </div>
+        <div class="viz-label" id="kempe-label">Step through the Kempe chain argument for 5-coloring</div>
+      </div>
+      <div class="proof">
+        <strong>Induction on $n$.</strong> By Thm 1.35, $\exists v$ with $\deg(v)\le 5$. Remove $v$, 5-color $G-v$.<br>
+        If $\deg(v)\le 4$: at most 4 colors used → 5th is free.<br>
+        If $\deg(v)=5$, all 5 colors used: Kempe chain swap on colors 1-3. If $v_1, v_3$ in different components → swap frees color 1. If same → the 1-3 path separates $v_2$ from $v_4$ → swap 2-4 frees color 2. ∎
+      </div>
+    </div>
+  </div>
+
+  <!-- ======================== THEOREM 1.48 ======================== -->
+  <div class="theorem" id="thm-1-48">
+    <div class="theorem-header" onclick="this.parentElement.classList.toggle('open')">
+      <h2>Theorem 1.48 — Deletion-Contraction</h2>
+      <svg class="chevron" viewBox="0 0 24 24"><path d="M7 10l5 5 5-5z"/></svg>
+    </div>
+    <div class="theorem-content">
+      <div class="statement">$$C_G(k) = C_{G-e}(k) - C_{G/e}(k)$$</div>
+      <div class="intuition">
+        Colorings of $G-e$ split into: (1) $u \ne v$ = colorings of $G$, and (2) $u = v$ = colorings of $G/e$.<br>
+        So $C_{G-e} = C_G + C_{G/e}$. Rearrange!
+      </div>
+      <div class="viz-container">
+        <canvas id="canvas-delcon" width="600" height="300"></canvas>
+        <div class="viz-controls">
+          <button onclick="vizDelCon.showDelete()">Delete Edge</button>
+          <button onclick="vizDelCon.showContract()">Contract Edge</button>
+          <button class="secondary" onclick="vizDelCon.reset()">Reset</button>
+        </div>
+        <div class="viz-label" id="delcon-label">Triangle K₃: click to see deletion and contraction</div>
+      </div>
+      <div class="proof">
+        Let $e=\{u,v\}$. Consider all proper $k$-colorings of $G-e$, and split them into two disjoint classes:<br>
+        • <strong>Class A:</strong> $u\ne v$. These are exactly the proper colorings of $G$ (since adding edge $e$ enforces $u\ne v$).<br>
+        • <strong>Class B:</strong> $u=v$. These are exactly the proper colorings of $G/e$ (contracting $e$ forces $u,v$ to share one color).<br><br>
+        So
+        $$C_{G-e}(k)=C_G(k)+C_{G/e}(k),$$
+        and rearranging gives
+        $$C_G(k)=C_{G-e}(k)-C_{G/e}(k).$$
+        ∎
+      </div>
+    </div>
+  </div>
+
+  <!-- ======================== THEOREM 1.49 ======================== -->
+  <div class="theorem" id="thm-1-49">
+    <div class="theorem-header" onclick="this.parentElement.classList.toggle('open')">
+      <h2>Theorem 1.49 — Chromatic Polynomial Properties</h2>
+      <svg class="chevron" viewBox="0 0 24 24"><path d="M7 10l5 5 5-5z"/></svg>
+    </div>
+    <div class="theorem-content">
+      <div class="statement">$C_G(k)$ has degree $n$, leading coeff $1$, coeff of $k^{n-1}$ is $-q$, constant term $0$, alternating signs.</div>
+      <div class="memory">
+        <strong>Sanity checklist for your answer:</strong><br>
+        $$C_G(k) = k^n - q\,k^{n-1} + \cdots + 0$$
+        Signs alternate: $+, -, +, -, \ldots$<br>
+        $C_G(0) = 0$ always (can't color with 0 colors!)
+      </div>
+      <div class="proof">
+        Use induction via deletion-contraction:
+        $$C_G = C_{G-e} - C_{G/e}.$$
+        Deletion keeps $n$ vertices; contraction has $n-1$ vertices. This gives:<br>
+        <strong>(1)</strong> degree is $n$.<br>
+        <strong>(2)</strong> leading coefficient is $1$ (from repeated deletions down to edgeless graph).<br>
+        <strong>(3)</strong> coefficient of $k^{n-1}$ is $-q$ (each edge contributes one subtraction at that level).<br>
+        <strong>(4)</strong> $C_G(0)=0$ since no graph has a proper 0-coloring.<br>
+        <strong>(5)</strong> signs alternate by the recursive subtraction pattern in deletion-contraction. ∎
+      </div>
+    </div>
+  </div>
+
+  <!-- ======================== CLAIM: CYCLE ======================== -->
+  <div class="theorem" id="claim-cycle">
+    <div class="theorem-header" onclick="this.parentElement.classList.toggle('open')">
+      <h2>Claim — Cycle Graph Chromatic Polynomial</h2>
+      <svg class="chevron" viewBox="0 0 24 24"><path d="M7 10l5 5 5-5z"/></svg>
+    </div>
+    <div class="theorem-content">
+      <div class="statement">$$C_{C_n}(k) = (k-1)^n + (-1)^n(k-1)$$</div>
+      <div class="intuition">Delete the closing edge → path: $k(k-1)^{n-1}$. Contract it → shorter cycle: $C_{n-1}$. Apply deletion-contraction and simplify.</div>
+      <div class="viz-container">
+        <canvas id="canvas-cycle" width="600" height="300"></canvas>
+        <div class="viz-controls">
+          <button onclick="vizCycle.changeN(-1)">Fewer Vertices</button>
+          <button onclick="vizCycle.changeN(1)">More Vertices</button>
+          <button onclick="vizCycle.changeK(-1)">Fewer Colors</button>
+          <button onclick="vizCycle.changeK(1)">More Colors</button>
+        </div>
+        <div class="viz-label" id="cycle-label">C₄ with k=3 colors: (3-1)⁴ + (−1)⁴(3-1) = 16+2 = 18 colorings</div>
+      </div>
+      <div class="proof">
+        <strong>Induction on $n$.</strong><br>
+        <strong>Base ($n=3$):</strong> $C_3=K_3$, so
+        $$C_{C_3}(k)=k(k-1)(k-2)=(k-1)^3-(k-1),$$
+        matching $(k-1)^n+(-1)^n(k-1)$ at $n=3$.<br><br>
+        <strong>Step:</strong> Assume true for $C_{n-1}$. In $C_n$, let $e=\{v_1,v_n\}$. By deletion-contraction:
+        $$C_{C_n}(k)=C_{C_n-e}(k)-C_{C_n/e}(k).$$
+        Now $C_n-e=P_n$, so $C_{P_n}(k)=k(k-1)^{n-1}$, and $C_n/e=C_{n-1}$. Thus
+        $$C_{C_n}(k)=k(k-1)^{n-1}-\Big((k-1)^{n-1}+(-1)^{n-1}(k-1)\Big)$$
+        $$=(k-1)^n+(-1)^n(k-1).$$
+        Hence the formula holds for all $n\ge 3$. ∎
+      </div>
+    </div>
+  </div>
+
+
+  <h2 class="section-header">Quiz 5 — Matchings and Ramsey Theory</h2>
+
+  <div class="theorem" id="thm-1-50">
+    <div class="theorem-header">
+      <h2>Theorem 1.50 — Berge's Theorem</h2>
+      <svg class="chevron" viewBox="0 0 24 24"><path d="M7 10l5 5 5-5z"/></svg>
+    </div>
+    <div class="theorem-content">
+      <div class="statement">A matching $M$ is maximum $\iff$ there is no $M$-augmenting path.</div>
+      <div class="intuition">An augmenting path is an alternating "upgrade path" between two unmatched vertices. Flip matched/unmatched status along it and you gain exactly one matching edge.</div>
+      <div class="viz-container">
+        <canvas id="canvas-berge" width="600" height="280"></canvas>
+        <div class="viz-controls">
+          <button onclick="vizBerge.flip()">Flip Augmenting Path</button>
+          <button class="secondary" onclick="vizBerge.reset()">Reset</button>
+        </div>
+        <div class="viz-label" id="berge-label">Green edges are in $M$. Orange edges form an augmenting path.</div>
+      </div>
+      <div class="proof">Under symmetric difference, augmenting-path edges swap status, and because the path starts and ends unmatched, you gain one extra edge in the matching. No augmenting path means no 1-step improvement exists.</div>
+    </div>
+  </div>
+
+  <div class="theorem" id="thm-1-51">
+    <div class="theorem-header">
+      <h2>Theorem 1.51 — Hall's Marriage Theorem</h2>
+      <svg class="chevron" viewBox="0 0 24 24"><path d="M7 10l5 5 5-5z"/></svg>
+    </div>
+    <div class="theorem-content">
+      <div class="statement">$X$ can be fully matched into $Y$ $\iff$ for every $S \subseteq X$, $|N(S)| \ge |S|$.</div>
+      <div class="intuition">Every subgroup of applicants needs enough options. If 3 applicants only touch 2 jobs, one must fail no matter what matching algorithm you use.</div>
+      <div class="viz-container">
+        <canvas id="canvas-hall" width="600" height="280"></canvas>
+        <div class="viz-controls">
+          <button onclick="vizHall.showGood()">Show Hall Holds</button>
+          <button onclick="vizHall.showBad()">Show Hall Fails</button>
+          <button class="secondary" onclick="vizHall.reset()">Reset</button>
+        </div>
+        <div class="viz-label" id="hall-label">Highlighted set $S$ on the left and its neighborhood $N(S)$ on the right.</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="theorem" id="thm-1-52">
+    <div class="theorem-header">
+      <h2>Theorem 1.52 — System of Distinct Representatives (SDR)</h2>
+      <svg class="chevron" viewBox="0 0 24 24"><path d="M7 10l5 5 5-5z"/></svg>
+    </div>
+    <div class="theorem-content">
+      <div class="statement">$S_1,\dots,S_k$ has an SDR $\iff$ every subcollection of $t$ sets has union size at least $t$.</div>
+      <div class="intuition">SDR is Hall's theorem in set language: sets are "left vertices," elements are "right vertices." Distinct representatives are just a full matching on the left side.</div>
+      <div class="viz-container">
+        <canvas id="canvas-sdr" width="600" height="280"></canvas>
+        <div class="viz-controls">
+          <button onclick="vizSDR.showSuccess()">SDR Exists</button>
+          <button onclick="vizSDR.showFailure()">SDR Fails</button>
+          <button class="secondary" onclick="vizSDR.reset()">Reset</button>
+        </div>
+        <div class="viz-label" id="sdr-label">Green edges are chosen representatives.</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="theorem" id="claim-lecture-27">
+    <div class="theorem-header">
+      <h2>Lecture 27 Claims</h2>
+      <svg class="chevron" viewBox="0 0 24 24"><path d="M7 10l5 5 5-5z"/></svg>
+    </div>
+    <div class="theorem-content">
+      <div class="statement">(1) Every tree has at most one perfect matching. &nbsp; (2) If $|V|=2k$ and $\delta(G)\ge k$, then $G$ has a perfect matching.</div>
+      <div class="quiz-split">
+        <div class="quiz-panel">
+          <h3>Claim 1 — Trees Force Matching Choices</h3>
+          <canvas id="canvas-claim-tree" width="420" height="230"></canvas>
+          <div class="viz-controls">
+            <button onclick="vizClaimsTree.step()">Next Forced Step</button>
+            <button class="secondary" onclick="vizClaimsTree.reset()">Reset</button>
+          </div>
+          <div class="viz-label" id="claim-tree-label">Leaves force unique choices.</div>
+        </div>
+        <div class="quiz-panel">
+          <h3>Claim 2 — Degree Bound Makes Pairing Possible</h3>
+          <canvas id="canvas-claim-degree" width="420" height="230"></canvas>
+          <div class="viz-controls">
+            <button onclick="vizClaimsDegree.toggleMatching()">Toggle Perfect Matching</button>
+            <button class="secondary" onclick="vizClaimsDegree.reset()">Reset</button>
+          </div>
+          <div class="viz-label" id="claim-degree-label">Dense enough graph with $|V|=2k$, $\delta\ge k$.</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="theorem" id="thm-1-53">
+    <div class="theorem-header">
+      <h2>Theorem 1.53 — König-Egerváry Theorem</h2>
+      <svg class="chevron" viewBox="0 0 24 24"><path d="M7 10l5 5 5-5z"/></svg>
+    </div>
+    <div class="theorem-content">
+      <div class="statement">In bipartite graphs, $\alpha'(G)=\beta(G)$ (max matching size equals min vertex cover size).</div>
+      <div class="intuition">Two different optimization problems collapse to one value: "most disjoint edges" equals "fewest vertices that hit all edges."</div>
+      <div class="viz-container">
+        <canvas id="canvas-konig" width="600" height="280"></canvas>
+        <div class="viz-controls">
+          <button onclick="vizKonig.showMatching()">Show Max Matching</button>
+          <button onclick="vizKonig.showCover()">Show Min Vertex Cover</button>
+          <button onclick="vizKonig.showBoth()">Overlay Both</button>
+          <button class="secondary" onclick="vizKonig.reset()">Reset</button>
+        </div>
+        <div class="viz-label" id="konig-label">Green edges: matching. Yellow vertices: cover.</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="theorem" id="thm-1-61">
+    <div class="theorem-header">
+      <h2>Theorem 1.61 — Ramsey Number $R(3,3)$</h2>
+      <svg class="chevron" viewBox="0 0 24 24"><path d="M7 10l5 5 5-5z"/></svg>
+    </div>
+    <div class="theorem-content">
+      <div class="statement">$R(3,3)=6$</div>
+      <div class="intuition">At 5 vertices, you can avoid monochromatic triangles. At 6, every red/blue edge coloring forces one.</div>
+      <div class="viz-container">
+        <canvas id="canvas-ramsey33" width="600" height="300"></canvas>
+        <div class="viz-controls">
+          <button onclick="vizRamsey33.showK5()">K₅ Counterexample</button>
+          <button onclick="vizRamsey33.showK6()">K₆ Example</button>
+          <button onclick="vizRamsey33.toggleTriangle()">Highlight Monochromatic Triangle</button>
+          <button class="secondary" onclick="vizRamsey33.reset()">Reset</button>
+        </div>
+        <div class="viz-label" id="ramsey33-label">Red/blue edge colorings for $R(3,3)$ intuition.</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="theorem" id="thm-1-62">
+    <div class="theorem-header">
+      <h2>Theorem 1.62 — Ramsey Number $R(3,4)$</h2>
+      <svg class="chevron" viewBox="0 0 24 24"><path d="M7 10l5 5 5-5z"/></svg>
+    </div>
+    <div class="theorem-content">
+      <div class="statement">$R(3,4)=9$</div>
+      <div class="intuition">Eight vertices are not enough for a guaranteed red $K_3$ or blue $K_4$. Nine vertices force one.</div>
+      <div class="viz-container">
+        <canvas id="canvas-ramsey34" width="600" height="220"></canvas>
+        <div class="viz-controls">
+          <button onclick="vizRamsey34.showLower()">Show 8-Vertex Side</button>
+          <button onclick="vizRamsey34.showUpper()">Show 9-Vertex Guarantee</button>
+          <button class="secondary" onclick="vizRamsey34.reset()">Reset</button>
+        </div>
+        <div class="viz-label" id="ramsey34-label">Threshold view for $R(3,4)$.</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="theorem" id="thm-1-64">
+    <div class="theorem-header">
+      <h2>Theorem 1.64 — Recursive Ramsey Bounds</h2>
+      <svg class="chevron" viewBox="0 0 24 24"><path d="M7 10l5 5 5-5z"/></svg>
+    </div>
+    <div class="theorem-content">
+      <div class="statement">$R(p,q) \le R(p-1,q)+R(p,q-1)$</div>
+      <div class="intuition">Pick one pivot vertex. Its red-neighbors and blue-neighbors split the problem into two smaller Ramsey subproblems.</div>
+      <div class="viz-container">
+        <canvas id="canvas-ramsey-bounds" width="600" height="280"></canvas>
+        <div class="viz-controls">
+          <button onclick="vizRamseyBounds.changeP(-1)">p −</button>
+          <button onclick="vizRamseyBounds.changeP(1)">p +</button>
+          <button onclick="vizRamseyBounds.changeQ(-1)">q −</button>
+          <button onclick="vizRamseyBounds.changeQ(1)">q +</button>
+          <button class="secondary" onclick="vizRamseyBounds.reset()">Reset</button>
+        </div>
+        <div class="viz-label" id="ramsey-bounds-label">Compare recursive and closed-form upper bounds.</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="theorem" id="thm-1-64-star">
+    <div class="theorem-header">
+      <h2>Theorem 1.64* — Improved Recursive Bound</h2>
+      <svg class="chevron" viewBox="0 0 24 24"><path d="M7 10l5 5 5-5z"/></svg>
+    </div>
+    <div class="theorem-content">
+      <div class="statement">If $R(p-1,q)$ and $R(p,q-1)$ are both even, then $R(p,q) \le R(p-1,q)+R(p,q-1)-1$.</div>
+      <div class="intuition">When both sub-bounds are even, one endpoint case is overcounted in the plain recurrence, so you can shave off one from the upper bound.</div>
+      <div class="memory">Use the calculator in Theorem 1.64: when both recursive pieces are even, the "improved" bar drops by exactly 1.</div>
+    </div>
+  </div>
+
+  <div class="theorem" id="thm-erdos">
+    <div class="theorem-header">
+      <h2>Erdős-Szekeres Theorem — Binomial Bound</h2>
+      <svg class="chevron" viewBox="0 0 24 24"><path d="M7 10l5 5 5-5z"/></svg>
+    </div>
+    <div class="theorem-content">
+      <div class="statement">$R(r,s) \le \binom{r+s-2}{r-1}$</div>
+      <div class="intuition">Unrolling the recursion aligns with Pascal's triangle, yielding a direct closed-form ceiling for Ramsey numbers.</div>
+      <div class="viz-container">
+        <canvas id="canvas-erdos" width="600" height="280"></canvas>
+        <div class="viz-controls">
+          <button onclick="vizErdos.prev()">Previous Example</button>
+          <button onclick="vizErdos.next()">Next Example</button>
+          <button class="secondary" onclick="vizErdos.reset()">Reset</button>
+        </div>
+        <div class="viz-label" id="erdos-label">Pascal-triangle position corresponding to the binomial bound.</div>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+<script src="js/main.js"></script>
+<script src="js/glossary.js"></script>
+<script src="js/visualizations/basics.js"></script>
+<script src="js/visualizations/trees.js"></script>
+<script src="js/visualizations/planarity.js"></script>
+<script src="js/visualizations/coloring.js"></script>
+<script src="js/visualizations/quiz5.js"></script>
+</body>
+</html>
