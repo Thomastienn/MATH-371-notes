@@ -1000,10 +1000,11 @@
       <div class="viz-container">
         <canvas id="canvas-berge" width="600" height="280"></canvas>
         <div class="viz-controls">
-          <button onclick="vizBerge.flip()">Flip Augmenting Path</button>
+          <button onclick="vizBerge.next()">Next Step</button>
+          <button onclick="vizBerge.autoPlay()">Auto Play</button>
           <button class="secondary" onclick="vizBerge.reset()">Reset</button>
         </div>
-        <div class="viz-label" id="berge-label">BEFORE: dashed = not M, bold = M. Both endpoints are free. Click flip to augment (+1).</div>
+        <div class="viz-label" id="berge-label">Step through: find the augmenting path, then flip it.</div>
       </div>
       <div class="proof">
         <strong>($\Rightarrow$ "aug path $\Rightarrow$ not max"):</strong><br>
@@ -1048,9 +1049,11 @@
         <div class="viz-controls">
           <button onclick="vizHall.showGood()">Hall Holds</button>
           <button onclick="vizHall.showBad()">Hall Fails</button>
+          <button onclick="vizHall.next()">Next Step</button>
+          <button onclick="vizHall.autoPlay()">Auto Play</button>
           <button class="secondary" onclick="vizHall.reset()">Reset</button>
         </div>
-        <div class="viz-label" id="hall-label">$S$ highlighted on left, $N(S)$ highlighted on right.</div>
+        <div class="viz-label" id="hall-label">Step through: verify Hall's condition, then build matching.</div>
       </div>
       <div class="proof">
         <strong>Necessity (easy direction):</strong><br>
@@ -1097,9 +1100,11 @@
         <div class="viz-controls">
           <button onclick="vizSDR.showSuccess()">SDR Exists</button>
           <button onclick="vizSDR.showFailure()">SDR Fails</button>
+          <button onclick="vizSDR.next()">Next Step</button>
+          <button onclick="vizSDR.autoPlay()">Auto Play</button>
           <button class="secondary" onclick="vizSDR.reset()">Reset</button>
         </div>
-        <div class="viz-label" id="sdr-label">Sets on left, elements on right. Bold edge = chosen representative.</div>
+        <div class="viz-label" id="sdr-label">Step through: pick one distinct element from each set.</div>
       </div>
       <div class="proof">
         <strong>The translation:</strong><br>
@@ -1150,10 +1155,10 @@
           <h3>Claim 2 — High Degree $\Rightarrow$ PM</h3>
           <canvas id="canvas-claim-degree" width="420" height="230"></canvas>
           <div class="viz-controls">
-            <button onclick="vizClaimsDegree.toggleMatching()">Toggle PM</button>
+            <button onclick="vizClaimsDegree.next()">Next Step</button>
             <button class="secondary" onclick="vizClaimsDegree.reset()">Reset</button>
           </div>
-          <div class="viz-label" id="claim-degree-label">$|V|=6=2k$, $\delta=3=k$. Dirac $\Rightarrow$ Ham cycle $\Rightarrow$ alternate edges.</div>
+          <div class="viz-label" id="claim-degree-label">Step: dense graph → Hamiltonian cycle → alternate edges = PM.</div>
         </div>
       </div>
       <div class="proof">
@@ -1196,12 +1201,12 @@
       <div class="viz-container">
         <canvas id="canvas-konig" width="600" height="280"></canvas>
         <div class="viz-controls">
-          <button onclick="vizKonig.showMatching()">Max Matching</button>
-          <button onclick="vizKonig.showCover()">Min Cover</button>
-          <button onclick="vizKonig.showBoth()">Both</button>
+          <button onclick="vizKonig.next()">Next Step</button>
+          <button onclick="vizKonig.autoPlay()">Auto Play</button>
+          <button onclick="vizKonig.showBoth()">Jump to Result</button>
           <button class="secondary" onclick="vizKonig.reset()">Reset</button>
         </div>
-        <div class="viz-label" id="konig-label">Bold edges = matching. Bright vertices = cover. Same size!</div>
+        <div class="viz-label" id="konig-label">Step through: find matching → trace alternating paths → build cover.</div>
       </div>
       <div class="proof">
         <strong>Easy direction:</strong> $\alpha'(G) \le \beta(G)$ always. Each matching edge needs a distinct cover vertex.<br><br>
@@ -1249,12 +1254,13 @@
       <div class="viz-container">
         <canvas id="canvas-ramsey33" width="600" height="300"></canvas>
         <div class="viz-controls">
-          <button onclick="vizRamsey33.showK5()">$K_5$ (avoidable)</button>
-          <button onclick="vizRamsey33.showK6()">$K_6$ (forced)</button>
-          <button onclick="vizRamsey33.toggleTriangle()">Highlight Triangle</button>
+          <button onclick="vizRamsey33.next()">Next Step</button>
+          <button onclick="vizRamsey33.autoPlay()">Auto Play</button>
+          <button onclick="vizRamsey33.showK5()">$K_5$</button>
+          <button onclick="vizRamsey33.toggleTriangle()">Show Result</button>
           <button class="secondary" onclick="vizRamsey33.reset()">Reset</button>
         </div>
-        <div class="viz-label" id="ramsey33-label">$K_5$ coloring with no mono triangle.</div>
+        <div class="viz-label" id="ramsey33-label">Step through the pivot vertex argument for R(3,3)=6.</div>
       </div>
       <div class="proof">
         <strong>Upper bound ($R(3,3) \le 6$) — the "pivot vertex" argument:</strong><br>
@@ -1340,13 +1346,15 @@
       <div class="viz-container">
         <canvas id="canvas-ramsey-bounds" width="600" height="280"></canvas>
         <div class="viz-controls">
+          <button onclick="vizRamseyBounds.next()">Next Step</button>
+          <button onclick="vizRamseyBounds.autoPlay()">Auto Play</button>
           <button onclick="vizRamseyBounds.changeP(-1)">p-</button>
           <button onclick="vizRamseyBounds.changeP(1)">p+</button>
           <button onclick="vizRamseyBounds.changeQ(-1)">q-</button>
           <button onclick="vizRamseyBounds.changeQ(1)">q+</button>
           <button class="secondary" onclick="vizRamseyBounds.reset()">Reset</button>
         </div>
-        <div class="viz-label" id="ramsey-bounds-label">Compare the three bounds for various $p,q$.</div>
+        <div class="viz-label" id="ramsey-bounds-label">Step through the pivot argument decision tree.</div>
       </div>
       <div class="proof">
         Let $N = R(p-1,q) + R(p,q-1)$. Pick any vertex $v$ in $K_N$. It has $N-1$ neighbors, colored red or blue.<br><br>
@@ -1381,6 +1389,14 @@
       <div class="intuition">
         <strong>When does this help?</strong> Saves 1 from the basic recursion.<br>
         Used for $R(3,4)$: since $R(2,4)=4$ and $R(3,3)=6$ are both even, we get $R(3,4) \le 4+6-1 = 9$ instead of 10.
+      </div>
+      <div class="viz-container">
+        <canvas id="canvas-parity" width="600" height="300"></canvas>
+        <div class="viz-controls">
+          <button onclick="vizParity.next()">Next Step</button>
+          <button class="secondary" onclick="vizParity.reset()">Reset</button>
+        </div>
+        <div class="viz-label" id="parity-label">Step through the parity contradiction for R(3,4).</div>
       </div>
       <div class="proof">
         Suppose the bound is wrong: a "bad" coloring exists on $N = R(p-1,q) + R(p,q-1) - 1$ vertices (no red $K_p$, no blue $K_q$).<br><br>
