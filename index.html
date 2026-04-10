@@ -969,17 +969,33 @@
 
   <h2 class="section-header">Quiz 5 — Matchings & Ramsey Theory</h2>
 
+  <!-- ======================== THEOREM 1.50 ======================== -->
   <div class="theorem" id="thm-1-50">
     <div class="theorem-header">
       <h2>1.50 — Berge's Theorem</h2>
       <svg class="chevron" viewBox="0 0 24 24"><path d="M7 10l5 5 5-5z"/></svg>
     </div>
     <div class="theorem-content">
-      <div class="statement">$M$ is maximum $\iff$ no $M$-augmenting path exists.</div>
-      <div class="intuition">Augmenting path = alternating path between two <strong>unmatched</strong> vertices. Flip all edges along it: unmatched become matched and vice versa. You gain +1 edge.</div>
+      <div class="statement">A matching $M$ is maximum $\iff$ there is no $M$-augmenting path.</div>
+      <div class="eli5">
+        Imagine you're organizing a dance. You pair people up — each person can only have one partner. A <strong>matching</strong> is a valid set of pairs.<br><br>
+        Now, you want the <strong>most pairs possible</strong>. How do you know if you've hit the max? Look for an <strong>augmenting path</strong>: a chain of people that goes "unpaired person → paired person → their partner → paired person → ... → unpaired person", alternating between non-dance-partners and dance-partners.<br><br>
+        If you find one, you can <strong>swap everyone along the chain</strong> — the pairs become un-paired and vice versa — and you end up with <strong>one extra pair</strong>. If you can't find any such chain, congratulations — your matching is already the best possible.
+      </div>
+      <div class="proof-simple">
+        <strong>Why does this work? Two directions:</strong><br><br>
+        <strong>"If there's an augmenting path, your matching isn't max"</strong> — obvious. You found a chain, flipped it, got +1 pair. So you weren't at the max before.<br><br>
+        <strong>"If there's NO augmenting path, you ARE at the max"</strong> — Proof by contradiction. Pretend your matching $M$ isn't max, and some better matching $M^*$ exists. Overlay both: look at edges that are in one but not the other. Each person touches at most 1 edge from $M$ and 1 from $M^*$, so you get a bunch of paths and cycles. Since $M^*$ is bigger, one of those paths must have more $M^*$-edges, meaning it starts and ends at people not in $M$ — that's an augmenting path. But we said there are none! Contradiction.
+      </div>
+      <div class="intuition">
+        A matching is a set of edges with no shared endpoints — like pairing people for a dance.<br><br>
+        An <strong>augmenting path</strong> is a secret shortcut: a trail alternating between "not in $M$" and "in $M$" edges, starting and ending at <em>unmatched</em> vertices.<br><br>
+        If you find one, <strong>flip every edge</strong> along it (matched becomes unmatched and vice versa). You gain <strong>+1 pair</strong>.
+      </div>
       <div class="memory">
-        <strong>Aug path found?</strong> Flip it, M grows. <strong>No aug path?</strong> M is already max.<br>
-        Converse: if $M$ isn't max, take a bigger $M^*$. In $M \triangle M^*$, each component is a path or cycle. Some path must have more $M^*$ edges $\Rightarrow$ augmenting path for $M$.
+        <strong>The theorem says two things:</strong><br>
+        &bull; <strong>Found an augmenting path?</strong> Flip it. $|M|$ grows. So $M$ wasn't maximum.<br>
+        &bull; <strong>No augmenting path anywhere?</strong> Then $M$ is already the best you can do.
       </div>
       <div class="viz-container">
         <canvas id="canvas-berge" width="600" height="280"></canvas>
@@ -987,28 +1003,45 @@
           <button onclick="vizBerge.flip()">Flip Augmenting Path</button>
           <button class="secondary" onclick="vizBerge.reset()">Reset</button>
         </div>
-        <div class="viz-label" id="berge-label">White edges = M. Click flip to augment.</div>
+        <div class="viz-label" id="berge-label">BEFORE: dashed = not M, bold = M. Both endpoints are free. Click flip to augment (+1).</div>
       </div>
       <div class="proof">
-        <strong>($\Rightarrow$)</strong> Augmenting path $\Rightarrow$ flip $\Rightarrow$ $|M|$ grows. So $M$ wasn't max.<br>
-        <strong>($\Leftarrow$)</strong> Let $M^*$ be larger. In $M \triangle M^*$: paths and even cycles alternate $M/M^*$ edges. Some path has more $M^*$-edges than $M$-edges, and its endpoints are unmatched in $M$. That path is $M$-augmenting. $\square$
+        <strong>($\Rightarrow$ "aug path $\Rightarrow$ not max"):</strong><br>
+        If augmenting path $P$ exists, flip all edges along $P$. The path has one more non-$M$ edge than $M$-edge (both endpoints are free), so flipping gives $|M|+1$ edges. $M$ wasn't maximum.<br><br>
+
+        <strong>($\Leftarrow$ "no aug path $\Rightarrow$ max"):</strong><br>
+        Suppose no $M$-augmenting path exists but $M$ is not maximum. Let $M^*$ be a bigger matching. Look at the <strong>symmetric difference</strong> $M \triangle M^*$ (edges in one but not both). Every vertex touches at most one $M$-edge and one $M^*$-edge, so each connected component is either:<br>
+        &bull; An <strong>alternating cycle</strong> (equal $M$ and $M^*$ edges — doesn't help), or<br>
+        &bull; An <strong>alternating path</strong>.<br><br>
+
+        Since $|M^*| > |M|$, at least one path has more $M^*$-edges. That path starts and ends at vertices <strong>unmatched by $M$</strong> — that's an augmenting path! Contradiction. $\square$
       </div>
     </div>
   </div>
 
+  <!-- ======================== THEOREM 1.51 ======================== -->
   <div class="theorem" id="thm-1-51">
     <div class="theorem-header">
       <h2>1.51 — Hall's Marriage Theorem</h2>
       <svg class="chevron" viewBox="0 0 24 24"><path d="M7 10l5 5 5-5z"/></svg>
     </div>
     <div class="theorem-content">
-      <div class="statement">$X$ can be fully matched into $Y$ $\iff$ $|N(S)| \ge |S|$ for every $S \subseteq X$.</div>
-      <div class="intuition">If 3 applicants share only 2 jobs, someone is left out. Hall says: this is the <em>only</em> obstruction.</div>
-      <div class="memory">
-        <strong>Necessity:</strong> obvious (matched vertices need distinct neighbors).<br>
-        <strong>Sufficiency (induction on $|X|$):</strong><br>
-        &bull; <strong>Case 1</strong> (strict: $|N(S)| \ge |S|+1$ for all proper $S$): match any $x$ to any neighbor, remove both, Hall still holds.<br>
-        &bull; <strong>Case 2</strong> (tight: some $S$ with $|N(S)|=|S|$): match $S$ inside $N(S)$ by induction; then $X\setminus S$ still satisfies Hall in $Y\setminus N(S)$.
+      <div class="statement">In bipartite $G=(X,Y)$: $X$ can be fully matched $\iff$ $|N(S)| \ge |S|$ for every $S \subseteq X$.</div>
+      <div class="eli5">
+        You have a group of students on the left, and a group of projects on the right. Each student is interested in some projects. Can every student get a unique project?<br><br>
+        <strong>Hall says:</strong> Yes, if and only if there's no "bottleneck." A bottleneck is when some group of $k$ students are <em>all</em> only interested in fewer than $k$ projects. If 3 students only like 2 projects, someone's out of luck — no way around it.<br><br>
+        The amazing part: if there's <em>no</em> bottleneck anywhere (every group of students has enough project options), then you can <strong>always</strong> find an assignment. The condition isn't just necessary — it's sufficient.
+      </div>
+      <div class="proof-simple">
+        <strong>Easy direction:</strong> If everyone already has a project, then any group of $k$ students has $k$ distinct projects, so $|N(S)| \ge |S|$. Obvious.<br><br>
+        <strong>Hard direction (two cases):</strong><br><br>
+        <strong>Case 1 — "Everyone has options to spare":</strong> Every group of students has strictly more projects than people. So just pick any student, give them any project. Remove both. The leftovers still have no bottleneck (we had room to spare). Repeat until everyone's assigned.<br><br>
+        <strong>Case 2 — "Some group is exactly tight":</strong> Some group of $k$ students has exactly $k$ project options — no wiggle room. Handle them first: assign those $k$ students to those $k$ projects (by induction, it works). Now the remaining students still satisfy the condition in the remaining projects (you can check by combining any leftover group with the tight group). So assign the rest by induction too. Done!
+      </div>
+      <div class="intuition">
+        <strong>The dating analogy:</strong> $X$ = people, $Y$ = potential partners, edges = "would be ok with."<br>
+        Everyone in $X$ gets a unique partner $\iff$ no group of people is stuck fighting over too few options.<br><br>
+        If 3 applicants only connect to 2 jobs, someone is left out. Hall says: this bottleneck condition is not only necessary, but <em>sufficient</em>.
       </div>
       <div class="viz-container">
         <canvas id="canvas-hall" width="600" height="280"></canvas>
@@ -1020,12 +1053,28 @@
         <div class="viz-label" id="hall-label">$S$ highlighted on left, $N(S)$ highlighted on right.</div>
       </div>
       <div class="proof">
-        <strong>Necessity:</strong> If $M$ saturates $X$, vertices of $S$ map to distinct vertices in $N(S)$, so $|N(S)|\ge|S|$.<br>
-        <strong>Sufficiency</strong> by induction on $|X|$. <em>Case 1:</em> strict inequality everywhere. Pick $x\in X$, $y\in N(x)$, remove both. Hall still holds in smaller graph; induction gives matching, add $xy$. <em>Case 2:</em> $\exists S$ with $|N(S)|=|S|$. Match $S$ into $N(S)$ by induction. For $X_2=X\setminus S$, $Y_2=Y\setminus N(S)$: Hall on $T\cup S$ gives $|N(T)\setminus N(S)|\ge|T|$. Induction matches $X_2$ into $Y_2$. Combine. $\square$
+        <strong>Necessity (easy direction):</strong><br>
+        If a matching pairs everyone in $X$, then for any subset $S \subseteq X$, those $|S|$ people are matched to $|S|$ <em>distinct</em> partners in $N(S)$. So $|N(S)| \ge |S|$. Done.<br><br>
+
+        <strong>Sufficiency (hard direction — induction on $|X|$, two cases):</strong><br>
+        Assume $|N(S)| \ge |S|$ for every $S \subseteq X$.<br><br>
+
+        <strong>Case 1 — "Lots of room everywhere":</strong><br>
+        Every proper nonempty $S \subset X$ has $|N(S)| \ge |S|+1$ (strict inequality).<br>
+        Pick any $x \in X$, match it to any neighbor $y$. Remove $x$ and $y$ from the graph. The remaining graph <em>still</em> satisfies Hall (we had room to spare). By induction, match the rest. Add back $x$-$y$. Everyone matched!<br><br>
+
+        <strong>Case 2 — "Some group is tight":</strong><br>
+        There exists $S \subset X$ with $|N(S)| = |S|$ exactly (no room to spare).<br>
+        Match $S$ into $N(S)$ by induction (they form their own bipartite graph satisfying Hall).<br>
+        Now match the leftovers $X_2 = X \setminus S$ into $Y_2 = Y \setminus N(S)$. Does Hall hold there?<br>
+        For any $T \subseteq X_2$, apply Hall in the original graph to $T \cup S$:<br>
+        $|N(T \cup S)| \ge |T \cup S| = |T| + |S|$. Subtract the $|S|$ neighbors already used: $|N(T) \cap Y_2| \ge |T|$.<br>
+        So Hall holds in the leftover graph too. Induction matches $X_2$. Combine both matchings. $\square$
       </div>
     </div>
   </div>
 
+  <!-- ======================== THEOREM 1.52 ======================== -->
   <div class="theorem" id="thm-1-52">
     <div class="theorem-header">
       <h2>1.52 — SDR (System of Distinct Representatives)</h2>
@@ -1033,9 +1082,15 @@
     </div>
     <div class="theorem-content">
       <div class="statement">$S_1,\dots,S_k$ has an SDR $\iff$ $|\bigcup_{i\in I} S_i| \ge |I|$ for every $I \subseteq \{1,\dots,k\}$.</div>
-      <div class="intuition">SDR = Hall in disguise. Sets are left vertices, elements are right. Choosing distinct reps = matching that saturates the left.</div>
-      <div class="memory">
-        <strong>Recipe:</strong> Build bipartite graph: $S_i$--$x$ iff $x\in S_i$. Then SDR $\iff$ left-saturating matching $\iff$ Hall's condition. One theorem, two languages.
+      <div class="eli5">
+        You have several bags, each containing some items. You need to pick <strong>one item from each bag</strong>, and <strong>no two picks can be the same item</strong>. That's an SDR — a System of Distinct Representatives.<br><br>
+        <strong>When can you do it?</strong> Exactly when there's no shortage: any $k$ bags together must contain at least $k$ different items total. If 3 bags combined only have 2 unique items, you can't pick 3 different things from them.<br><br>
+        <strong>The punchline:</strong> This is just Hall's theorem in disguise. Bags = left vertices, items = right vertices, "bag contains item" = edge. Picking a distinct rep from each bag = finding a matching. Done. Same theorem, different words.
+      </div>
+      <div class="intuition">
+        <strong>What's an SDR?</strong> Pick one element from each set so that all picks are <em>different</em>.<br>
+        Example: $S_1=\{a,b\}$, $S_2=\{b,c\}$, $S_3=\{a,c\}$. An SDR: pick $a, b, c$. Works!<br><br>
+        <strong>This is literally Hall's theorem wearing a disguise.</strong>
       </div>
       <div class="viz-container">
         <canvas id="canvas-sdr" width="600" height="280"></canvas>
@@ -1044,21 +1099,42 @@
           <button onclick="vizSDR.showFailure()">SDR Fails</button>
           <button class="secondary" onclick="vizSDR.reset()">Reset</button>
         </div>
-        <div class="viz-label" id="sdr-label">White edges = chosen representatives.</div>
+        <div class="viz-label" id="sdr-label">Sets on left, elements on right. Bold edge = chosen representative.</div>
+      </div>
+      <div class="proof">
+        <strong>The translation:</strong><br>
+        &bull; Left vertices = sets $S_1, \dots, S_k$<br>
+        &bull; Right vertices = all elements<br>
+        &bull; Edge $S_i$-$x$ iff $x \in S_i$<br>
+        &bull; SDR = matching that covers all left vertices<br>
+        &bull; For any index set $I$: $N(I) = \bigcup_{i \in I} S_i$<br><br>
+
+        So Hall's condition $|N(I)| \ge |I|$ is exactly $|\bigcup_{i \in I} S_i| \ge |I|$.<br><br>
+        SDR exists $\iff$ Hall's condition holds. One theorem, two languages. $\square$
       </div>
     </div>
   </div>
 
+  <!-- ======================== LECTURE 27 CLAIMS ======================== -->
   <div class="theorem" id="claim-lecture-27">
     <div class="theorem-header">
       <h2>Lecture 27 — Tree Matching + Degree Bound</h2>
       <svg class="chevron" viewBox="0 0 24 24"><path d="M7 10l5 5 5-5z"/></svg>
     </div>
     <div class="theorem-content">
-      <div class="statement">(1) Every tree has at most one perfect matching. (2) $|V|=2k$, $\delta(G)\ge k$ $\Rightarrow$ perfect matching.</div>
-      <div class="memory">
-        <strong>Claim 1:</strong> Two PMs $\Rightarrow$ symmetric difference has an alternating cycle. Trees have no cycles. Done.<br>
-        <strong>Claim 2:</strong> $\delta \ge n/2$ $\Rightarrow$ Dirac $\Rightarrow$ Hamiltonian cycle $\Rightarrow$ alternate edges of the cycle = PM (works because $n$ is even).
+      <div class="statement">(1) Every tree has at most one perfect matching.<br>(2) $|V|=2k$ and $\delta(G)\ge k$ $\Rightarrow$ $G$ has a perfect matching.</div>
+      <div class="eli5">
+        <strong>Claim 1:</strong> A tree is a graph with no loops (cycles). A perfect matching pairs up every vertex. The claim says: in a tree, there's <em>at most one way</em> to do this. Why? Think about a leaf — it has only one neighbor, so you <em>must</em> pair it with that neighbor. No choice. Remove that pair, and now new leaves appear. They're forced too. Every step is forced, so the whole matching is forced. There's only one possibility (or none at all).<br><br>
+        <strong>Claim 2:</strong> If your graph has an even number of vertices and every vertex is connected to at least half the graph, then a perfect matching must exist. Why? Because Dirac's theorem already tells us such a graph has a Hamiltonian cycle (a cycle visiting every vertex). Since the number of vertices is even, just take every other edge of the cycle — boom, perfect matching.
+      </div>
+      <div class="proof-simple">
+        <strong>Claim 1 — simple proof:</strong> Suppose two different PMs exist: $M_1$ and $M_2$. Look at edges where they disagree. Every vertex is paired once in each, so in the "disagreement" graph every vertex has degree 0 or 2. That means you get cycles. But trees have no cycles. Contradiction — two different PMs can't exist.<br><br>
+        <strong>Claim 2 — simple proof:</strong> $n = 2k$ vertices, min degree $\ge k = n/2$. Dirac says: Hamiltonian cycle exists. Walk around: $v_1, v_2, v_3, \dots, v_{2k}, v_1$. Pick edges $v_1v_2$, $v_3v_4$, ..., $v_{2k-1}v_{2k}$. That's $k$ pairs covering everyone. Done.
+      </div>
+      <div class="intuition">
+        <strong>Claim 1:</strong> Trees have no cycles. If two different PMs existed, their symmetric difference would create alternating cycles — impossible in a tree.<br><br>
+        <strong>Another way to see it:</strong> Leaves have only one neighbor, so their matching edge is <em>forced</em>. Remove those pairs, get a smaller tree, repeat. Every step is forced $\Rightarrow$ at most one PM.<br><br>
+        <strong>Claim 2:</strong> This is a one-line corollary of Dirac's theorem!
       </div>
       <div class="quiz-split">
         <div class="quiz-panel">
@@ -1068,7 +1144,7 @@
             <button onclick="vizClaimsTree.step()">Next Step</button>
             <button class="secondary" onclick="vizClaimsTree.reset()">Reset</button>
           </div>
-          <div class="viz-label" id="claim-tree-label">Each leaf has only one option.</div>
+          <div class="viz-label" id="claim-tree-label">Each leaf has only one option — forced matching.</div>
         </div>
         <div class="quiz-panel">
           <h3>Claim 2 — High Degree $\Rightarrow$ PM</h3>
@@ -1077,23 +1153,45 @@
             <button onclick="vizClaimsDegree.toggleMatching()">Toggle PM</button>
             <button class="secondary" onclick="vizClaimsDegree.reset()">Reset</button>
           </div>
-          <div class="viz-label" id="claim-degree-label">$|V|=6=2k$, $\delta=3=k$.</div>
+          <div class="viz-label" id="claim-degree-label">$|V|=6=2k$, $\delta=3=k$. Dirac $\Rightarrow$ Ham cycle $\Rightarrow$ alternate edges.</div>
         </div>
+      </div>
+      <div class="proof">
+        <strong>Claim 1 proof:</strong><br>
+        Suppose $M_1 \neq M_2$ are both perfect matchings. In $M_1 \triangle M_2$, each vertex has degree exactly 0 or 2 (matched once in each), so every nontrivial component is a cycle. But trees are acyclic. Contradiction. $\square$<br><br>
+
+        <strong>Claim 2 proof:</strong><br>
+        $n = 2k$ and $\delta(G) \ge k = n/2$. By Dirac's Theorem, $G$ has a Hamiltonian cycle. Since $n$ is even, take every other edge of that cycle:<br>
+        $$v_1v_2,\; v_3v_4,\; \dots,\; v_{n-1}v_n$$
+        That's $n/2 = k$ disjoint edges covering all $n$ vertices. Perfect matching! $\square$
       </div>
     </div>
   </div>
 
+  <!-- ======================== THEOREM 1.53 ======================== -->
   <div class="theorem" id="thm-1-53">
     <div class="theorem-header">
-      <h2>1.53 — König-Egerváry</h2>
+      <h2>1.53 — König-Egerváry Theorem</h2>
       <svg class="chevron" viewBox="0 0 24 24"><path d="M7 10l5 5 5-5z"/></svg>
     </div>
     <div class="theorem-content">
-      <div class="statement">In bipartite $G$: $\alpha'(G)=\beta(G)$ &nbsp; (max matching = min vertex cover).</div>
-      <div class="intuition">"Most disjoint edges" = "fewest vertices hitting all edges." Two dual problems, same answer in bipartite graphs.</div>
-      <div class="memory">
-        <strong>Always:</strong> $\alpha' \le \beta$ (each matching edge needs its own cover vertex).<br>
-        <strong>Bipartite trick:</strong> Start from max matching $M$. Build alternating-path reachability from unmatched vertices. Construct cover $C$ with $|C|=|M|$. So $\beta \le \alpha'$.
+      <div class="statement">In any bipartite graph: max matching = min vertex cover<br>($\alpha'(G) = \beta(G)$)</div>
+      <div class="eli5">
+        Two different problems, same answer (in bipartite graphs):<br><br>
+        <strong>Problem 1 — Matching:</strong> Pick as many edges as you can, but no two can share a vertex. Like hiring: each job filled by one person, each person takes one job. How many can you fill?<br><br>
+        <strong>Problem 2 — Vertex Cover:</strong> Pick the fewest vertices so that every edge has at least one of its endpoints picked. Like placing security cameras at intersections: every road must be watched.<br><br>
+        <strong>König says:</strong> in a bipartite graph (left side + right side), the answer to Problem 1 = the answer to Problem 2. The most jobs you can fill equals the fewest cameras you need. This only works for bipartite graphs!
+      </div>
+      <div class="proof-simple">
+        <strong>Why are they equal? Two parts:</strong><br><br>
+        <strong>"Matching $\le$ Cover" (true in ANY graph):</strong> If you have $k$ matched edges, each one needs at least one guard. You can't use the same guard for two matched edges (they don't share endpoints). So you need at least $k$ cameras. Therefore max matching $\le$ min cover.<br><br>
+        <strong>"Cover $\le$ Matching" (the bipartite trick):</strong> Start with a max matching $M$. Find the unmatched vertices on the left side. From those, trace alternating paths (non-matched edge, matched edge, non-matched, ...) and mark everything reachable. Now build a cover by picking: marked vertices on the right side + unmarked vertices on the left side. Each matched edge contributes exactly one vertex to this cover, so it has $|M|$ vertices. And you can check every edge is covered. So min cover $\le |M|$ = max matching. Done — they're equal!
+      </div>
+      <div class="intuition">
+        <strong>What are these?</strong><br>
+        &bull; <strong>Matching</strong> = set of edges with no shared endpoints (pairing up)<br>
+        &bull; <strong>Vertex cover</strong> = set of vertices that touches every edge (guarding)<br>
+        &bull; In general, max matching $\le$ min cover (each matched edge needs its own guard). König says in bipartite graphs, they're <em>equal</em>.
       </div>
       <div class="viz-container">
         <canvas id="canvas-konig" width="600" height="280"></canvas>
@@ -1103,15 +1201,29 @@
           <button onclick="vizKonig.showBoth()">Both</button>
           <button class="secondary" onclick="vizKonig.reset()">Reset</button>
         </div>
-        <div class="viz-label" id="konig-label">White edges = matching. Bright vertices = cover.</div>
+        <div class="viz-label" id="konig-label">Bold edges = matching. Bright vertices = cover. Same size!</div>
       </div>
       <div class="proof">
-        $\alpha' \le \beta$: each edge of a matching needs a distinct cover vertex.<br>
-        $\beta \le \alpha'$: Let $M$ be max matching in bipartite $G=(X,Y)$. Let $U=$ unmatched vertices in $X$. Follow alternating paths from $U$; let $Z=$ all vertices reached. Set $C=(X\setminus Z)\cup(Y\cap Z)$. Every edge touches $C$, and $|C|=|M|$. $\square$
+        <strong>Easy direction:</strong> $\alpha'(G) \le \beta(G)$ always. Each matching edge needs a distinct cover vertex.<br><br>
+
+        <strong>Hard direction — build a cover of size $|M|$:</strong><br>
+        Let $M$ be a maximum matching in bipartite $G = (X, Y)$.<br><br>
+
+        <strong>Step 1:</strong> Let $U$ = vertices in $X$ <em>not</em> touched by $M$ (the unmatched ones).<br>
+        <strong>Step 2:</strong> From $U$, explore all <strong>alternating paths</strong> (unmatched edge, matched edge, unmatched, matched...). Let $Z$ = all vertices reachable this way.<br>
+        <strong>Step 3:</strong> Build the cover:
+        $$C = \underbrace{(X \setminus Z)}_{\text{matched X not reachable}} \cup \underbrace{(Y \cap Z)}_{\text{reachable Y vertices}}$$
+
+        <strong>Why $C$ works:</strong><br>
+        &bull; Every edge has at least one endpoint in $C$ (if not, we'd find an augmenting path, contradicting $M$ being maximum).<br>
+        &bull; Each matching edge puts exactly <em>one</em> vertex into $C$: either its $X$-endpoint (if not in $Z$) or its $Y$-endpoint (if in $Z$), never both.<br><br>
+
+        So $|C| = |M|$, giving $\beta(G) \le \alpha'(G)$. Together: $\alpha'(G) = \beta(G)$. $\square$
       </div>
     </div>
   </div>
 
+  <!-- ======================== THEOREM 1.61 ======================== -->
   <div class="theorem" id="thm-1-61">
     <div class="theorem-header">
       <h2>1.61 — $R(3,3) = 6$</h2>
@@ -1119,10 +1231,20 @@
     </div>
     <div class="theorem-content">
       <div class="statement">$R(3,3) = 6$</div>
-      <div class="intuition">At a party of 6, any red/blue coloring of friendships forces a monochromatic triangle.</div>
-      <div class="memory">
-        <strong>Upper ($\le 6$):</strong> Pick vertex $v$. It has 5 edges, so $\ge 3$ same color (say red to $a,b,c$). If any of $ab,bc,ca$ is red $\Rightarrow$ red triangle. If all three are blue $\Rightarrow$ blue triangle.<br>
-        <strong>Lower ($>5$):</strong> Color $C_5$ red, complement red. No mono triangle.
+      <div class="eli5">
+        Invite 6 people to a party. Between every pair, their relationship is either "friends" (red) or "strangers" (blue). <strong>No matter what</strong>, there will always be 3 people who are all mutual friends, or 3 people who are all mutual strangers. You can't avoid it with 6 people.<br><br>
+        With only 5 people, you <em>can</em> avoid it (there's a clever arrangement). So 6 is the magic number.
+      </div>
+      <div class="proof-simple">
+        <strong>Why 6 is enough:</strong> Pick any person (call them Pat). Pat has 5 connections. By pigeonhole, at least 3 are the same color — say Pat is friends with Alice, Bob, and Carol.<br><br>
+        Now look at Alice, Bob, and Carol:<br>
+        &bull; If <em>any two</em> of them are friends → they form a friend-triangle with Pat.<br>
+        &bull; If <em>none</em> of them are friends → Alice, Bob, Carol are all strangers to each other = stranger-triangle.<br><br>
+        Either way, you get a monochromatic triangle. Can't escape it!<br><br>
+        <strong>Why 5 isn't enough:</strong> Sit 5 people in a circle. Make adjacent people friends, non-adjacent people strangers. Check: no 3 mutual friends, no 3 mutual strangers. So $R(3,3) = 6$.
+      </div>
+      <div class="intuition">
+        Color every edge of $K_6$ red or blue. You <strong>must</strong> get a monochromatic triangle. No way to avoid it.
       </div>
       <div class="viz-container">
         <canvas id="canvas-ramsey33" width="600" height="300"></canvas>
@@ -1135,12 +1257,23 @@
         <div class="viz-label" id="ramsey33-label">$K_5$ coloring with no mono triangle.</div>
       </div>
       <div class="proof">
-        <strong>$\le 6$:</strong> Pick $v$ in $K_6$. Among 5 edges, $\ge 3$ have same color (WLOG red to $a,b,c$). If $ab,bc,$ or $ca$ is red $\Rightarrow$ red $K_3$. Otherwise $\{a,b,c\}$ is blue $K_3$.<br>
-        <strong>$> 5$:</strong> $C_5$ red, $\overline{C_5}$ blue. Check: no mono triangle. $\square$
+        <strong>Upper bound ($R(3,3) \le 6$) — the "pivot vertex" argument:</strong><br>
+        Pick vertex $v$ in $K_6$. It has 5 edges.<br>
+        By pigeonhole: at least 3 have the same color (say red to $a,b,c$).<br>
+        Look at the triangle $\{a,b,c\}$:<br>
+        &bull; Any <strong>red</strong> edge among them $\Rightarrow$ red triangle with $v$.<br>
+        &bull; All three <strong>blue</strong> $\Rightarrow$ blue triangle $\{a,b,c\}$.<br>
+        Either way: monochromatic triangle!<br><br>
+
+        <strong>Lower bound ($R(3,3) > 5$):</strong><br>
+        $K_5$: color a 5-cycle red, the remaining 5 edges (a pentagram) blue. Neither color has a triangle. So 5 vertices aren't enough.<br><br>
+
+        Therefore $R(3,3) = 6$. $\square$
       </div>
     </div>
   </div>
 
+  <!-- ======================== THEOREM 1.62 ======================== -->
   <div class="theorem" id="thm-1-62">
     <div class="theorem-header">
       <h2>1.62 — $R(3,4) = 9$</h2>
@@ -1148,10 +1281,16 @@
     </div>
     <div class="theorem-content">
       <div class="statement">$R(3,4) = 9$</div>
-      <div class="intuition">8 vertices can dodge red $K_3$ and blue $K_4$. 9 cannot.</div>
-      <div class="memory">
-        <strong>Upper:</strong> $R(3,4) \le R(2,4)+R(3,3)-1 = 4+6-1 = 9$ (improved bound, both pieces even).<br>
-        <strong>Lower:</strong> Explicit coloring of $K_8$ with no red $K_3$ and no blue $K_4$.
+      <div class="eli5">
+        Same party game, but now the goal is harder: you need either <strong>3 mutual friends</strong> or <strong>4 mutual strangers</strong>.<br><br>
+        With 8 people, you can arrange things to dodge both. With 9, it's impossible — one of those must happen. The "$= 9$" tells us exactly where the threshold is.
+      </div>
+      <div class="proof-simple">
+        <strong>Upper bound:</strong> We use the recursion from Theorem 1.64 with the parity improvement (1.64*): $R(3,4) \le R(2,4) + R(3,3) - 1 = 4 + 6 - 1 = 9$. We get the $-1$ because both 4 and 6 are even.<br><br>
+        <strong>Lower bound:</strong> Someone constructed a specific red/blue coloring of $K_8$ that avoids both a red triangle and a blue $K_4$. (It exists — you don't need to memorize it.)
+      </div>
+      <div class="intuition">
+        9 people at a party. Color all friendships red or blue. You <strong>must</strong> get either a red triangle or a blue $K_4$ (4 mutual blue friends).
       </div>
       <div class="viz-container">
         <canvas id="canvas-ramsey34" width="600" height="220"></canvas>
@@ -1162,9 +1301,20 @@
         </div>
         <div class="viz-label" id="ramsey34-label">Threshold at $n=9$.</div>
       </div>
+      <div class="proof">
+        <strong>Lower bound ($R(3,4) > 8$):</strong><br>
+        An explicit coloring of $K_8$ exists with no red $K_3$ and no blue $K_4$. (You can construct one; not expected to memorize the exact edges.)<br><br>
+
+        <strong>Upper bound ($R(3,4) \le 9$) — uses the improved recursion:</strong><br>
+        $$R(3,4) \le R(2,4) + R(3,3) - 1 = 4 + 6 - 1 = 9$$
+        The "$-1$" comes from Theorem 1.64* (parity trick), since $R(2,4) = 4$ and $R(3,3) = 6$ are both even.<br><br>
+
+        Therefore $R(3,4) = 9$. $\square$
+      </div>
     </div>
   </div>
 
+  <!-- ======================== THEOREM 1.64 ======================== -->
   <div class="theorem" id="thm-1-64">
     <div class="theorem-header">
       <h2>1.64 — Recursive Ramsey Bound</h2>
@@ -1172,9 +1322,20 @@
     </div>
     <div class="theorem-content">
       <div class="statement">$R(p,q) \le R(p-1,q) + R(p,q-1)$</div>
-      <div class="intuition">Pick any vertex $v$. Its edges split into red-neighbors and blue-neighbors. One group is big enough to recurse.</div>
-      <div class="memory">
-        <strong>Pivot trick:</strong> Set $N = R(p-1,q)+R(p,q-1)$. Vertex $v$ has $N-1$ neighbors. Pigeonhole: red-nbrs $\ge R(p-1,q)$ or blue-nbrs $\ge R(p,q-1)$. Either way, recurse into that neighborhood.
+      <div class="eli5">
+        This is the <strong>master formula</strong> for bounding Ramsey numbers. It says: to guarantee a red $K_p$ or blue $K_q$, you need at most $R(p-1,q) + R(p,q-1)$ people.<br><br>
+        <strong>The idea:</strong> Pick any person at the party. Their connections split into "friends" (red) and "strangers" (blue). One of those groups must be big enough. If friends are big enough, look inside them for a slightly smaller red clique (then add the person back). If strangers are big enough, same idea for blue. Either way, you find what you need.
+      </div>
+      <div class="proof-simple">
+        <strong>The proof in plain English:</strong><br><br>
+        Put $N = R(p-1,q) + R(p,q-1)$ people in a room. Pick any person, Pat.<br><br>
+        Pat has $N-1$ connections. Split them: red-friends ($R$) and blue-friends ($B$). Since $|R| + |B| = N-1$, by pigeonhole one of these is true:<br><br>
+        <strong>Scenario A:</strong> Pat has $\ge R(p-1,q)$ red-friends. Look at just those people. By definition of $R(p-1,q)$, among them there's either a red group of $p-1$ (add Pat back → red group of $p$!) or a blue group of $q$. Either way, done.<br><br>
+        <strong>Scenario B:</strong> Pat has $\ge R(p,q-1)$ blue-friends. Same logic, flipped. Either a red $K_p$ among them, or a blue group of $q-1$ (add Pat back → blue $K_q$). Done.
+      </div>
+      <div class="intuition">
+        <strong>The master technique — "pick a vertex, split by color":</strong><br>
+        Pick any vertex $v$. Its edges split into red-neighbors ($R$) and blue-neighbors ($B$). One group is big enough to recurse into.
       </div>
       <div class="viz-container">
         <canvas id="canvas-ramsey-bounds" width="600" height="280"></canvas>
@@ -1185,44 +1346,83 @@
           <button onclick="vizRamseyBounds.changeQ(1)">q+</button>
           <button class="secondary" onclick="vizRamseyBounds.reset()">Reset</button>
         </div>
-        <div class="viz-label" id="ramsey-bounds-label">Compare the three bounds.</div>
+        <div class="viz-label" id="ramsey-bounds-label">Compare the three bounds for various $p,q$.</div>
       </div>
       <div class="proof">
-        Set $N=R(p-1,q)+R(p,q-1)$. Color $K_N$. Pick $v$. Let $R=$ red-nbrs, $B=$ blue-nbrs. $|R|+|B|=N-1$.<br>
-        If $|R|\ge R(p-1,q)$: inside $R$, either red $K_{p-1}$ (add $v$ $\Rightarrow$ red $K_p$) or blue $K_q$.<br>
-        If $|B|\ge R(p,q-1)$: analogous. Either way, mono clique exists. $\square$
+        Let $N = R(p-1,q) + R(p,q-1)$. Pick any vertex $v$ in $K_N$. It has $N-1$ neighbors, colored red or blue.<br><br>
+
+        $$|R| + |B| = N - 1 = R(p-1,q) + R(p,q-1) - 1$$
+
+        By pigeonhole, either $|R| \ge R(p-1,q)$ or $|B| \ge R(p,q-1)$.<br><br>
+
+        <strong>If $|R| \ge R(p-1,q)$:</strong> Among the red neighbors, by definition of $R(p-1,q)$, there's either:<br>
+        &bull; A red $K_{p-1}$ $\Rightarrow$ add $v$ (connected to all of them by red) $\Rightarrow$ red $K_p$. Done!<br>
+        &bull; A blue $K_q$. Done!<br><br>
+
+        <strong>If $|B| \ge R(p,q-1)$:</strong> Symmetric. Either red $K_p$ or blue $K_{q-1}$ plus $v$ gives blue $K_q$.<br><br>
+
+        Every case gives a monochromatic clique. So $R(p,q) \le N$. $\square$
       </div>
     </div>
   </div>
 
+  <!-- ======================== THEOREM 1.64* ======================== -->
   <div class="theorem" id="thm-1-64-star">
     <div class="theorem-header">
-      <h2>1.64* — Improved Bound (Parity)</h2>
+      <h2>1.64* — Improved Bound (Parity Trick)</h2>
       <svg class="chevron" viewBox="0 0 24 24"><path d="M7 10l5 5 5-5z"/></svg>
     </div>
     <div class="theorem-content">
-      <div class="statement">If $R(p-1,q)$ and $R(p,q-1)$ are both even: $R(p,q) \le R(p-1,q)+R(p,q-1)-1$.</div>
-      <div class="intuition">When both sub-bounds are even, a parity argument (odd degree sum in odd graph) gives a free $-1$.</div>
-      <div class="memory">
-        <strong>Key:</strong> At $N = \text{even}+\text{even}-1$ (odd), equality forces every vertex to have odd red-degree. But $N$ odd vertices with odd degree $\Rightarrow$ odd total degree. Impossible (degree sum is always even). Contradiction.
+      <div class="statement">If $R(p-1,q)$ and $R(p,q-1)$ are <strong>both even</strong>: $R(p,q) \le R(p-1,q)+R(p,q-1)-1$.</div>
+      <div class="eli5">
+        This is a bonus upgrade to the recursion above. When both sub-values are even, you can squeeze out one fewer person needed. Instead of $a + b$, you only need $a + b - 1$.<br><br>
+        <strong>How?</strong> Assume you could dodge with $a + b - 1$ people (the "bad" coloring). The math forces every person to have an <em>odd</em> number of red connections. But you have an <em>odd</em> number of people. So the total red connections = odd $\times$ odd = odd. But total connections must be even (every handshake has two hands). Contradiction — no bad coloring can exist!
+      </div>
+      <div class="intuition">
+        <strong>When does this help?</strong> Saves 1 from the basic recursion.<br>
+        Used for $R(3,4)$: since $R(2,4)=4$ and $R(3,3)=6$ are both even, we get $R(3,4) \le 4+6-1 = 9$ instead of 10.
       </div>
       <div class="proof">
-        Let $N=R(p-1,q)+R(p,q-1)-1$. Suppose bad coloring exists. For each $v$: red-deg $\le R(p-1,q)-1$ and blue-deg $\le R(p,q-1)-1$. Sum $= N-1$, so both are equalities. Red-deg $=$ even$-1$ = odd. All $N$ (odd) vertices have odd red-degree. Sum of red degrees is odd. But $\sum\deg = 2|E|$ is even. Contradiction. $\square$
+        Suppose the bound is wrong: a "bad" coloring exists on $N = R(p-1,q) + R(p,q-1) - 1$ vertices (no red $K_p$, no blue $K_q$).<br><br>
+
+        Then for every vertex $v$:<br>
+        &bull; Red-degree $< R(p-1,q)$ (otherwise red neighbors contain red $K_{p-1}$, giving red $K_p$ with $v$)<br>
+        &bull; Blue-degree $< R(p,q-1)$ (similarly)<br>
+        &bull; But red-deg + blue-deg $= N-1$, and the two upper bounds sum to exactly $N-1$.<br><br>
+
+        So <strong>both must be equalities</strong>: every vertex has red-degree $= R(p-1,q)-1$.<br><br>
+
+        <strong>Now the parity punch:</strong><br>
+        $R(p-1,q)$ is even, so $R(p-1,q)-1$ is <strong>odd</strong>.<br>
+        Every vertex has odd red-degree. There are $N$ vertices, and $N$ is odd (even + even $- 1$).<br>
+        So sum of red degrees = odd $\times$ odd = <strong>odd</strong>.<br>
+        But degree sums are always even (handshake lemma)!<br><br>
+
+        Contradiction $\Rightarrow$ no bad coloring exists $\Rightarrow$ $R(p,q) \le N$. $\square$
       </div>
     </div>
   </div>
 
+  <!-- ======================== ERDŐS-SZEKERES ======================== -->
   <div class="theorem" id="thm-erdos">
     <div class="theorem-header">
       <h2>Erdős-Szekeres — Binomial Bound</h2>
       <svg class="chevron" viewBox="0 0 24 24"><path d="M7 10l5 5 5-5z"/></svg>
     </div>
     <div class="theorem-content">
-      <div class="statement">$R(r,s) \le \binom{r+s-2}{r-1}$</div>
-      <div class="intuition">Unroll the recursion $R(r,s) \le R(r-1,s)+R(r,s-1)$. It mirrors Pascal's identity, collapsing to a single binomial coefficient.</div>
-      <div class="memory">
-        <strong>Base:</strong> $R(2,s)=s=\binom{s}{1}$, $R(r,2)=r=\binom{r}{r-1}$.<br>
-        <strong>Step:</strong> Apply 1.64 + induction + Pascal: $\binom{r+s-3}{r-2}+\binom{r+s-3}{r-1}=\binom{r+s-2}{r-1}$.
+      <div class="statement">$$R(r,s) \le \binom{r+s-2}{r-1}$$</div>
+      <div class="eli5">
+        All the Ramsey bounds above use recursion: $R(p,q) \le R(p-1,q) + R(p,q-1)$. But if you keep expanding, you get a tree of values — and that tree looks exactly like Pascal's triangle!<br><br>
+        <strong>So instead of recursing</strong>, you can just compute a single binomial coefficient. For example, $R(3,3) \le \binom{4}{2} = 6$ — one formula, no recursion needed.
+      </div>
+      <div class="proof-simple">
+        <strong>Base cases:</strong> $R(2,s) = s$ (you need $s$ people to guarantee an edge or a blue $K_s$) and $R(r,2) = r$. These match $\binom{s}{1} = s$ and $\binom{r}{r-1} = r$.<br><br>
+        <strong>Inductive step:</strong> By the recursion (Thm 1.64), $R(r,s) \le R(r-1,s) + R(r,s-1)$. By induction, each piece is bounded by a binomial coefficient. Add them:<br>
+        $$\binom{r+s-3}{r-2} + \binom{r+s-3}{r-1} = \binom{r+s-2}{r-1}$$
+        That last step is just Pascal's identity: two adjacent entries in one row add to the entry below them. The recursion and Pascal's triangle have the same structure!
+      </div>
+      <div class="intuition">
+        Gives a <strong>closed-form</strong> upper bound — no recursion needed. The Ramsey recursion mirrors Pascal's identity, so it collapses to a single binomial coefficient.
       </div>
       <div class="viz-container">
         <canvas id="canvas-erdos" width="600" height="280"></canvas>
@@ -1234,7 +1434,18 @@
         <div class="viz-label" id="erdos-label">Highlighted position in Pascal's triangle.</div>
       </div>
       <div class="proof">
-        Induction on $r+s$. Base: $R(2,s)=s=\binom{s}{1}$. Step: $R(r,s)\le R(r-1,s)+R(r,s-1)\le\binom{r+s-3}{r-2}+\binom{r+s-3}{r-1}=\binom{r+s-2}{r-1}$ by Pascal. $\square$
+        <strong>Proof (induction on $r+s$):</strong><br><br>
+
+        <strong>Base cases:</strong> $R(2,s) = s = \binom{s}{1}$ and $R(r,2) = r = \binom{r}{r-1}$.<br>
+        (If you only need a red edge, you need $s$ vertices; if you only need a blue edge, you need $r$ vertices.)<br><br>
+
+        <strong>Inductive step ($r,s \ge 3$):</strong> By Theorem 1.64:<br>
+        $$R(r,s) \le R(r-1,s) + R(r,s-1)$$
+        Apply induction hypothesis to both:<br>
+        $$\le \binom{r+s-3}{r-2} + \binom{r+s-3}{r-1} = \binom{r+s-2}{r-1}$$
+        The last step is just <strong>Pascal's identity</strong>: $\binom{n}{k-1} + \binom{n}{k} = \binom{n+1}{k}$. $\square$<br><br>
+
+        <strong>Sanity check:</strong> $R(3,3) \le \binom{4}{2} = 6$. Matches the exact value!
       </div>
     </div>
   </div>

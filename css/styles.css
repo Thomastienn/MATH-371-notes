@@ -175,7 +175,7 @@ body {
 }
 .theorem.open .theorem-content {
   padding: 8px 24px 24px;
-  max-height: 3000px;
+  max-height: 8000px;
   opacity: 1;
   visibility: visible;
 }
@@ -243,6 +243,46 @@ body {
   display: block;
   font-weight: 700;
   color: var(--yellow);
+  margin-bottom: 4px;
+  font-size: 0.75rem;
+  letter-spacing: 0.5px;
+}
+
+/* ELI5 — Plain English */
+.theorem .eli5 {
+  background: rgba(93, 184, 93, 0.06);
+  border-left: 3px solid var(--green);
+  border-radius: 4px;
+  padding: 10px 14px;
+  margin: 10px 0;
+  font-size: 0.92rem;
+  line-height: 1.7;
+}
+.theorem .eli5::before {
+  content: 'PLAIN ENGLISH';
+  display: block;
+  font-weight: 700;
+  color: var(--green);
+  margin-bottom: 4px;
+  font-size: 0.75rem;
+  letter-spacing: 0.5px;
+}
+
+/* Simple Proof */
+.theorem .proof-simple {
+  background: rgba(106, 159, 196, 0.06);
+  border-left: 3px solid var(--blue);
+  border-radius: 4px;
+  padding: 10px 14px;
+  margin: 10px 0;
+  font-size: 0.9rem;
+  line-height: 1.7;
+}
+.theorem .proof-simple::before {
+  content: 'PROOF IN SIMPLE TERMS';
+  display: block;
+  font-weight: 700;
+  color: var(--blue);
   margin-bottom: 4px;
   font-size: 0.75rem;
   letter-spacing: 0.5px;
