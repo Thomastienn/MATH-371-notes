@@ -13,7 +13,7 @@ const vizHandshaking = (() => {
   function draw() {
     const ctx = getCtx('canvas-handshaking'); if(!ctx) return;
     clearCanvas(ctx, 600, 300);
-    edges.forEach(([i,j]) => drawEdge(ctx, nodes[i].x, nodes[i].y, nodes[j].x, nodes[j].y, '#58a6ff88'));
+    edges.forEach(([i,j]) => drawEdge(ctx, nodes[i].x, nodes[i].y, nodes[j].x, nodes[j].y, '#555'));
     nodes.forEach(n => drawNode(ctx, n.x, n.y, 24, COLORS.node, n.label + '\n' + n.deg));
     nodes.forEach(n => { drawNode(ctx, n.x, n.y, 24, COLORS.node, n.label); drawLabel(ctx, 'deg=' + n.deg, n.x, n.y + 38, COLORS.accent, 12); });
     const sumDeg = nodes.reduce((s,n) => s+n.deg, 0);
@@ -92,7 +92,7 @@ const vizBipartite = (() => {
     const pts = getNodes();
     for (let i = 0; i < pts.length; i++) {
       const j = (i+1)%pts.length;
-      drawEdge(ctx, pts[i].x, pts[i].y, pts[j].x, pts[j].y, '#58a6ff55', 2);
+      drawEdge(ctx, pts[i].x, pts[i].y, pts[j].x, pts[j].y, '#444', 2);
     }
     pts.forEach((p, i) => {
       const c = i < colors.length ? (colors[i] === 0 ? COLORS.red : COLORS.blue) : COLORS.node;

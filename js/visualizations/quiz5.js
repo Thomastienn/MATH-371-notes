@@ -33,12 +33,8 @@ const vizBerge = (() => {
     { x: 460, y: 140, label: 'd' },
     { x: 560, y: 80, label: 'v' }
   ];
-  const pathEdges = [
-    [0, 1], [1, 2], [2, 3], [3, 4], [4, 5]
-  ];
-  const extraEdges = [
-    [1, 3], [2, 4]
-  ];
+  const pathEdges = [[0, 1], [1, 2], [2, 3], [3, 4], [4, 5]];
+  const extraEdges = [[1, 3], [2, 4]];
   const beforeMatching = new Set([edgeKey(1, 2), edgeKey(3, 4)]);
   const afterMatching = new Set([edgeKey(0, 1), edgeKey(2, 3), edgeKey(4, 5)]);
   let flipped = false;
@@ -53,17 +49,17 @@ const vizBerge = (() => {
     clearCanvas(ctx, 600, 280);
 
     [...pathEdges, ...extraEdges].forEach(([u, v]) => {
-      drawEdge(ctx, nodes[u].x, nodes[u].y, nodes[v].x, nodes[v].y, '#ffffff22', 2);
+      drawEdge(ctx, nodes[u].x, nodes[u].y, nodes[v].x, nodes[v].y, '#333', 1);
     });
 
     pathEdges.forEach(([u, v]) => {
-      drawEdge(ctx, nodes[u].x, nodes[u].y, nodes[v].x, nodes[v].y, COLORS.orange + '99', 4);
+      drawEdge(ctx, nodes[u].x, nodes[u].y, nodes[v].x, nodes[v].y, '#666', 3);
     });
 
     const matched = currentMatching();
     pathEdges.forEach(([u, v]) => {
       if (matched.has(edgeKey(u, v))) {
-        drawEdge(ctx, nodes[u].x, nodes[u].y, nodes[v].x, nodes[v].y, COLORS.green, 6);
+        drawEdge(ctx, nodes[u].x, nodes[u].y, nodes[v].x, nodes[v].y, '#fff', 4);
       }
     });
 
@@ -73,28 +69,21 @@ const vizBerge = (() => {
         const [a, b] = k.split('-').map(Number);
         if (a === i || b === i) isMatched = true;
       });
-      drawNode(ctx, n.x, n.y, 21, isMatched ? '#c8e6c9' : '#ffe0e0', n.label, '#111');
+      drawNode(ctx, n.x, n.y, 20, isMatched ? '#ccc' : '#555', n.label, isMatched ? '#111' : '#ddd');
     });
 
     const size = matched.size;
-    drawLabel(ctx, `|M| = ${size}`, 300, 255, COLORS.accent, 15);
+    drawLabel(ctx, `|M| = ${size}`, 300, 255, COLORS.accent, 14);
     const lbl = document.getElementById('berge-label');
     if (lbl) {
       lbl.textContent = flipped
-        ? 'After flip: matching gained +1 edge, so previous matching was not maximum.'
-        : 'Before flip: orange path is augmenting (unmatched endpoints).';
+        ? 'After flip: |M| grew by 1. Previous M was NOT maximum.'
+        : 'Before: white edges = M. Path u-a-b-c-d-v alternates non-M / M / non-M.';
     }
   }
 
-  function flip() {
-    flipped = !flipped;
-    draw();
-  }
-
-  function reset() {
-    flipped = false;
-    draw();
-  }
+  function flip() { flipped = !flipped; draw(); }
+  function reset() { flipped = false; draw(); }
 
   setTimeout(draw, 100);
   return { flip, reset };
@@ -127,14 +116,11 @@ const vizHall = (() => {
     edges: [[0, 0], [1, 0], [1, 1], [2, 1], [3, 2]],
     S: new Set([0, 1, 2]),
     N: new Set([0, 1]),
-    text: '|S| = 3, |N(S)| = 2  (Hall fails)'
+    text: '|S| = 3, |N(S)| = 2  (Hall FAILS)'
   };
 
   let mode = 'good';
-
-  function data() {
-    return mode === 'good' ? good : bad;
-  }
+  function data() { return mode === 'good' ? good : bad; }
 
   function draw() {
     const ctx = getCtx('canvas-hall');
@@ -142,47 +128,29 @@ const vizHall = (() => {
     clearCanvas(ctx, 600, 280);
 
     const d = data();
-
-    drawLabel(ctx, 'X', 160, 20, COLORS.accent, 15);
-    drawLabel(ctx, 'Y', 440, 20, COLORS.green, 15);
+    drawLabel(ctx, 'X', 160, 20, COLORS.accent, 14);
+    drawLabel(ctx, 'Y', 440, 20, COLORS.accent, 14);
 
     d.edges.forEach(([i, j]) => {
       const inS = d.S.has(i);
       const inN = d.N.has(j);
-      const color = inS && inN ? COLORS.accent + 'bb' : '#ffffff28';
-      drawEdge(ctx, left[i].x, left[i].y, right[j].x, right[j].y, color, inS && inN ? 3 : 2);
+      const color = inS && inN ? '#ccc' : '#333';
+      drawEdge(ctx, left[i].x, left[i].y, right[j].x, right[j].y, color, inS && inN ? 2.5 : 1);
     });
 
     left.forEach((n, i) => {
-      drawNode(ctx, n.x, n.y, 20, d.S.has(i) ? '#dbeafe' : COLORS.node, n.label, '#111');
+      drawNode(ctx, n.x, n.y, 18, d.S.has(i) ? '#ccc' : '#555', n.label, d.S.has(i) ? '#111' : '#ddd');
     });
     right.forEach((n, i) => {
-      drawNode(ctx, n.x, n.y, 20, d.N.has(i) ? '#dcfce7' : COLORS.node, n.label, '#111');
+      drawNode(ctx, n.x, n.y, 18, d.N.has(i) ? '#ccc' : '#555', n.label, d.N.has(i) ? '#111' : '#ddd');
     });
 
-    drawLabel(ctx, d.text, 300, 262, mode === 'good' ? COLORS.green : COLORS.red, 14);
-    const lbl = document.getElementById('hall-label');
-    if (lbl) {
-      lbl.textContent = mode === 'good'
-        ? 'No bottleneck: every highlighted subset has enough neighbors.'
-        : 'Bottleneck detected: highlighted subset has fewer neighbors than vertices.';
-    }
+    drawLabel(ctx, d.text, 300, 262, mode === 'good' ? COLORS.green : COLORS.red, 13);
   }
 
-  function showGood() {
-    mode = 'good';
-    draw();
-  }
-
-  function showBad() {
-    mode = 'bad';
-    draw();
-  }
-
-  function reset() {
-    mode = 'good';
-    draw();
-  }
+  function showGood() { mode = 'good'; draw(); }
+  function showBad() { mode = 'bad'; draw(); }
+  function reset() { mode = 'good'; draw(); }
 
   setTimeout(draw, 100);
   return { showGood, showBad, reset };
@@ -207,24 +175,17 @@ const vizSDR = (() => {
   const success = {
     edges: [[0, 0], [0, 1], [1, 1], [1, 2], [2, 0], [2, 3]],
     chosen: new Set([edgeKey(0, 4), edgeKey(1, 5), edgeKey(2, 3)]),
-    unionInfo: 'Choose reps: S1->2, S2->3, S3->1 (all distinct).'
+    unionInfo: 'Reps: S1->2, S2->3, S3->1 (all distinct).'
   };
-
   const failure = {
     edges: [[0, 0], [0, 1], [1, 0], [1, 1], [2, 0], [2, 1]],
     chosen: new Set(),
-    unionInfo: 'For {S1,S2,S3}, union = {1,2}: size 2 < 3, so SDR impossible.'
+    unionInfo: 'Union of {S1,S2,S3} = {1,2}: size 2 < 3. No SDR.'
   };
 
   let mode = 'success';
-
-  function getData() {
-    return mode === 'success' ? success : failure;
-  }
-
-  function mapEdge(l, r) {
-    return edgeKey(l, r + left.length);
-  }
+  function getData() { return mode === 'success' ? success : failure; }
+  function mapEdge(l, r) { return edgeKey(l, r + left.length); }
 
   function draw() {
     const ctx = getCtx('canvas-sdr');
@@ -232,49 +193,25 @@ const vizSDR = (() => {
     clearCanvas(ctx, 600, 280);
 
     const d = getData();
-    drawLabel(ctx, 'Set Vertices', 150, 20, COLORS.accent, 14);
-    drawLabel(ctx, 'Element Vertices', 430, 20, COLORS.green, 14);
+    drawLabel(ctx, 'Sets', 150, 20, COLORS.accent, 13);
+    drawLabel(ctx, 'Elements', 430, 20, COLORS.accent, 13);
 
     d.edges.forEach(([li, ri]) => {
       const k = mapEdge(li, ri);
       const inChosen = d.chosen.has(k);
-      drawEdge(
-        ctx,
-        left[li].x,
-        left[li].y,
-        right[ri].x,
-        right[ri].y,
-        inChosen ? COLORS.green : '#ffffff28',
-        inChosen ? 4 : 2
-      );
+      drawEdge(ctx, left[li].x, left[li].y, right[ri].x, right[ri].y,
+        inChosen ? '#fff' : '#333', inChosen ? 3 : 1);
     });
 
-    left.forEach((n) => drawNode(ctx, n.x, n.y, 20, '#dbeafe', n.label, '#111'));
-    right.forEach((n) => drawNode(ctx, n.x, n.y, 18, '#dcfce7', n.label, '#111'));
+    left.forEach((n) => drawNode(ctx, n.x, n.y, 18, '#aaa', n.label, '#111'));
+    right.forEach((n) => drawNode(ctx, n.x, n.y, 16, '#888', n.label, '#111'));
 
-    drawLabel(ctx, d.unionInfo, 300, 262, mode === 'success' ? COLORS.green : COLORS.red, 13);
-    const lbl = document.getElementById('sdr-label');
-    if (lbl) {
-      lbl.textContent = mode === 'success'
-        ? 'Green edges form an SDR (distinct reps).'
-        : 'Hall condition fails for a 3-set subcollection.';
-    }
+    drawLabel(ctx, d.unionInfo, 300, 262, mode === 'success' ? COLORS.green : COLORS.red, 12);
   }
 
-  function showSuccess() {
-    mode = 'success';
-    draw();
-  }
-
-  function showFailure() {
-    mode = 'failure';
-    draw();
-  }
-
-  function reset() {
-    mode = 'success';
-    draw();
-  }
+  function showSuccess() { mode = 'success'; draw(); }
+  function showFailure() { mode = 'failure'; draw(); }
+  function reset() { mode = 'success'; draw(); }
 
   setTimeout(draw, 100);
   return { showSuccess, showFailure, reset };
@@ -298,26 +235,8 @@ const vizClaimsTree = (() => {
 
   function matchedSet() {
     const s = new Set();
-    for (let i = 0; i < step; i++) {
-      s.add(forcedSteps[i][0]);
-      s.add(forcedSteps[i][1]);
-    }
+    for (let i = 0; i < step; i++) { s.add(forcedSteps[i][0]); s.add(forcedSteps[i][1]); }
     return s;
-  }
-
-  function leavesOfResidual(matched) {
-    const deg = Array(nodes.length).fill(0);
-    edges.forEach(([u, v]) => {
-      if (!matched.has(u) && !matched.has(v)) {
-        deg[u]++;
-        deg[v]++;
-      }
-    });
-    const leaves = new Set();
-    for (let i = 0; i < nodes.length; i++) {
-      if (!matched.has(i) && deg[i] === 1) leaves.add(i);
-    }
-    return leaves;
   }
 
   function draw() {
@@ -326,51 +245,35 @@ const vizClaimsTree = (() => {
     clearCanvas(ctx, 420, 230);
 
     const matched = matchedSet();
-    const leaves = leavesOfResidual(matched);
     const newEdge = step > 0 ? edgeKey(forcedSteps[step - 1][0], forcedSteps[step - 1][1]) : null;
 
     edges.forEach(([u, v]) => {
       const k = edgeKey(u, v);
-      let color = '#ffffff22';
-      let width = 2;
+      let color = '#333'; let width = 1;
       for (let i = 0; i < step; i++) {
-        if (k === edgeKey(forcedSteps[i][0], forcedSteps[i][1])) {
-          color = COLORS.green;
-          width = 4;
-        }
+        if (k === edgeKey(forcedSteps[i][0], forcedSteps[i][1])) { color = '#ccc'; width = 3; }
       }
-      if (k === newEdge) {
-        color = COLORS.yellow;
-        width = 5;
-      }
+      if (k === newEdge) { color = '#fff'; width = 4; }
       drawEdge(ctx, nodes[u].x, nodes[u].y, nodes[v].x, nodes[v].y, color, width);
     });
 
     nodes.forEach((n, i) => {
-      let fill = COLORS.node;
-      if (matched.has(i)) fill = '#c8e6c9';
-      else if (leaves.has(i)) fill = '#fde68a';
-      drawNode(ctx, n.x, n.y, 16, fill, n.label, '#111');
+      let fill = '#555';
+      if (matched.has(i)) fill = '#bbb';
+      drawNode(ctx, n.x, n.y, 15, fill, n.label, matched.has(i) ? '#111' : '#ddd');
     });
 
     const lbl = document.getElementById('claim-tree-label');
     if (lbl) {
-      if (step === 0) lbl.textContent = 'Leaves force choices: pick a leaf edge first.';
-      else if (step === 1) lbl.textContent = 'After matching (0,1), a new leaf is forced.';
-      else if (step === 2) lbl.textContent = 'After matching (2,5), only one completion remains.';
-      else lbl.textContent = 'Perfect matching is forced edge-by-edge, so it is unique.';
+      if (step === 0) lbl.textContent = 'Leaf 0 must match its only neighbor 1.';
+      else if (step === 1) lbl.textContent = 'Now leaf 5 must match neighbor 2.';
+      else if (step === 2) lbl.textContent = 'Leaf 4 must match neighbor 3.';
+      else lbl.textContent = 'Every choice was forced. At most 1 perfect matching.';
     }
   }
 
-  function stepFn() {
-    if (step < forcedSteps.length) step++;
-    draw();
-  }
-
-  function reset() {
-    step = 0;
-    draw();
-  }
+  function stepFn() { if (step < forcedSteps.length) step++; draw(); }
+  function reset() { step = 0; draw(); }
 
   setTimeout(draw, 100);
   return { step: stepFn, reset };
@@ -395,30 +298,17 @@ const vizClaimsDegree = (() => {
     allEdges.forEach(([i, j]) => {
       const k = bipKey(i, j);
       const on = show && perfect.has(k);
-      drawEdge(ctx, left[i].x, left[i].y, right[j].x, right[j].y, on ? COLORS.green : '#ffffff22', on ? 4 : 2);
+      drawEdge(ctx, left[i].x, left[i].y, right[j].x, right[j].y, on ? '#fff' : '#333', on ? 3 : 1);
     });
 
-    left.forEach((n) => drawNode(ctx, n.x, n.y, 16, '#dbeafe', n.l, '#111'));
-    right.forEach((n) => drawNode(ctx, n.x, n.y, 16, '#dcfce7', n.l, '#111'));
+    left.forEach((n) => drawNode(ctx, n.x, n.y, 15, '#aaa', n.l, '#111'));
+    right.forEach((n) => drawNode(ctx, n.x, n.y, 15, '#888', n.l, '#111'));
 
-    drawLabel(ctx, '|V| = 6 = 2k,  delta = 3 = k', 210, 212, COLORS.accent, 12);
-    const lbl = document.getElementById('claim-degree-label');
-    if (lbl) {
-      lbl.textContent = show
-        ? 'One perfect matching highlighted (existence guaranteed).'
-        : 'Dense graph example with min degree meeting the threshold.';
-    }
+    drawLabel(ctx, '|V|=6=2k, delta=3=k', 210, 212, COLORS.dim, 11);
   }
 
-  function toggleMatching() {
-    show = !show;
-    draw();
-  }
-
-  function reset() {
-    show = false;
-    draw();
-  }
+  function toggleMatching() { show = !show; draw(); }
+  function reset() { show = false; draw(); }
 
   setTimeout(draw, 100);
   return { toggleMatching, reset };
@@ -429,15 +319,11 @@ const vizClaimsDegree = (() => {
 // ============================================================
 const vizKonig = (() => {
   const left = [
-    { x: 140, y: 50, l: 'x1' },
-    { x: 140, y: 105, l: 'x2' },
-    { x: 140, y: 160, l: 'x3' },
-    { x: 140, y: 215, l: 'x4' }
+    { x: 140, y: 50, l: 'x1' }, { x: 140, y: 105, l: 'x2' },
+    { x: 140, y: 160, l: 'x3' }, { x: 140, y: 215, l: 'x4' }
   ];
   const right = [
-    { x: 460, y: 80, l: 'y1' },
-    { x: 460, y: 135, l: 'y2' },
-    { x: 460, y: 190, l: 'y3' }
+    { x: 460, y: 80, l: 'y1' }, { x: 460, y: 135, l: 'y2' }, { x: 460, y: 190, l: 'y3' }
   ];
   const edges = [[0, 0], [0, 1], [1, 0], [2, 1], [2, 2], [3, 2]];
   const matching = new Set([bipKey(1, 0), bipKey(0, 1), bipKey(3, 2)]);
@@ -453,23 +339,18 @@ const vizKonig = (() => {
       const mk = bipKey(lx, ry);
       const showMatch = mode === 'matching' || mode === 'both';
       const inM = showMatch && matching.has(mk);
-      drawEdge(ctx, left[lx].x, left[lx].y, right[ry].x, right[ry].y, inM ? COLORS.green : '#ffffff26', inM ? 4 : 2);
+      drawEdge(ctx, left[lx].x, left[lx].y, right[ry].x, right[ry].y,
+        inM ? '#fff' : '#333', inM ? 3 : 1);
     });
 
-    left.forEach((n) => drawNode(ctx, n.x, n.y, 18, '#dbeafe', n.l, '#111'));
+    left.forEach((n) => drawNode(ctx, n.x, n.y, 16, '#aaa', n.l, '#111'));
     right.forEach((n, i) => {
       const showCover = mode === 'cover' || mode === 'both';
-      const fill = showCover && coverY.has(i) ? '#fde68a' : '#dcfce7';
-      drawNode(ctx, n.x, n.y, 18, fill, n.l, '#111');
+      const fill = showCover && coverY.has(i) ? '#fff' : '#888';
+      drawNode(ctx, n.x, n.y, 16, fill, n.l, '#111');
     });
 
-    drawLabel(ctx, "|max matching| = 3  and  |min vertex cover| = 3", 300, 258, COLORS.accent, 14);
-    const lbl = document.getElementById('konig-label');
-    if (lbl) {
-      if (mode === 'matching') lbl.textContent = 'Green edges show a maximum matching of size 3.';
-      else if (mode === 'cover') lbl.textContent = 'Yellow vertices form a minimum vertex cover of size 3.';
-      else lbl.textContent = 'Both overlays agree in size: alpha\'(G) = beta(G) = 3.';
-    }
+    drawLabel(ctx, "|max matching| = |min cover| = 3", 300, 258, COLORS.accent, 13);
   }
 
   function showMatching() { mode = 'matching'; draw(); }
@@ -495,9 +376,7 @@ const vizRamsey33 = (() => {
   }
 
   function colorK5(u, v) {
-    const cyc = new Set([
-      edgeKey(0, 1), edgeKey(1, 2), edgeKey(2, 3), edgeKey(3, 4), edgeKey(4, 0)
-    ]);
+    const cyc = new Set([edgeKey(0, 1), edgeKey(1, 2), edgeKey(2, 3), edgeKey(3, 4), edgeKey(4, 0)]);
     return cyc.has(edgeKey(u, v)) ? COLORS.red : COLORS.blue;
   }
 
@@ -515,16 +394,16 @@ const vizRamsey33 = (() => {
 
     completeEdges(n).forEach(([u, v]) => {
       const c = mode === 'k5' ? colorK5(u, v) : colorK6(u, v);
-      drawEdge(ctx, pts[u].x, pts[u].y, pts[v].x, pts[v].y, c + 'aa', 2.5);
+      drawEdge(ctx, pts[u].x, pts[u].y, pts[v].x, pts[v].y, c + '99', 2);
     });
 
     if (mode === 'k6' && showTri) {
       [[0, 1], [1, 2], [0, 2]].forEach(([u, v]) => {
-        drawEdge(ctx, pts[u].x, pts[u].y, pts[v].x, pts[v].y, COLORS.yellow, 6);
+        drawEdge(ctx, pts[u].x, pts[u].y, pts[v].x, pts[v].y, '#fff', 5);
       });
     }
 
-    pts.forEach((p, i) => drawNode(ctx, p.x, p.y, 17, COLORS.node, String(i + 1), '#111'));
+    pts.forEach((p, i) => drawNode(ctx, p.x, p.y, 15, '#bbb', String(i + 1), '#111'));
   }
 
   function draw() {
@@ -534,30 +413,18 @@ const vizRamsey33 = (() => {
 
     if (mode === 'k5') {
       drawGraph(ctx, 5);
-      drawLabel(ctx, 'K5 coloring with no monochromatic triangle', 300, 282, COLORS.orange, 14);
+      drawLabel(ctx, 'K5: no mono triangle possible', 300, 282, COLORS.dim, 13);
     } else {
       drawGraph(ctx, 6);
-      drawLabel(ctx, 'K6 example with a monochromatic triangle', 300, 282, COLORS.green, 14);
-    }
-
-    const lbl = document.getElementById('ramsey33-label');
-    if (lbl) {
-      if (mode === 'k5') lbl.textContent = 'Lower bound witness: R(3,3) > 5.';
-      else lbl.textContent = showTri
-        ? 'Highlighted monochromatic triangle (forced phenomenon at 6 vertices).'
-        : 'Use toggle to highlight a monochromatic triangle.';
+      drawLabel(ctx, 'K6: mono triangle unavoidable', 300, 282, COLORS.dim, 13);
     }
   }
 
   function showK5() { mode = 'k5'; showTri = false; draw(); }
   function showK6() { mode = 'k6'; showTri = true; draw(); }
   function toggleTriangle() {
-    if (mode !== 'k6') {
-      mode = 'k6';
-      showTri = true;
-    } else {
-      showTri = !showTri;
-    }
+    if (mode !== 'k6') { mode = 'k6'; showTri = true; }
+    else showTri = !showTri;
     draw();
   }
   function reset() { mode = 'k5'; showTri = false; draw(); }
@@ -572,29 +439,21 @@ const vizRamsey33 = (() => {
 const vizRamsey34 = (() => {
   let mode = 'lower';
 
-  function drawMini(ctx, cx, cy, n, highlightColor) {
+  function drawMini(ctx, cx, cy, n, color) {
     for (let i = 0; i < n; i++) {
       const a = -Math.PI / 2 + (2 * Math.PI * i) / n;
-      drawNode(
-        ctx,
-        cx + 55 * Math.cos(a),
-        cy + 55 * Math.sin(a),
-        9,
-        highlightColor,
-        '',
-        '#111'
-      );
+      drawNode(ctx, cx + 50 * Math.cos(a), cy + 50 * Math.sin(a), 7, color, '', '#111');
     }
   }
 
   function drawPanel(ctx, x, title, subtitle, active, color) {
-    ctx.fillStyle = active ? color + '22' : '#ffffff08';
-    ctx.strokeStyle = active ? color : '#ffffff22';
-    ctx.lineWidth = active ? 2.5 : 1.2;
-    ctx.fillRect(x, 20, 250, 180);
-    ctx.strokeRect(x, 20, 250, 180);
-    drawLabel(ctx, title, x + 125, 42, active ? color : COLORS.text, 14);
-    drawLabel(ctx, subtitle, x + 125, 190, active ? color : COLORS.dim, 12);
+    ctx.fillStyle = active ? '#1a1a1a' : '#111';
+    ctx.strokeStyle = active ? color : '#333';
+    ctx.lineWidth = active ? 2 : 1;
+    ctx.fillRect(x, 20, 240, 175);
+    ctx.strokeRect(x, 20, 240, 175);
+    drawLabel(ctx, title, x + 120, 40, active ? color : COLORS.dim, 13);
+    drawLabel(ctx, subtitle, x + 120, 185, active ? color : COLORS.dim, 11);
   }
 
   function draw() {
@@ -603,20 +462,11 @@ const vizRamsey34 = (() => {
     clearCanvas(ctx, 600, 220);
 
     const low = mode === 'lower';
-    const up = mode === 'upper';
+    drawPanel(ctx, 35, 'n = 8', 'Avoidable', low, COLORS.orange);
+    drawPanel(ctx, 325, 'n = 9', 'Guaranteed', !low, COLORS.green);
 
-    drawPanel(ctx, 30, 'n = 8', 'Not guaranteed', low, COLORS.orange);
-    drawPanel(ctx, 320, 'n = 9', 'Guaranteed', up, COLORS.green);
-
-    drawMini(ctx, 155, 110, 8, low ? '#fed7aa' : '#e5e7eb');
-    drawMini(ctx, 445, 110, 9, up ? '#bbf7d0' : '#e5e7eb');
-
-    const lbl = document.getElementById('ramsey34-label');
-    if (lbl) {
-      lbl.textContent = low
-        ? 'Lower side: there exists an 8-vertex coloring avoiding red K3 and blue K4.'
-        : 'Upper side: every 9-vertex coloring forces red K3 or blue K4.';
-    }
+    drawMini(ctx, 155, 108, 8, low ? '#aaa' : '#555');
+    drawMini(ctx, 445, 108, 9, !low ? '#aaa' : '#555');
   }
 
   function showLower() { mode = 'lower'; draw(); }
@@ -631,8 +481,7 @@ const vizRamsey34 = (() => {
 // 1.64 RECURSIVE BOUNDS + 1.64*
 // ============================================================
 const vizRamseyBounds = (() => {
-  let p = 3;
-  let q = 4;
+  let p = 3, q = 4;
 
   function recBound(a, b, memo = {}) {
     const key = `${a},${b}`;
@@ -646,31 +495,9 @@ const vizRamseyBounds = (() => {
   }
 
   function improvedBound(a, b) {
-    const left = recBound(a - 1, b);
-    const right = recBound(a, b - 1);
-    if (left % 2 === 0 && right % 2 === 0) return left + right - 1;
-    return left + right;
-  }
-
-  function drawBars(ctx, values, labels, colors) {
-    const maxVal = Math.max(...values, 1);
-    const baseY = 240;
-    const barW = 120;
-    const gap = 45;
-    const startX = 55;
-
-    for (let i = 0; i < values.length; i++) {
-      const h = (values[i] / maxVal) * 130;
-      const x = startX + i * (barW + gap);
-      const y = baseY - h;
-      ctx.fillStyle = colors[i] + 'bb';
-      ctx.fillRect(x, y, barW, h);
-      ctx.strokeStyle = colors[i];
-      ctx.lineWidth = 2;
-      ctx.strokeRect(x, y, barW, h);
-      drawLabel(ctx, labels[i], x + barW / 2, 252, COLORS.text, 12);
-      drawLabel(ctx, String(values[i]), x + barW / 2, y - 10, colors[i], 13);
-    }
+    const l = recBound(a - 1, b);
+    const r = recBound(a, b - 1);
+    return (l % 2 === 0 && r % 2 === 0) ? l + r - 1 : l + r;
   }
 
   function draw() {
@@ -678,48 +505,40 @@ const vizRamseyBounds = (() => {
     if (!ctx) return;
     clearCanvas(ctx, 600, 280);
 
-    const left = recBound(p - 1, q);
-    const right = recBound(p, q - 1);
-    const rec = left + right;
+    const l = recBound(p - 1, q);
+    const r = recBound(p, q - 1);
+    const rec = l + r;
     const imp = improvedBound(p, q);
     const closed = binom(p + q - 2, p - 1);
 
-    drawLabel(ctx, `p = ${p}, q = ${q}`, 300, 20, COLORS.accent, 15);
-    drawLabel(ctx, `R(p,q) <= R(p-1,q)+R(p,q-1) = ${left}+${right} = ${rec}`, 300, 42, COLORS.text, 12);
-    drawLabel(ctx, `Improved: ${imp}   (only when both pieces are even)`, 300, 62, COLORS.green, 12);
-    drawLabel(ctx, `Erdos-Szekeres: C(p+q-2, p-1) = C(${p + q - 2}, ${p - 1}) = ${closed}`, 300, 82, COLORS.yellow, 12);
+    drawLabel(ctx, `R(${p},${q})`, 300, 20, COLORS.accent, 16);
+    drawLabel(ctx, `Recursive:  R(${p-1},${q}) + R(${p},${q-1}) = ${l}+${r} = ${rec}`, 300, 48, COLORS.dim, 12);
+    drawLabel(ctx, `Improved:   ${imp}${imp < rec ? '  (both pieces even, save 1)' : '  (no parity gain)'}`, 300, 68, COLORS.dim, 12);
+    drawLabel(ctx, `Binomial:   C(${p+q-2}, ${p-1}) = ${closed}`, 300, 88, COLORS.dim, 12);
 
-    drawBars(
-      ctx,
-      [rec, imp, closed],
-      ['Recursive', 'Improved', 'Binomial'],
-      [COLORS.blue, COLORS.green, COLORS.yellow]
-    );
+    const maxVal = Math.max(rec, imp, closed, 1);
+    const baseY = 240, barW = 110, gap = 40, startX = 60;
+    const vals = [rec, imp, closed];
+    const labels = ['Recursive', 'Improved', 'Binomial'];
+    const fills = ['#888', '#aaa', '#666'];
 
-    const lbl = document.getElementById('ramsey-bounds-label');
-    if (lbl) {
-      const parityMsg = left % 2 === 0 && right % 2 === 0
-        ? 'Parity condition satisfied: improved bound is recursive bound minus 1.'
-        : 'Parity condition not satisfied: improved bound equals recursive bound.';
-      lbl.textContent = parityMsg;
+    for (let i = 0; i < 3; i++) {
+      const h = (vals[i] / maxVal) * 120;
+      const x = startX + i * (barW + gap);
+      const y = baseY - h;
+      ctx.fillStyle = fills[i];
+      ctx.fillRect(x, y, barW, h);
+      ctx.strokeStyle = '#555';
+      ctx.lineWidth = 1;
+      ctx.strokeRect(x, y, barW, h);
+      drawLabel(ctx, labels[i], x + barW / 2, 252, COLORS.dim, 11);
+      drawLabel(ctx, String(vals[i]), x + barW / 2, y - 10, '#ddd', 13);
     }
   }
 
-  function changeP(d) {
-    p = Math.max(2, Math.min(8, p + d));
-    draw();
-  }
-
-  function changeQ(d) {
-    q = Math.max(2, Math.min(8, q + d));
-    draw();
-  }
-
-  function reset() {
-    p = 3;
-    q = 4;
-    draw();
-  }
+  function changeP(d) { p = Math.max(2, Math.min(8, p + d)); draw(); }
+  function changeQ(d) { q = Math.max(2, Math.min(8, q + d)); draw(); }
+  function reset() { p = 3; q = 4; draw(); }
 
   setTimeout(draw, 100);
   return { changeP, changeQ, reset };
@@ -740,9 +559,7 @@ const vizErdos = (() => {
 
   function drawPascal(ctx, rowHi, colHi) {
     const maxRow = 8;
-    const startY = 20;
-    const dy = 26;
-    const dx = 44;
+    const startY = 20, dy = 26, dx = 44;
 
     for (let n = 0; n <= maxRow; n++) {
       for (let k = 0; k <= n; k++) {
@@ -752,13 +569,13 @@ const vizErdos = (() => {
         if (isHi) {
           ctx.beginPath();
           ctx.arc(x, y, 16, 0, Math.PI * 2);
-          ctx.fillStyle = COLORS.yellow + '66';
+          ctx.fillStyle = '#333';
           ctx.fill();
-          ctx.strokeStyle = COLORS.yellow;
+          ctx.strokeStyle = '#fff';
           ctx.lineWidth = 2;
           ctx.stroke();
         }
-        drawLabel(ctx, String(binom(n, k)), x, y, isHi ? COLORS.yellow : '#cbd5e1', 11);
+        drawLabel(ctx, String(binom(n, k)), x, y, isHi ? '#fff' : '#666', 11);
       }
     }
   }
@@ -774,30 +591,19 @@ const vizErdos = (() => {
     const bound = binom(row, col);
 
     drawPascal(ctx, row, col);
-    drawLabel(ctx, `Highlight: C(${row}, ${col}) = ${bound}`, 300, 248, COLORS.accent, 14);
+    drawLabel(ctx, `C(${row}, ${col}) = ${bound}`, 300, 248, COLORS.accent, 13);
 
     const lbl = document.getElementById('erdos-label');
     if (lbl) {
-      let text = `For (r,s)=(${ex.r},${ex.s}), R(r,s) <= C(${row},${col}) = ${bound}.`;
-      if (ex.exact !== null) text += ` Known exact value: ${ex.exact}.`;
+      let text = `R(${ex.r},${ex.s}) <= C(${row},${col}) = ${bound}.`;
+      if (ex.exact !== null) text += `  Exact: ${ex.exact}.`;
       lbl.textContent = text;
     }
   }
 
-  function next() {
-    idx = (idx + 1) % examples.length;
-    draw();
-  }
-
-  function prev() {
-    idx = (idx - 1 + examples.length) % examples.length;
-    draw();
-  }
-
-  function reset() {
-    idx = 0;
-    draw();
-  }
+  function next() { idx = (idx + 1) % examples.length; draw(); }
+  function prev() { idx = (idx - 1 + examples.length) % examples.length; draw(); }
+  function reset() { idx = 0; draw(); }
 
   setTimeout(draw, 100);
   return { next, prev, reset };

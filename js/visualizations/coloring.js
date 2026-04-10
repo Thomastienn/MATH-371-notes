@@ -140,8 +140,8 @@ const vizDelCon = (() => {
     const lbl = document.getElementById('delcon-label');
     if(mode === 'original') {
       drawEdge(ctx, 200, 80, 400, 80, COLORS.red, 3);
-      drawEdge(ctx, 200, 80, 300, 230, '#58a6ff88');
-      drawEdge(ctx, 400, 80, 300, 230, '#58a6ff88');
+      drawEdge(ctx, 200, 80, 300, 230, '#555');
+      drawEdge(ctx, 400, 80, 300, 230, '#555');
       drawNode(ctx, 200, 80, 24, COLORS.node, 'a');
       drawNode(ctx, 400, 80, 24, COLORS.node, 'b');
       drawNode(ctx, 300, 230, 24, COLORS.node, 'c');
@@ -187,7 +187,7 @@ const vizCycle = (() => {
       const a = -Math.PI/2 + (2*Math.PI*i)/N;
       pts.push({x:300+100*Math.cos(a), y:150+100*Math.sin(a)});
     }
-    for(let i=0;i<N;i++) { const j=(i+1)%N; drawEdge(ctx, pts[i].x, pts[i].y, pts[j].x, pts[j].y, '#58a6ff55'); }
+    for(let i=0;i<N;i++) { const j=(i+1)%N; drawEdge(ctx, pts[i].x, pts[i].y, pts[j].x, pts[j].y, '#444'); }
     pts.forEach((p,i) => drawNode(ctx, p.x, p.y, 22, COLORS.palette[i%K], 'v'+(i+1), '#111'));
     // color palette
     for(let c=0;c<K;c++) {

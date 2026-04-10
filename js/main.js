@@ -2,11 +2,11 @@
 // MATH 371 — Interactive Theorem Visualizations
 // ============================================================
 const COLORS = {
-  bg: '#1c2333', node: '#e8f4fd', text: '#e6edf3', dim: '#8b949e',
-  accent: '#58a6ff', edge: '#58a6ff',
-  palette: ['#ff6b6b','#4dabf7','#51cf66','#ffd43b','#cc5de8','#ff922b','#20c997'],
-  red: '#ff6b6b', blue: '#4dabf7', green: '#51cf66', yellow: '#ffd43b',
-  purple: '#cc5de8', orange: '#ff922b'
+  bg: '#181818', node: '#d4d4d4', text: '#d4d4d4', dim: '#777',
+  accent: '#bbb', edge: '#888',
+  palette: ['#d95555','#6a9fc4','#5db85d','#c9a84c','#9475b2','#c78740','#5aafa5'],
+  red: '#d95555', blue: '#6a9fc4', green: '#5db85d', yellow: '#c9a84c',
+  purple: '#9475b2', orange: '#c78740'
 };
 
 // --- Utility ---
@@ -17,7 +17,7 @@ function getCtx(id) {
 function drawNode(ctx, x, y, r, fill, label, textColor) {
   ctx.beginPath(); ctx.arc(x, y, r, 0, Math.PI*2);
   ctx.fillStyle = fill || COLORS.node; ctx.fill();
-  ctx.strokeStyle = '#58a6ff'; ctx.lineWidth = 2; ctx.stroke();
+  ctx.strokeStyle = '#888'; ctx.lineWidth = 1.5; ctx.stroke();
   if (label) { ctx.fillStyle = textColor || '#111'; ctx.font = 'bold 14px Inter, sans-serif'; ctx.textAlign = 'center'; ctx.textBaseline = 'middle'; ctx.fillText(label, x, y); }
 }
 function drawEdge(ctx, x1, y1, x2, y2, color, width) {

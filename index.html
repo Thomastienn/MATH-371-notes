@@ -20,7 +20,7 @@
   <div class="search-box sidebar-search">
     <input type="text" id="searchInput" placeholder="Search theorems or terms..." autocomplete="off">
   </div>
-  <a href="#glossary" class="glossary-link">📚 Glossary of Terms</a>
+  <a href="#glossary" class="glossary-link">Glossary</a>
   <h3 class="nav-heading">Theorems</h3>
   <div id="nav-links">
     <a href="#thm-1-1">1.1 Handshaking Lemma</a>
@@ -75,13 +75,13 @@
 </nav>
 
 <div class="main">
-  <h1>MATH 371 — Interactive Visualizations</h1>
-  <p class="subtitle">Combinatorics & Graph Theory — Animated theorem companions for exam prep</p>
+  <h1>MATH 371</h1>
+  <p class="subtitle">Graph Theory — Quick-recall theorem reference</p>
 
   <!-- ======================== GLOSSARY ======================== -->
   <div class="glossary-section" id="glossary">
     <div class="glossary-header" onclick="this.parentElement.classList.toggle('open')">
-      <h2>📚 Glossary of Graph Theory Terms</h2>
+      <h2>Glossary</h2>
       <svg class="chevron" viewBox="0 0 24 24"><path d="M7 10l5 5 5-5z"/></svg>
     </div>
     <div class="glossary-wrapper">
@@ -967,56 +967,76 @@
   </div>
 
 
-  <h2 class="section-header">Quiz 5 — Matchings and Ramsey Theory</h2>
+  <h2 class="section-header">Quiz 5 — Matchings & Ramsey Theory</h2>
 
   <div class="theorem" id="thm-1-50">
     <div class="theorem-header">
-      <h2>Theorem 1.50 — Berge's Theorem</h2>
+      <h2>1.50 — Berge's Theorem</h2>
       <svg class="chevron" viewBox="0 0 24 24"><path d="M7 10l5 5 5-5z"/></svg>
     </div>
     <div class="theorem-content">
-      <div class="statement">A matching $M$ is maximum $\iff$ there is no $M$-augmenting path.</div>
-      <div class="intuition">An augmenting path is an alternating "upgrade path" between two unmatched vertices. Flip matched/unmatched status along it and you gain exactly one matching edge.</div>
+      <div class="statement">$M$ is maximum $\iff$ no $M$-augmenting path exists.</div>
+      <div class="intuition">Augmenting path = alternating path between two <strong>unmatched</strong> vertices. Flip all edges along it: unmatched become matched and vice versa. You gain +1 edge.</div>
+      <div class="memory">
+        <strong>Aug path found?</strong> Flip it, M grows. <strong>No aug path?</strong> M is already max.<br>
+        Converse: if $M$ isn't max, take a bigger $M^*$. In $M \triangle M^*$, each component is a path or cycle. Some path must have more $M^*$ edges $\Rightarrow$ augmenting path for $M$.
+      </div>
       <div class="viz-container">
         <canvas id="canvas-berge" width="600" height="280"></canvas>
         <div class="viz-controls">
           <button onclick="vizBerge.flip()">Flip Augmenting Path</button>
           <button class="secondary" onclick="vizBerge.reset()">Reset</button>
         </div>
-        <div class="viz-label" id="berge-label">Green edges are in $M$. Orange edges form an augmenting path.</div>
+        <div class="viz-label" id="berge-label">White edges = M. Click flip to augment.</div>
       </div>
-      <div class="proof">Under symmetric difference, augmenting-path edges swap status, and because the path starts and ends unmatched, you gain one extra edge in the matching. No augmenting path means no 1-step improvement exists.</div>
+      <div class="proof">
+        <strong>($\Rightarrow$)</strong> Augmenting path $\Rightarrow$ flip $\Rightarrow$ $|M|$ grows. So $M$ wasn't max.<br>
+        <strong>($\Leftarrow$)</strong> Let $M^*$ be larger. In $M \triangle M^*$: paths and even cycles alternate $M/M^*$ edges. Some path has more $M^*$-edges than $M$-edges, and its endpoints are unmatched in $M$. That path is $M$-augmenting. $\square$
+      </div>
     </div>
   </div>
 
   <div class="theorem" id="thm-1-51">
     <div class="theorem-header">
-      <h2>Theorem 1.51 — Hall's Marriage Theorem</h2>
+      <h2>1.51 — Hall's Marriage Theorem</h2>
       <svg class="chevron" viewBox="0 0 24 24"><path d="M7 10l5 5 5-5z"/></svg>
     </div>
     <div class="theorem-content">
-      <div class="statement">$X$ can be fully matched into $Y$ $\iff$ for every $S \subseteq X$, $|N(S)| \ge |S|$.</div>
-      <div class="intuition">Every subgroup of applicants needs enough options. If 3 applicants only touch 2 jobs, one must fail no matter what matching algorithm you use.</div>
+      <div class="statement">$X$ can be fully matched into $Y$ $\iff$ $|N(S)| \ge |S|$ for every $S \subseteq X$.</div>
+      <div class="intuition">If 3 applicants share only 2 jobs, someone is left out. Hall says: this is the <em>only</em> obstruction.</div>
+      <div class="memory">
+        <strong>Necessity:</strong> obvious (matched vertices need distinct neighbors).<br>
+        <strong>Sufficiency (induction on $|X|$):</strong><br>
+        &bull; <strong>Case 1</strong> (strict: $|N(S)| \ge |S|+1$ for all proper $S$): match any $x$ to any neighbor, remove both, Hall still holds.<br>
+        &bull; <strong>Case 2</strong> (tight: some $S$ with $|N(S)|=|S|$): match $S$ inside $N(S)$ by induction; then $X\setminus S$ still satisfies Hall in $Y\setminus N(S)$.
+      </div>
       <div class="viz-container">
         <canvas id="canvas-hall" width="600" height="280"></canvas>
         <div class="viz-controls">
-          <button onclick="vizHall.showGood()">Show Hall Holds</button>
-          <button onclick="vizHall.showBad()">Show Hall Fails</button>
+          <button onclick="vizHall.showGood()">Hall Holds</button>
+          <button onclick="vizHall.showBad()">Hall Fails</button>
           <button class="secondary" onclick="vizHall.reset()">Reset</button>
         </div>
-        <div class="viz-label" id="hall-label">Highlighted set $S$ on the left and its neighborhood $N(S)$ on the right.</div>
+        <div class="viz-label" id="hall-label">$S$ highlighted on left, $N(S)$ highlighted on right.</div>
+      </div>
+      <div class="proof">
+        <strong>Necessity:</strong> If $M$ saturates $X$, vertices of $S$ map to distinct vertices in $N(S)$, so $|N(S)|\ge|S|$.<br>
+        <strong>Sufficiency</strong> by induction on $|X|$. <em>Case 1:</em> strict inequality everywhere. Pick $x\in X$, $y\in N(x)$, remove both. Hall still holds in smaller graph; induction gives matching, add $xy$. <em>Case 2:</em> $\exists S$ with $|N(S)|=|S|$. Match $S$ into $N(S)$ by induction. For $X_2=X\setminus S$, $Y_2=Y\setminus N(S)$: Hall on $T\cup S$ gives $|N(T)\setminus N(S)|\ge|T|$. Induction matches $X_2$ into $Y_2$. Combine. $\square$
       </div>
     </div>
   </div>
 
   <div class="theorem" id="thm-1-52">
     <div class="theorem-header">
-      <h2>Theorem 1.52 — System of Distinct Representatives (SDR)</h2>
+      <h2>1.52 — SDR (System of Distinct Representatives)</h2>
       <svg class="chevron" viewBox="0 0 24 24"><path d="M7 10l5 5 5-5z"/></svg>
     </div>
     <div class="theorem-content">
-      <div class="statement">$S_1,\dots,S_k$ has an SDR $\iff$ every subcollection of $t$ sets has union size at least $t$.</div>
-      <div class="intuition">SDR is Hall's theorem in set language: sets are "left vertices," elements are "right vertices." Distinct representatives are just a full matching on the left side.</div>
+      <div class="statement">$S_1,\dots,S_k$ has an SDR $\iff$ $|\bigcup_{i\in I} S_i| \ge |I|$ for every $I \subseteq \{1,\dots,k\}$.</div>
+      <div class="intuition">SDR = Hall in disguise. Sets are left vertices, elements are right. Choosing distinct reps = matching that saturates the left.</div>
+      <div class="memory">
+        <strong>Recipe:</strong> Build bipartite graph: $S_i$--$x$ iff $x\in S_i$. Then SDR $\iff$ left-saturating matching $\iff$ Hall's condition. One theorem, two languages.
+      </div>
       <div class="viz-container">
         <canvas id="canvas-sdr" width="600" height="280"></canvas>
         <div class="viz-controls">
@@ -1024,36 +1044,40 @@
           <button onclick="vizSDR.showFailure()">SDR Fails</button>
           <button class="secondary" onclick="vizSDR.reset()">Reset</button>
         </div>
-        <div class="viz-label" id="sdr-label">Green edges are chosen representatives.</div>
+        <div class="viz-label" id="sdr-label">White edges = chosen representatives.</div>
       </div>
     </div>
   </div>
 
   <div class="theorem" id="claim-lecture-27">
     <div class="theorem-header">
-      <h2>Lecture 27 Claims</h2>
+      <h2>Lecture 27 — Tree Matching + Degree Bound</h2>
       <svg class="chevron" viewBox="0 0 24 24"><path d="M7 10l5 5 5-5z"/></svg>
     </div>
     <div class="theorem-content">
-      <div class="statement">(1) Every tree has at most one perfect matching. &nbsp; (2) If $|V|=2k$ and $\delta(G)\ge k$, then $G$ has a perfect matching.</div>
+      <div class="statement">(1) Every tree has at most one perfect matching. (2) $|V|=2k$, $\delta(G)\ge k$ $\Rightarrow$ perfect matching.</div>
+      <div class="memory">
+        <strong>Claim 1:</strong> Two PMs $\Rightarrow$ symmetric difference has an alternating cycle. Trees have no cycles. Done.<br>
+        <strong>Claim 2:</strong> $\delta \ge n/2$ $\Rightarrow$ Dirac $\Rightarrow$ Hamiltonian cycle $\Rightarrow$ alternate edges of the cycle = PM (works because $n$ is even).
+      </div>
       <div class="quiz-split">
         <div class="quiz-panel">
-          <h3>Claim 1 — Trees Force Matching Choices</h3>
+          <h3>Claim 1 — Leaves Force Choices</h3>
           <canvas id="canvas-claim-tree" width="420" height="230"></canvas>
           <div class="viz-controls">
-            <button onclick="vizClaimsTree.step()">Next Forced Step</button>
+            <button onclick="vizClaimsTree.step()">Next Step</button>
             <button class="secondary" onclick="vizClaimsTree.reset()">Reset</button>
           </div>
-          <div class="viz-label" id="claim-tree-label">Leaves force unique choices.</div>
+          <div class="viz-label" id="claim-tree-label">Each leaf has only one option.</div>
         </div>
         <div class="quiz-panel">
-          <h3>Claim 2 — Degree Bound Makes Pairing Possible</h3>
+          <h3>Claim 2 — High Degree $\Rightarrow$ PM</h3>
           <canvas id="canvas-claim-degree" width="420" height="230"></canvas>
           <div class="viz-controls">
-            <button onclick="vizClaimsDegree.toggleMatching()">Toggle Perfect Matching</button>
+            <button onclick="vizClaimsDegree.toggleMatching()">Toggle PM</button>
             <button class="secondary" onclick="vizClaimsDegree.reset()">Reset</button>
           </div>
-          <div class="viz-label" id="claim-degree-label">Dense enough graph with $|V|=2k$, $\delta\ge k$.</div>
+          <div class="viz-label" id="claim-degree-label">$|V|=6=2k$, $\delta=3=k$.</div>
         </div>
       </div>
     </div>
@@ -1061,116 +1085,156 @@
 
   <div class="theorem" id="thm-1-53">
     <div class="theorem-header">
-      <h2>Theorem 1.53 — König-Egerváry Theorem</h2>
+      <h2>1.53 — König-Egerváry</h2>
       <svg class="chevron" viewBox="0 0 24 24"><path d="M7 10l5 5 5-5z"/></svg>
     </div>
     <div class="theorem-content">
-      <div class="statement">In bipartite graphs, $\alpha'(G)=\beta(G)$ (max matching size equals min vertex cover size).</div>
-      <div class="intuition">Two different optimization problems collapse to one value: "most disjoint edges" equals "fewest vertices that hit all edges."</div>
+      <div class="statement">In bipartite $G$: $\alpha'(G)=\beta(G)$ &nbsp; (max matching = min vertex cover).</div>
+      <div class="intuition">"Most disjoint edges" = "fewest vertices hitting all edges." Two dual problems, same answer in bipartite graphs.</div>
+      <div class="memory">
+        <strong>Always:</strong> $\alpha' \le \beta$ (each matching edge needs its own cover vertex).<br>
+        <strong>Bipartite trick:</strong> Start from max matching $M$. Build alternating-path reachability from unmatched vertices. Construct cover $C$ with $|C|=|M|$. So $\beta \le \alpha'$.
+      </div>
       <div class="viz-container">
         <canvas id="canvas-konig" width="600" height="280"></canvas>
         <div class="viz-controls">
-          <button onclick="vizKonig.showMatching()">Show Max Matching</button>
-          <button onclick="vizKonig.showCover()">Show Min Vertex Cover</button>
-          <button onclick="vizKonig.showBoth()">Overlay Both</button>
+          <button onclick="vizKonig.showMatching()">Max Matching</button>
+          <button onclick="vizKonig.showCover()">Min Cover</button>
+          <button onclick="vizKonig.showBoth()">Both</button>
           <button class="secondary" onclick="vizKonig.reset()">Reset</button>
         </div>
-        <div class="viz-label" id="konig-label">Green edges: matching. Yellow vertices: cover.</div>
+        <div class="viz-label" id="konig-label">White edges = matching. Bright vertices = cover.</div>
+      </div>
+      <div class="proof">
+        $\alpha' \le \beta$: each edge of a matching needs a distinct cover vertex.<br>
+        $\beta \le \alpha'$: Let $M$ be max matching in bipartite $G=(X,Y)$. Let $U=$ unmatched vertices in $X$. Follow alternating paths from $U$; let $Z=$ all vertices reached. Set $C=(X\setminus Z)\cup(Y\cap Z)$. Every edge touches $C$, and $|C|=|M|$. $\square$
       </div>
     </div>
   </div>
 
   <div class="theorem" id="thm-1-61">
     <div class="theorem-header">
-      <h2>Theorem 1.61 — Ramsey Number $R(3,3)$</h2>
+      <h2>1.61 — $R(3,3) = 6$</h2>
       <svg class="chevron" viewBox="0 0 24 24"><path d="M7 10l5 5 5-5z"/></svg>
     </div>
     <div class="theorem-content">
-      <div class="statement">$R(3,3)=6$</div>
-      <div class="intuition">At 5 vertices, you can avoid monochromatic triangles. At 6, every red/blue edge coloring forces one.</div>
+      <div class="statement">$R(3,3) = 6$</div>
+      <div class="intuition">At a party of 6, any red/blue coloring of friendships forces a monochromatic triangle.</div>
+      <div class="memory">
+        <strong>Upper ($\le 6$):</strong> Pick vertex $v$. It has 5 edges, so $\ge 3$ same color (say red to $a,b,c$). If any of $ab,bc,ca$ is red $\Rightarrow$ red triangle. If all three are blue $\Rightarrow$ blue triangle.<br>
+        <strong>Lower ($>5$):</strong> Color $C_5$ red, complement red. No mono triangle.
+      </div>
       <div class="viz-container">
         <canvas id="canvas-ramsey33" width="600" height="300"></canvas>
         <div class="viz-controls">
-          <button onclick="vizRamsey33.showK5()">K₅ Counterexample</button>
-          <button onclick="vizRamsey33.showK6()">K₆ Example</button>
-          <button onclick="vizRamsey33.toggleTriangle()">Highlight Monochromatic Triangle</button>
+          <button onclick="vizRamsey33.showK5()">$K_5$ (avoidable)</button>
+          <button onclick="vizRamsey33.showK6()">$K_6$ (forced)</button>
+          <button onclick="vizRamsey33.toggleTriangle()">Highlight Triangle</button>
           <button class="secondary" onclick="vizRamsey33.reset()">Reset</button>
         </div>
-        <div class="viz-label" id="ramsey33-label">Red/blue edge colorings for $R(3,3)$ intuition.</div>
+        <div class="viz-label" id="ramsey33-label">$K_5$ coloring with no mono triangle.</div>
+      </div>
+      <div class="proof">
+        <strong>$\le 6$:</strong> Pick $v$ in $K_6$. Among 5 edges, $\ge 3$ have same color (WLOG red to $a,b,c$). If $ab,bc,$ or $ca$ is red $\Rightarrow$ red $K_3$. Otherwise $\{a,b,c\}$ is blue $K_3$.<br>
+        <strong>$> 5$:</strong> $C_5$ red, $\overline{C_5}$ blue. Check: no mono triangle. $\square$
       </div>
     </div>
   </div>
 
   <div class="theorem" id="thm-1-62">
     <div class="theorem-header">
-      <h2>Theorem 1.62 — Ramsey Number $R(3,4)$</h2>
+      <h2>1.62 — $R(3,4) = 9$</h2>
       <svg class="chevron" viewBox="0 0 24 24"><path d="M7 10l5 5 5-5z"/></svg>
     </div>
     <div class="theorem-content">
-      <div class="statement">$R(3,4)=9$</div>
-      <div class="intuition">Eight vertices are not enough for a guaranteed red $K_3$ or blue $K_4$. Nine vertices force one.</div>
+      <div class="statement">$R(3,4) = 9$</div>
+      <div class="intuition">8 vertices can dodge red $K_3$ and blue $K_4$. 9 cannot.</div>
+      <div class="memory">
+        <strong>Upper:</strong> $R(3,4) \le R(2,4)+R(3,3)-1 = 4+6-1 = 9$ (improved bound, both pieces even).<br>
+        <strong>Lower:</strong> Explicit coloring of $K_8$ with no red $K_3$ and no blue $K_4$.
+      </div>
       <div class="viz-container">
         <canvas id="canvas-ramsey34" width="600" height="220"></canvas>
         <div class="viz-controls">
-          <button onclick="vizRamsey34.showLower()">Show 8-Vertex Side</button>
-          <button onclick="vizRamsey34.showUpper()">Show 9-Vertex Guarantee</button>
+          <button onclick="vizRamsey34.showLower()">$n=8$ (avoidable)</button>
+          <button onclick="vizRamsey34.showUpper()">$n=9$ (forced)</button>
           <button class="secondary" onclick="vizRamsey34.reset()">Reset</button>
         </div>
-        <div class="viz-label" id="ramsey34-label">Threshold view for $R(3,4)$.</div>
+        <div class="viz-label" id="ramsey34-label">Threshold at $n=9$.</div>
       </div>
     </div>
   </div>
 
   <div class="theorem" id="thm-1-64">
     <div class="theorem-header">
-      <h2>Theorem 1.64 — Recursive Ramsey Bounds</h2>
+      <h2>1.64 — Recursive Ramsey Bound</h2>
       <svg class="chevron" viewBox="0 0 24 24"><path d="M7 10l5 5 5-5z"/></svg>
     </div>
     <div class="theorem-content">
-      <div class="statement">$R(p,q) \le R(p-1,q)+R(p,q-1)$</div>
-      <div class="intuition">Pick one pivot vertex. Its red-neighbors and blue-neighbors split the problem into two smaller Ramsey subproblems.</div>
+      <div class="statement">$R(p,q) \le R(p-1,q) + R(p,q-1)$</div>
+      <div class="intuition">Pick any vertex $v$. Its edges split into red-neighbors and blue-neighbors. One group is big enough to recurse.</div>
+      <div class="memory">
+        <strong>Pivot trick:</strong> Set $N = R(p-1,q)+R(p,q-1)$. Vertex $v$ has $N-1$ neighbors. Pigeonhole: red-nbrs $\ge R(p-1,q)$ or blue-nbrs $\ge R(p,q-1)$. Either way, recurse into that neighborhood.
+      </div>
       <div class="viz-container">
         <canvas id="canvas-ramsey-bounds" width="600" height="280"></canvas>
         <div class="viz-controls">
-          <button onclick="vizRamseyBounds.changeP(-1)">p −</button>
-          <button onclick="vizRamseyBounds.changeP(1)">p +</button>
-          <button onclick="vizRamseyBounds.changeQ(-1)">q −</button>
-          <button onclick="vizRamseyBounds.changeQ(1)">q +</button>
+          <button onclick="vizRamseyBounds.changeP(-1)">p-</button>
+          <button onclick="vizRamseyBounds.changeP(1)">p+</button>
+          <button onclick="vizRamseyBounds.changeQ(-1)">q-</button>
+          <button onclick="vizRamseyBounds.changeQ(1)">q+</button>
           <button class="secondary" onclick="vizRamseyBounds.reset()">Reset</button>
         </div>
-        <div class="viz-label" id="ramsey-bounds-label">Compare recursive and closed-form upper bounds.</div>
+        <div class="viz-label" id="ramsey-bounds-label">Compare the three bounds.</div>
+      </div>
+      <div class="proof">
+        Set $N=R(p-1,q)+R(p,q-1)$. Color $K_N$. Pick $v$. Let $R=$ red-nbrs, $B=$ blue-nbrs. $|R|+|B|=N-1$.<br>
+        If $|R|\ge R(p-1,q)$: inside $R$, either red $K_{p-1}$ (add $v$ $\Rightarrow$ red $K_p$) or blue $K_q$.<br>
+        If $|B|\ge R(p,q-1)$: analogous. Either way, mono clique exists. $\square$
       </div>
     </div>
   </div>
 
   <div class="theorem" id="thm-1-64-star">
     <div class="theorem-header">
-      <h2>Theorem 1.64* — Improved Recursive Bound</h2>
+      <h2>1.64* — Improved Bound (Parity)</h2>
       <svg class="chevron" viewBox="0 0 24 24"><path d="M7 10l5 5 5-5z"/></svg>
     </div>
     <div class="theorem-content">
-      <div class="statement">If $R(p-1,q)$ and $R(p,q-1)$ are both even, then $R(p,q) \le R(p-1,q)+R(p,q-1)-1$.</div>
-      <div class="intuition">When both sub-bounds are even, one endpoint case is overcounted in the plain recurrence, so you can shave off one from the upper bound.</div>
-      <div class="memory">Use the calculator in Theorem 1.64: when both recursive pieces are even, the "improved" bar drops by exactly 1.</div>
+      <div class="statement">If $R(p-1,q)$ and $R(p,q-1)$ are both even: $R(p,q) \le R(p-1,q)+R(p,q-1)-1$.</div>
+      <div class="intuition">When both sub-bounds are even, a parity argument (odd degree sum in odd graph) gives a free $-1$.</div>
+      <div class="memory">
+        <strong>Key:</strong> At $N = \text{even}+\text{even}-1$ (odd), equality forces every vertex to have odd red-degree. But $N$ odd vertices with odd degree $\Rightarrow$ odd total degree. Impossible (degree sum is always even). Contradiction.
+      </div>
+      <div class="proof">
+        Let $N=R(p-1,q)+R(p,q-1)-1$. Suppose bad coloring exists. For each $v$: red-deg $\le R(p-1,q)-1$ and blue-deg $\le R(p,q-1)-1$. Sum $= N-1$, so both are equalities. Red-deg $=$ even$-1$ = odd. All $N$ (odd) vertices have odd red-degree. Sum of red degrees is odd. But $\sum\deg = 2|E|$ is even. Contradiction. $\square$
+      </div>
     </div>
   </div>
 
   <div class="theorem" id="thm-erdos">
     <div class="theorem-header">
-      <h2>Erdős-Szekeres Theorem — Binomial Bound</h2>
+      <h2>Erdős-Szekeres — Binomial Bound</h2>
       <svg class="chevron" viewBox="0 0 24 24"><path d="M7 10l5 5 5-5z"/></svg>
     </div>
     <div class="theorem-content">
       <div class="statement">$R(r,s) \le \binom{r+s-2}{r-1}$</div>
-      <div class="intuition">Unrolling the recursion aligns with Pascal's triangle, yielding a direct closed-form ceiling for Ramsey numbers.</div>
+      <div class="intuition">Unroll the recursion $R(r,s) \le R(r-1,s)+R(r,s-1)$. It mirrors Pascal's identity, collapsing to a single binomial coefficient.</div>
+      <div class="memory">
+        <strong>Base:</strong> $R(2,s)=s=\binom{s}{1}$, $R(r,2)=r=\binom{r}{r-1}$.<br>
+        <strong>Step:</strong> Apply 1.64 + induction + Pascal: $\binom{r+s-3}{r-2}+\binom{r+s-3}{r-1}=\binom{r+s-2}{r-1}$.
+      </div>
       <div class="viz-container">
         <canvas id="canvas-erdos" width="600" height="280"></canvas>
         <div class="viz-controls">
-          <button onclick="vizErdos.prev()">Previous Example</button>
-          <button onclick="vizErdos.next()">Next Example</button>
+          <button onclick="vizErdos.prev()">Prev</button>
+          <button onclick="vizErdos.next()">Next</button>
           <button class="secondary" onclick="vizErdos.reset()">Reset</button>
         </div>
-        <div class="viz-label" id="erdos-label">Pascal-triangle position corresponding to the binomial bound.</div>
+        <div class="viz-label" id="erdos-label">Highlighted position in Pascal's triangle.</div>
+      </div>
+      <div class="proof">
+        Induction on $r+s$. Base: $R(2,s)=s=\binom{s}{1}$. Step: $R(r,s)\le R(r-1,s)+R(r,s-1)\le\binom{r+s-3}{r-2}+\binom{r+s-3}{r-1}=\binom{r+s-2}{r-1}$ by Pascal. $\square$
       </div>
     </div>
   </div>

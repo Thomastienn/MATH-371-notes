@@ -19,7 +19,7 @@ const vizTree = (() => {
       drawEdge(ctx, nodes[i].x, nodes[i].y, nodes[j].x, nodes[j].y, c, splitEdge===idx?3:2);
     });
     nodes.forEach(n => {
-      const c = group ? (group[n.id]===0 ? '#bbdefb' : '#c8e6c9') : COLORS.node;
+      const c = group ? (group[n.id]===0 ? '#aaa' : '#777') : COLORS.node;
       drawNode(ctx, n.x, n.y, 20, c, String(n.id));
     });
     const lbl = document.getElementById('tree-label');
