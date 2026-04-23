@@ -249,6 +249,15 @@
               <strong>FALSE.</strong> Counterexample: two triangles sharing a single vertex $v$ (the "bowtie"). Every vertex lies on a triangle, but $v$ is a cut vertex, so $G$ is not 2-connected ($\kappa(G) = 1$).
             </div>
             <div class="yap"><strong>In class:</strong> "Same bowtie example — the shared vertex lies on a cycle but is still a cut vertex. Being 'on a cycle' is local; 2-connectedness is global."</div>
+            <div class="viz-container">
+              <canvas id="canvas-bowtie-2" width="600" height="300"></canvas>
+              <div class="viz-controls">
+                <button onclick="vizBowtie2.showNormal()">The Bowtie</button>
+                <button onclick="vizBowtie2.showCycles()">Every vertex on a cycle</button>
+                <button onclick="vizBowtie2.showRemove()">Yet c is a cut vertex</button>
+              </div>
+              <div class="viz-label">Every vertex lies on a triangle — but removing c disconnects the graph.</div>
+            </div>
           </div>
         </div>
 
@@ -297,6 +306,10 @@
               <strong>(b)</strong> Take $n$ even and let $G = K_{n/2} \cup K_{n/2}$ (disjoint union of two complete graphs). Then $\delta(G) = n/2 - 1 = \frac{n-2}{2}$, but $G$ is disconnected.
             </div>
             <div class="yap"><strong>In class:</strong> "(a) is a pigeonhole-style bound: if min degree is more than half, you can't split into two parts without somebody's degree being too low. (b) shows the bound $\frac{n-1}{2}$ is sharp — two $K_{n/2}$'s sit right at the threshold and fail."</div>
+            <div class="viz-container">
+              <canvas id="canvas-two-cliques" width="600" height="320"></canvas>
+              <div class="viz-label">Counterexample for (b): K₄ ⊔ K₄ has n=8, δ=3=(n−2)/2 but is disconnected.</div>
+            </div>
           </div>
         </div>
       </div>
@@ -361,6 +374,14 @@
               <em>Parity check:</em> $C_{10}$ is bipartite (even cycle), with $v_1$ and $v_5$ in different parts? $v_1, v_3, v_5, v_7, v_9$ in one part — both $v_1$ and $v_5$ same part. So walks between them must have even length. $2009$ is odd, hence $0$ walks.
             </div>
             <div class="yap"><strong>In class:</strong> "$C_{10}$ is bipartite. $v_1$ and $v_5$ are both in the odd-indexed partite set, so any walk between them has even length. $2009$ is odd, so the answer is $0$ by a parity argument."</div>
+            <div class="viz-container">
+              <canvas id="canvas-c10" width="600" height="320"></canvas>
+              <div class="viz-controls">
+                <button onclick="vizC10Bipartition.showPlain()">C₁₀</button>
+                <button onclick="vizC10Bipartition.showBipartition()">Show Bipartition</button>
+                <button onclick="vizC10Bipartition.showWalk()">Parity kills walk</button>
+              </div>
+            </div>
           </div>
         </div>
 
@@ -440,6 +461,16 @@
               <strong>Example:</strong> For the "caterpillar" tree with spine $2$–$3$–$4$–$5$ and leaves $1$ on $2$; $6,7$ on $3$; $8$ on $4$; $9,10,11$ on $5$ — removing in ascending leaf order gives Prüfer sequence $\mathbf{(2,3,3,4,5,5,5,4,3)}$ (length $n-2 = 9$).
             </div>
             <div class="yap"><strong>In class:</strong> "The Prüfer algorithm is deterministic: find the smallest-labeled leaf, record its (unique) neighbor, remove it. Repeat until 2 vertices remain. The resulting length is $n-2$."</div>
+            <div class="viz-container">
+              <canvas id="canvas-prufer-encode" width="600" height="320"></canvas>
+              <div class="viz-controls">
+                <button onclick="vizPruferEncode.prev()">Prev</button>
+                <button onclick="vizPruferEncode.next()">Next Step</button>
+                <button onclick="vizPruferEncode.autoPlay()">Auto-Play</button>
+                <button class="secondary" onclick="vizPruferEncode.reset()">Reset</button>
+              </div>
+              <div class="viz-label">Forward Prüfer: pop smallest leaf (yellow), record its neighbor (blue).</div>
+            </div>
           </div>
         </div>
 
@@ -528,6 +559,10 @@
               Thus # spanning trees of $K_n - e$ = (trees of $K_n$) − (trees of $K_n$ using $e$) = $n^{n-2} - 2n^{n-3} = n^{n-3}(n - 2) = (n-2) n^{n-3}$. $\square$
             </div>
             <div class="yap"><strong>In class:</strong> "Symmetry argument: each edge of $K_n$ appears in the same number of spanning trees (by vertex transitivity). Count edge-tree incidences two ways: $(n-1) n^{n-2} = \binom{n}{2} \cdot x$. Solve for $x = 2n^{n-3}$. Subtract to get $K_n - e$'s count."</div>
+            <div class="viz-container">
+              <canvas id="canvas-kn-symmetry" width="600" height="300"></canvas>
+              <div class="viz-label">Double-counting (edge, spanning tree) incidences in K_n.</div>
+            </div>
           </div>
         </div>
 
@@ -725,6 +760,16 @@
               <strong>Step:</strong> Tree of order $n$ has a leaf $\ell$ with unique neighbor $v$. Proper-colorings of $T$ correspond to: choose a proper coloring of $T - \ell$ (tree of order $n-1$, so by IH $k(k-1)^{n-2}$ colorings), then color $\ell$ with any color $\ne$ color of $v$ ($k-1$ choices). Total: $k(k-1)^{n-2} \cdot (k-1) = k(k-1)^{n-1}$. $\square$
             </div>
             <div class="yap"><strong>In class:</strong> "Trees = most structured acyclic graphs. Color root in $k$ ways, then each added child has $k-1$ choices (must differ from parent). With $n-1$ edges, $P(T,k) = k(k-1)^{n-1}$ — a clean formula."</div>
+            <div class="viz-container">
+              <canvas id="canvas-tree-color" width="600" height="320"></canvas>
+              <div class="viz-controls">
+                <button onclick="vizTreeColoring.prev()">Prev</button>
+                <button onclick="vizTreeColoring.next()">Color Next</button>
+                <button onclick="vizTreeColoring.autoPlay()">Auto-Play</button>
+                <button class="secondary" onclick="vizTreeColoring.reset()">Reset</button>
+              </div>
+              <div class="viz-label">Root: k choices. Each child: (k−1) choices. Product = k(k−1)ⁿ⁻¹.</div>
+            </div>
           </div>
         </div>
       </div>
@@ -1288,6 +1333,10 @@
         $C \ge 4r = 4 \times 5 = 20$<br><br>
         But $C \le 18$ and $C \ge 20$ is impossible. Contradiction. $K_{3,3}$ is nonplanar! ∎
       </div>
+      <div class="viz-container">
+        <canvas id="canvas-k33" width="600" height="320"></canvas>
+        <div class="viz-label">Three houses (red), three utilities (blue). Count edge-face pairs two ways → contradiction.</div>
+      </div>
     </div>
   </div>
 
@@ -1329,6 +1378,10 @@
         By Theorem 1.33, a planar graph on 5 vertices has bounded edges: $q \le 3(5) - 6 = 9$.<br>
         Since $10 > 9$, $K_5$ is nonplanar. ∎<br><br>
         <em>What went wrong without Thm 1.33? Without that bound, we'd have to try drawing $K_5$ in every possible way and check each one. Thm 1.33 gives a clean one-line shortcut.</em>
+      </div>
+      <div class="viz-container">
+        <canvas id="canvas-k5" width="600" height="330"></canvas>
+        <div class="viz-label">K₅ with its 5 "crossing" edges highlighted red. Apply Thm 1.33 to get 10 ≤ 9 contradiction.</div>
       </div>
     </div>
   </div>
@@ -2157,6 +2210,15 @@
       <div class="memory">
         Say: "recursion + Pascal = binomial." The Ramsey recursion $R(p,q) \le R(p-1,q)+R(p,q-1)$ has <em>exactly</em> the structure of Pascal's identity — so iterating it just walks up Pascal's triangle.
       </div>
+      <div class="viz-container">
+        <canvas id="canvas-ramsey-63" width="600" height="300"></canvas>
+        <div class="viz-controls">
+          <button onclick="vizRamseyLB63.showBoth()">Full K₉ coloring</button>
+          <button onclick="vizRamseyLB63.showRed()">Red = between blocks (K₃,₃,₃)</button>
+          <button onclick="vizRamseyLB63.showBlue()">Blue = inside blocks (3·K₃)</button>
+        </div>
+        <div class="viz-label" id="ramsey-63-label">Block partition (same picture as Thm 1.68): memorize Pascal + this geometry for exam talk.</div>
+      </div>
     </div>
   </div>
 
@@ -2178,6 +2240,15 @@
       <div class="memory">
         "A red $K_p$ is the worst-case red structure — it contains every graph on $p$ vertices." So if the red monochromatic complete graph appears, so does $G$.
       </div>
+      <div class="viz-container">
+        <canvas id="canvas-ramsey-67" width="600" height="300"></canvas>
+        <div class="viz-controls">
+          <button onclick="vizRamseyLB67.showBoth()">Block coloring (K₉)</button>
+          <button onclick="vizRamseyLB67.showRed()">Red subgraph (multipartite)</button>
+          <button onclick="vizRamseyLB67.showBlue()">Blue subgraph (disjoint cliques)</button>
+        </div>
+        <div class="viz-label" id="ramsey-67-label">If a coloring forces red K_p or blue K_q, then it also forces red G (|G|=p) or blue H (|H|=q) — monotonicity.</div>
+      </div>
     </div>
   </div>
 
@@ -2194,24 +2265,36 @@
         Trick: color $K_N$ so that the <em>red</em> subgraph has chromatic number $< \chi(G)$ (kills red $G$) and the <em>blue</em> components are all too small to contain $H$ (kills blue $H$).
       </div>
       <div class="proof">
-        <strong>Setup.</strong> Let $m = \chi(G) - 1$ and $n = C(H) - 1$. We construct a red/blue coloring of $K_{mn}$ containing neither red $G$ nor blue $H$.<br><br>
-        <strong>Construction.</strong> Partition the $mn$ vertices into $n$ groups of $m$ vertices each. Color <em>every edge inside a group</em> <strong>red</strong>; color <em>every edge between different groups</em> <strong>blue</strong>.<br><br>
-        <strong>Red subgraph:</strong> disjoint union of $n$ copies of $K_m$. Its chromatic number is $m = \chi(G) - 1 < \chi(G)$. Since any graph containing $G$ as a subgraph has chromatic number $\ge \chi(G)$, the red subgraph cannot contain $G$.<br><br>
-        <strong>Blue subgraph:</strong> the complete $n$-partite graph $K_{m, m, \ldots, m}$ (but with internal edges removed — so it's the complement of the red subgraph). Wait — every blue connected component has at most $n \cdot m / (\text{something})$ ... let me reconsider.<br><br>
-        <em>Correction:</em> The coloring is: edges <strong>within a group</strong> → red, edges <strong>between groups</strong> → blue. In blue, every vertex is connected to every vertex in other groups (but not its own), and since there are $n$ groups of $m$ each, blue graph has $n$ groups connected to each other — blue graph is connected on all $mn$ vertices, one big component... unless we swap: take $m$ copies of $K_n$?<br><br>
-        <strong>Standard construction (matches lecture):</strong> Partition $mn$ vertices into $n$ groups of size $m$. The <em>red graph</em> is the disjoint union of $n$ copies of $K_m$. The <em>blue graph</em> is complete $n$-partite with parts of size $m$. Red has chromatic number $m = \chi(G)-1$ (too small for $G$). Each blue connected component is the <em>whole</em> blue graph, which has $mn$ vertices. Wait — but the claim needs blue components small...<br><br>
-        Actually the lecture uses $m = \chi(G)-1$ copies of $K_{n}$ where $n = C(H)-1$: <strong>so re-label.</strong> Let $m = \chi(G) - 1$ and $n = C(H) - 1$. Partition $K_{mn}$ into $m$ groups of $n$ vertices each. Color edges <em>within</em> each group red (so red graph = $m$ copies of $K_n$). Color edges <em>between</em> groups blue.<br><br>
-        <strong>Red:</strong> disjoint union of $m$ complete graphs $K_n$. But wait, $m$ components each of size $n$ can still have chromatic number $n$... The key is the <strong>chromatic number of the red graph</strong>. If red = $m$ disjoint copies of $K_n$, each has $\chi = n$. So the red graph has $\chi = n$. For red $G$ to appear, we'd need $\chi(\text{red}) \ge \chi(G)$. We have $\chi(\text{red}) = n = C(H) - 1$, which is unrelated to $\chi(G)$...<br><br>
-        <strong>Correct construction (re-reading lecture):</strong> $G^* = K_{(\chi(G)-1)(C(H)-1)+1}$... no — we're showing $R(G,H) \ge (\chi(G)-1)(C(H)-1) + 1$, i.e. $K_{(\chi(G)-1)(C(H)-1)}$ has a bad coloring.<br><br>
-        Partition the $(\chi(G)-1)(C(H)-1)$ vertices into $\chi(G)-1$ parts, each of size $C(H)-1$. Red = edges within parts; Blue = edges between parts.<br><br>
-        • <em>No red $G$:</em> red graph = $(\chi(G)-1)$ copies of $K_{C(H)-1}$. Its chromatic number is $C(H)-1$... hmm, but $G$ might have $\chi(G) > C(H)-1$ and still fit in red components. Actually the key: red graph has only $\chi(G)-1$ components (counting color classes collectively), and any subgraph $G$ with $\chi(G)$ needs $\chi(G)$ color classes but the whole red graph has only $\chi(G)-1$ colors. <strong>Wait — the red graph is disjoint: $\chi(G)-1$ parts each colorable with its own palette. But $\chi$ of disjoint union = max of each $\chi = C(H)-1$, not $\chi(G)-1$.</strong><br><br>
-        The correct reading: <strong>$(\chi(G)-1)$ parts each of size $(C(H)-1)$, with edges inside each part colored <em>blue</em>, and edges between parts colored <em>red</em></strong>. Then:<br>
-        • <em>Red graph:</em> complete multipartite with $\chi(G)-1$ parts → chromatic number exactly $\chi(G)-1 &lt; \chi(G)$ ⇒ no red $G$.<br>
-        • <em>Blue graph:</em> $\chi(G)-1$ disjoint copies of $K_{C(H)-1}$ → each connected component has $C(H)-1 &lt; C(H)$ vertices ⇒ no blue $H$ (since $H$'s largest component needs $C(H)$ vertices).<br><br>
-        This gives a valid bad coloring, proving $R(G, H) &gt; (\chi(G)-1)(C(H)-1)$, i.e. $R(G, H) \ge (\chi(G)-1)(C(H)-1) + 1$. $\square$
+        <strong>Goal.</strong> Show there is a red/blue coloring of $K_N$ with $N = (\chi(G)-1)(C(H)-1)$ containing <em>neither</em> red $G$ nor blue $H$. This proves $R(G,H) &gt; N$, i.e. $R(G,H) \ge N+1$.<br><br>
+
+        <strong>Construction.</strong> Let $a = \chi(G) - 1$ and $b = C(H) - 1$. Partition the $N = ab$ vertices into <strong>$a$ blocks of size $b$</strong>. Color:<br>
+        &nbsp;&nbsp;• edges <em>between different blocks</em> → <span style="color:#d95555"><strong>RED</strong></span><br>
+        &nbsp;&nbsp;• edges <em>within the same block</em> → <span style="color:#6a9fc4"><strong>BLUE</strong></span><br><br>
+
+        <strong>Claim 1: No red copy of $G$.</strong><br>
+        The red subgraph is the complete $a$-partite graph $K_{b,b,\ldots,b}$ (with $a$ parts). Its chromatic number is exactly $a = \chi(G) - 1$ (color each block one color).<br>
+        If the red subgraph contained $G$ as a subgraph, then $\chi(\text{red}) \ge \chi(G)$. But $\chi(\text{red}) = a = \chi(G) - 1 &lt; \chi(G)$. Contradiction — so no red $G$. ✓<br><br>
+
+        <strong>Claim 2: No blue copy of $H$.</strong><br>
+        The blue subgraph is the disjoint union of $a$ copies of $K_b$. Every blue connected component has exactly $b = C(H) - 1$ vertices.<br>
+        If $H$ appeared as a blue subgraph, then one of its connected components (which must fit inside one blue component) has $\le b$ vertices. But the largest component of $H$ has $C(H) = b + 1$ vertices — too big to fit. Contradiction — so no blue $H$. ✓<br><br>
+
+        Both claims together: the coloring on $K_N$ avoids both, hence $R(G,H) \ge N + 1 = (\chi(G)-1)(C(H)-1) + 1$. $\square$
       </div>
       <div class="memory">
-        <strong>Construction:</strong> $(\chi(G)-1)$ blobs of size $(C(H)-1)$. <em>Between-blob</em> edges are red (multipartite, so $\chi$ exactly $= \chi(G)-1$ — can't fit $G$). <em>Inside-blob</em> edges are blue (tiny components, can't fit $H$'s big component).
+        <strong>The "blocks" picture:</strong><br>
+        &nbsp;&nbsp;• $(\chi(G)-1)$ blocks of size $(C(H)-1)$.<br>
+        &nbsp;&nbsp;• <span style="color:#d95555">Red = between-block edges</span> → complete multipartite, $\chi=\chi(G)-1$, can't fit $G$.<br>
+        &nbsp;&nbsp;• <span style="color:#6a9fc4">Blue = inside-block edges</span> → disjoint tiny $K_b$'s, components too small to fit $H$'s largest component.
+      </div>
+      <div class="viz-container">
+        <canvas id="canvas-ramsey-68" width="600" height="300"></canvas>
+        <div class="viz-controls">
+          <button onclick="vizRamseyLB68.showBoth()">Full Coloring</button>
+          <button onclick="vizRamseyLB68.showRed()">Red (between blocks)</button>
+          <button onclick="vizRamseyLB68.showBlue()">Blue (inside blocks)</button>
+        </div>
+        <div class="viz-label" id="ramsey-68-label">Example: a=3, b=3 → K₉. Red = K₃,₃,₃ (χ=3); Blue = 3 disjoint K₃ (components of size 3).</div>
       </div>
     </div>
   </div>

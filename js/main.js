@@ -95,8 +95,13 @@ function openSection(targetEl) {
     canvas.hasDrawnOnce = false;
     const id = canvas.id;
     const idMap = {
-      'canvas-petersen': () => typeof vizPetersen !== 'undefined' && vizPetersen.reset(),
-      'canvas-ramsey-lb': () => typeof vizRamseyLB !== 'undefined' && vizRamseyLB.showBoth()
+      'canvas-petersen':     () => typeof vizPetersen    !== 'undefined' && vizPetersen.reset(),
+      'canvas-ramsey-lb':    () => typeof vizRamseyLB    !== 'undefined' && vizRamseyLB.showBoth(),
+      'canvas-ramsey-63':    () => typeof vizRamseyLB63  !== 'undefined' && vizRamseyLB63.showBoth(),
+      'canvas-ramsey-67':    () => typeof vizRamseyLB67  !== 'undefined' && vizRamseyLB67.showBoth(),
+      'canvas-ramsey-68':    () => typeof vizRamseyLB68  !== 'undefined' && vizRamseyLB68.showBoth(),
+      'canvas-k33':          () => typeof vizK33Planar   !== 'undefined' && vizK33Planar.reset(),
+      'canvas-k5':           () => typeof vizK5Planar    !== 'undefined' && vizK5Planar.reset()
     };
     if (idMap[id]) try { idMap[id](); } catch(_) {}
   });
@@ -134,10 +139,16 @@ document.querySelectorAll('.exercise-header').forEach(header => {
         const reset = canvas.getAttribute('data-reset');
         // Best effort: call a global reset matching the canvas id
         const idMap = {
-          'canvas-prufer': () => vizPrufer && vizPrufer.reset && vizPrufer.reset(),
-          'canvas-bowtie': () => vizBowtie && vizBowtie.showNormal && vizBowtie.showNormal(),
+          'canvas-prufer':         () => vizPrufer && vizPrufer.reset && vizPrufer.reset(),
+          'canvas-bowtie':         () => vizBowtie && vizBowtie.showNormal && vizBowtie.showNormal(),
+          'canvas-bowtie-2':       () => typeof vizBowtie2 !== 'undefined' && vizBowtie2.showNormal(),
           'canvas-triangle-count': () => vizTriangleCount && vizTriangleCount.reset && vizTriangleCount.reset(),
-          'canvas-chrom-poly': () => vizChromPoly && vizChromPoly.reset && vizChromPoly.reset()
+          'canvas-chrom-poly':     () => vizChromPoly && vizChromPoly.reset && vizChromPoly.reset(),
+          'canvas-c10':            () => typeof vizC10Bipartition !== 'undefined' && vizC10Bipartition.showPlain(),
+          'canvas-tree-color':     () => typeof vizTreeColoring !== 'undefined' && vizTreeColoring.reset(),
+          'canvas-two-cliques':    () => typeof vizTwoCliques !== 'undefined' && vizTwoCliques.reset(),
+          'canvas-prufer-encode':  () => typeof vizPruferEncode !== 'undefined' && vizPruferEncode.reset(),
+          'canvas-kn-symmetry':    () => typeof vizKnEdgeSymmetry !== 'undefined' && vizKnEdgeSymmetry.reset()
         };
         if (idMap[canvas.id]) try { idMap[canvas.id](); } catch(_) {}
       });
