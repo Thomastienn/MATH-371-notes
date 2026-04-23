@@ -108,6 +108,23 @@ document.querySelectorAll('.theorem-header, .glossary-header').forEach(header =>
   });
 });
 
+// Exercise accordion (independent of theorem strict accordion — multiple open OK)
+document.querySelectorAll('.exercise-header').forEach(header => {
+  header.addEventListener('click', function(e) {
+    this.parentElement.classList.toggle('open');
+  });
+});
+
+// Exam-chip clicks: auto-open the target theorem card
+document.querySelectorAll('.exam-thm-chip').forEach(chip => {
+  chip.addEventListener('click', function(e) {
+    e.preventDefault();
+    const targetId = this.getAttribute('href').substring(1);
+    const targetEl = document.getElementById(targetId);
+    if (targetEl) openSection(targetEl);
+  });
+});
+
 // Sidebar links
 document.querySelectorAll('.sidebar a').forEach(link => {
   link.addEventListener('click', function(e) {
@@ -125,8 +142,11 @@ document.querySelectorAll('.sidebar a').forEach(link => {
 // ============================================================
 const searchInput = document.getElementById('searchInput');
 const theorems = Array.from(document.querySelectorAll('.theorem'));
+const exercises = Array.from(document.querySelectorAll('.exercise'));
+const exerciseGroups = Array.from(document.querySelectorAll('.exercise-group'));
 const glossaryItems = Array.from(document.querySelectorAll('.glossary-item'));
 const navLinks = Array.from(document.querySelectorAll('#nav-links a'));
+const finalExam = document.getElementById('final-exam');
 
 searchInput.addEventListener('input', (e) => {
   const q = e.target.value.toLowerCase().trim();
@@ -148,6 +168,21 @@ searchInput.addEventListener('input', (e) => {
     // Update sidebar links for theorems
     const link = navLinks.find(a => a.getAttribute('href') === '#' + id);
     if(link) link.classList.toggle('hidden', !match && q !== '');
+  });
+
+  // Filter Exercises
+  exercises.forEach(ex => {
+    const text = ex.textContent.toLowerCase();
+    const match = text.includes(q);
+    ex.classList.toggle('hidden', !match && q !== '');
+    if (q !== '' && match) ex.classList.add('open');
+    else if (q === '') ex.classList.remove('open');
+  });
+
+  // Hide empty exercise groups when searching
+  exerciseGroups.forEach(grp => {
+    const anyVisible = Array.from(grp.querySelectorAll('.exercise')).some(e => !e.classList.contains('hidden'));
+    grp.classList.toggle('hidden', !anyVisible && q !== '');
   });
 
   // Filter Glossary

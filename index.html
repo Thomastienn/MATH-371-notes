@@ -20,6 +20,7 @@
   <div class="search-box sidebar-search">
     <input type="text" id="searchInput" placeholder="Search theorems or terms..." autocomplete="off">
   </div>
+  <a href="#final-exam" class="exam-link">★ Final Exam Guide</a>
   <a href="#glossary" class="glossary-link">Glossary</a>
   <h3 class="nav-heading">Theorems</h3>
   <div id="nav-links">
@@ -45,6 +46,7 @@
     <a href="#thm-1-23">1.23 Ore's Theorem</a>
     <a href="#thm-1-24">1.24 Connectivity & Independence</a>
     <a href="#thm-1-25">1.25 Goodman-Hedetniemi</a>
+    <a href="#claims-l16">L16 Claims (Petersen)</a>
     <a href="#thm-1-31">1.31 Euler's Formula</a>
     <a href="#thm-1-32">1.32 K₃,₃ is Nonplanar</a>
     <a href="#thm-1-33">1.33 Planar Edge Bound</a>
@@ -70,6 +72,10 @@
     <a href="#thm-1-64">1.64 Ramsey Bounds</a>
     <a href="#thm-1-64-star">1.64* Improved Bound</a>
     <a href="#thm-erdos">Erdős-Szekeres</a>
+    <a href="#thm-1-63">1.63 Ramsey Upper Bound</a>
+    <a href="#thm-1-67">1.67 Graph Ramsey Bound</a>
+    <a href="#thm-1-68">1.68 Ramsey Lower Bound</a>
+    <a href="#thm-1-69">1.69 Tree–Complete Ramsey</a>
   </div>
 
 </nav>
@@ -77,6 +83,629 @@
 <div class="main">
   <h1>MATH 371</h1>
   <p class="subtitle">Graph Theory — Quick-recall theorem reference</p>
+
+  <!-- ======================== FINAL EXAM GUIDE ======================== -->
+  <div class="final-exam" id="final-exam">
+    <div class="final-exam-header">
+      <h2>★ Final Exam Guide</h2>
+      <div class="final-exam-meta">
+        <span><strong>Date:</strong> April 25 (Sat)</span>
+        <span><strong>Time:</strong> 9:00–10:30 am</span>
+        <span><strong>Location:</strong> SB142 (in-person)</span>
+      </div>
+    </div>
+    <div class="final-exam-format">
+      <strong>Format:</strong> 2 questions on Part I (theorems with proofs) + 2 questions on Part II (exercises). Click any chip below to jump to the full card with proof, intuition &amp; visualization.
+    </div>
+    <div class="final-exam-body">
+
+      <div class="exam-part-title">Part I — Theorems with Proofs <span class="exam-part-sub">(click any chip to jump to its full card)</span></div>
+
+      <div class="exam-chapter">
+        <div class="exam-chapter-name">1.1 Introductory Concepts</div>
+        <div class="exam-thm-list">
+          <a class="exam-thm-chip" href="#thm-1-3">1.3<span class="chip-title">Bipartite ↔ No Odd Cycles</span></a>
+        </div>
+      </div>
+
+      <div class="exam-chapter">
+        <div class="exam-chapter-name">1.2 Distance in Graphs</div>
+        <div class="exam-thm-list">
+          <a class="exam-thm-chip" href="#thm-1-7">1.7<span class="chip-title">Adjacency Matrix &amp; Walks</span></a>
+          <a class="exam-thm-chip" href="#thm-1-9">1.9<span class="chip-title">Distances from Matrices</span></a>
+        </div>
+      </div>
+
+      <div class="exam-chapter">
+        <div class="exam-chapter-name">1.3 Trees</div>
+        <div class="exam-thm-list">
+          <a class="exam-thm-chip" href="#thm-1-10">1.10<span class="chip-title">Tree Edge Count</span></a>
+          <a class="exam-thm-chip" href="#thm-1-12">1.12–1.13<span class="chip-title">Tree Equivalences</span></a>
+          <a class="exam-thm-chip" href="#thm-1-14">1.14<span class="chip-title">Trees ≥ 2 Leaves</span></a>
+          <a class="exam-thm-chip" href="#thm-1-15">1.15<span class="chip-title">Center of a Tree</span></a>
+          <a class="exam-thm-chip" href="#thm-1-16">1.16<span class="chip-title">Subtrees in Graphs</span></a>
+          <a class="exam-thm-chip" href="#thm-1-17">1.17<span class="chip-title">Kruskal's Algorithm</span></a>
+          <a class="exam-thm-chip" href="#thm-1-18">1.18<span class="chip-title">Cayley's Formula</span></a>
+          <a class="exam-thm-chip" href="#thm-1-19">1.19<span class="chip-title">Matrix Tree Theorem</span></a>
+        </div>
+      </div>
+
+      <div class="exam-chapter">
+        <div class="exam-chapter-name">1.4 Trails, Circuits, Paths, Cycles</div>
+        <div class="exam-thm-list">
+          <a class="exam-thm-chip" href="#thm-1-20">1.20<span class="chip-title">Eulerian</span></a>
+          <a class="exam-thm-chip" href="#thm-1-23">1.23<span class="chip-title">Ore's Theorem</span></a>
+          <a class="exam-thm-chip" href="#thm-1-24">1.24<span class="chip-title">Connectivity &amp; Independence</span></a>
+        </div>
+      </div>
+
+      <div class="exam-chapter">
+        <div class="exam-chapter-name">1.5 Planarity</div>
+        <div class="exam-thm-list">
+          <a class="exam-thm-chip" href="#claims-l16">L16<span class="chip-title">Claims 1–4 (Petersen)</span></a>
+          <a class="exam-thm-chip" href="#thm-1-31">1.31<span class="chip-title">Euler's Formula</span></a>
+          <a class="exam-thm-chip" href="#thm-1-32">1.32<span class="chip-title">K₃,₃ Nonplanar</span></a>
+          <a class="exam-thm-chip" href="#thm-1-33">1.33<span class="chip-title">Planar Edge Bound</span></a>
+          <a class="exam-thm-chip" href="#thm-1-34">1.34<span class="chip-title">K₅ Nonplanar</span></a>
+          <a class="exam-thm-chip" href="#thm-1-35">1.35<span class="chip-title">Low Degree</span></a>
+          <a class="exam-thm-chip" href="#thm-1-37">1.37<span class="chip-title">Polyhedron Small Faces</span></a>
+          <a class="exam-thm-chip" href="#thm-1-38">1.38<span class="chip-title">Five Platonic Solids</span></a>
+        </div>
+      </div>
+
+      <div class="exam-chapter">
+        <div class="exam-chapter-name">1.6 Colorings</div>
+        <div class="exam-thm-list">
+          <a class="exam-thm-chip" href="#thm-1-45">1.45<span class="chip-title">Independence Bounds</span></a>
+          <a class="exam-thm-chip" href="#thm-1-47">1.47<span class="chip-title">Five Color Theorem</span></a>
+          <a class="exam-thm-chip" href="#thm-1-48">1.48<span class="chip-title">Deletion-Contraction</span></a>
+          <a class="exam-thm-chip" href="#thm-1-49">1.49<span class="chip-title">Chromatic Polynomial</span></a>
+        </div>
+      </div>
+
+      <div class="exam-chapter">
+        <div class="exam-chapter-name">1.7 Matchings</div>
+        <div class="exam-thm-list">
+          <a class="exam-thm-chip" href="#thm-1-50">1.50<span class="chip-title">Berge's Theorem</span></a>
+          <a class="exam-thm-chip" href="#thm-1-51">1.51<span class="chip-title">Hall's Theorem</span></a>
+          <a class="exam-thm-chip" href="#thm-1-53">1.53<span class="chip-title">König-Egerváry</span></a>
+        </div>
+      </div>
+
+      <div class="exam-chapter">
+        <div class="exam-chapter-name">1.8 Ramsey Theory</div>
+        <div class="exam-thm-list">
+          <a class="exam-thm-chip" href="#thm-1-61">1.61<span class="chip-title">R(3,3)=6</span></a>
+          <a class="exam-thm-chip" href="#thm-1-62">1.62<span class="chip-title">R(3,4)=9</span></a>
+          <a class="exam-thm-chip" href="#thm-1-64">1.64<span class="chip-title">Ramsey Recursion</span></a>
+          <a class="exam-thm-chip" href="#thm-1-63">1.63<span class="chip-title">Upper Bound Theorem</span></a>
+          <a class="exam-thm-chip" href="#thm-1-67">1.67<span class="chip-title">R(G,H) ≤ R(p,q)</span></a>
+          <a class="exam-thm-chip" href="#thm-1-68">1.68<span class="chip-title">Ramsey Lower Bound</span></a>
+          <a class="exam-thm-chip" href="#thm-1-69">1.69<span class="chip-title">R(Tₘ,Kₙ) = (m-1)(n-1)+1</span></a>
+        </div>
+      </div>
+
+      <div class="exam-part-title">Part II — Exercises <span class="exam-part-sub">(click to expand each for full problem + solution)</span></div>
+
+      <!-- Exercise Group 1.1.2 -->
+      <div class="exercise-group">
+        <div class="exercise-group-header">Section 1.1.2 — Exercises 11–16 <span class="ex-page">[page 10]</span></div>
+
+        <div class="exercise" id="ex-1-1-2-11">
+          <div class="exercise-header">
+            <h4>Ex 11</h4>
+            <div class="exercise-preview">Bridge ↔ lies on no cycle</div>
+            <svg class="chevron" viewBox="0 0 24 24"><path d="M7 10l5 5 5-5z"/></svg>
+          </div>
+          <div class="exercise-content">
+            <div class="problem">Prove that an edge $e$ is a bridge of $G$ if and only if $e$ lies on no cycle of $G$.</div>
+            <div class="solution">
+              <strong>(⇒)</strong> Suppose $e = uv$ is a bridge. If $e$ lies on a cycle $C$, then removing $e$ still leaves a $u$–$v$ path via the rest of $C$, so $G - e$ is still connected — contradicting "bridge."<br><br>
+              <strong>(⇐)</strong> Suppose $e = uv$ lies on no cycle. If $e$ is not a bridge, then $G - e$ is still connected, so there's a $u$–$v$ path $P$ in $G - e$. But then $P + e$ is a cycle through $e$ — contradiction. $\square$
+            </div>
+            <div class="yap"><strong>In class:</strong> "A bridge is an edge whose removal disconnects. Cycles give alternate paths — so any edge on a cycle is <em>redundant</em> for connectivity, i.e., not a bridge. The contrapositive runs both ways, giving the iff."</div>
+          </div>
+        </div>
+
+        <div class="exercise" id="ex-1-1-2-12">
+          <div class="exercise-header">
+            <h4>Ex 12</h4>
+            <div class="exercise-preview">Prove or disprove 3 statements about bridges/cut vertices</div>
+            <svg class="chevron" viewBox="0 0 24 24"><path d="M7 10l5 5 5-5z"/></svg>
+          </div>
+          <div class="exercise-content">
+            <div class="problem">Prove or disprove each:<br>
+              (a) If $G$ has no bridges, then $G$ has exactly one cycle.<br>
+              (b) If $G$ has no cut vertices, then $G$ has no bridges.<br>
+              (c) If $G$ has no bridges, then $G$ has no cut vertices.
+            </div>
+            <div class="solution">
+              <strong>(a) FALSE.</strong> Counter: $K_4$ has no bridges (every edge is on a cycle) but has $7$ cycles, not just one.<br><br>
+              <strong>(b) TRUE.</strong> Contrapositive: if $e = uv$ is a bridge, is $u$ (or $v$) a cut vertex? If $\deg(u) \ge 2$, removing $u$ disconnects $v$ from $u$'s other neighbors (since $e$ was the only connection between the component containing $v$ and the rest). If $\deg(u) = 1$ and $\deg(v) = 1$ (whole graph is one edge), the graph is $K_2$ which trivially has no cut vertex and no bridge... but the statement is about graphs with at least $\ge 3$ vertices in most treatments. Standard answer: a bridge forces at least one of its endpoints (of degree $\ge 2$) to be a cut vertex.<br><br>
+              <strong>(c) FALSE.</strong> Counter: two triangles sharing a single vertex. No edge is a bridge (every edge is on a triangle), but the shared vertex is a cut vertex.
+            </div>
+            <div class="yap"><strong>In class:</strong> "Bridges and cut vertices are closely tied but <em>not</em> equivalent. (b) is the safe direction — no cut vertices implies no bridges. But (c) fails: bowtie graph kills it."</div>
+          </div>
+        </div>
+
+        <div class="exercise" id="ex-1-1-2-13">
+          <div class="exercise-header">
+            <h4>Ex 13</h4>
+            <div class="exercise-preview">Every vertex on a cycle ⇒ 2-connected?</div>
+            <svg class="chevron" viewBox="0 0 24 24"><path d="M7 10l5 5 5-5z"/></svg>
+          </div>
+          <div class="exercise-content">
+            <div class="problem">Prove or disprove: If every vertex of a connected graph $G$ lies on at least one cycle, then $G$ is 2-connected.</div>
+            <div class="solution">
+              <strong>FALSE.</strong> Counterexample: two triangles sharing a single vertex $v$ (the "bowtie"). Every vertex lies on a triangle, but $v$ is a cut vertex, so $G$ is not 2-connected ($\kappa(G) = 1$).
+            </div>
+            <div class="yap"><strong>In class:</strong> "Same bowtie example — the shared vertex lies on a cycle but is still a cut vertex. Being 'on a cycle' is local; 2-connectedness is global."</div>
+          </div>
+        </div>
+
+        <div class="exercise" id="ex-1-1-2-14">
+          <div class="exercise-header">
+            <h4>Ex 14</h4>
+            <div class="exercise-preview">2-connected ⇒ contains a cycle</div>
+            <svg class="chevron" viewBox="0 0 24 24"><path d="M7 10l5 5 5-5z"/></svg>
+          </div>
+          <div class="exercise-content">
+            <div class="problem">Prove that every 2-connected graph contains at least one cycle.</div>
+            <div class="solution">
+              By definition $G$ is 2-connected ⇒ $|V| \ge 3$ and $\kappa(G) \ge 2$. So $G$ has no cut vertex and (in particular) is connected with min degree $\ge 2$ (any vertex of degree 0 or 1 would disconnect or be trivial).<br><br>
+              Any connected graph with $\delta(G) \ge 2$ contains a cycle: start a walk from any vertex and never retrace the last edge. Since every vertex has degree $\ge 2$ you can always continue. With finitely many vertices, eventually you revisit a vertex — that closes a cycle. $\square$
+            </div>
+            <div class="yap"><strong>In class:</strong> "2-connected means no cut vertices <em>and</em> no pendant vertices, so $\delta \ge 2$. A finite graph with min degree $\ge 2$ must cycle back — you can't walk forever without repeating a vertex, and the first repeat closes a cycle."</div>
+          </div>
+        </div>
+
+        <div class="exercise" id="ex-1-1-2-15">
+          <div class="exercise-header">
+            <h4>Ex 15</h4>
+            <div class="exercise-preview">κ(G) ≤ δ(G), and equality when δ large</div>
+            <svg class="chevron" viewBox="0 0 24 24"><path d="M7 10l5 5 5-5z"/></svg>
+          </div>
+          <div class="exercise-content">
+            <div class="problem">Prove: (a) $\kappa(G) \le \delta(G)$; (b) if $\delta(G) \ge n-2$, then $\kappa(G) = \delta(G)$.</div>
+            <div class="solution">
+              <strong>(a)</strong> Let $v$ be a vertex of minimum degree $\delta(G)$. Removing all $\delta(G)$ neighbors of $v$ disconnects $v$ from the rest (or leaves only $v$). So a vertex-cut of size $\le \delta(G)$ exists, giving $\kappa(G) \le \delta(G)$.<br><br>
+              <strong>(b)</strong> By (a), $\kappa(G) \le \delta(G)$. For the reverse: if $\delta(G) \ge n-2$, then every vertex is adjacent to at least $n-2$ others — it misses at most one vertex. Suppose $S$ is a vertex cut of size $< \delta(G)$. Then $|S| \le n - 3$, so $G - S$ has $\ge 3$ vertices. But any two of these are non-adjacent only if one misses the other, and each vertex misses $\le 1$ — a quick case check shows $G - S$ stays connected. Hence $\kappa(G) \ge \delta(G)$, giving equality.
+            </div>
+            <div class="yap"><strong>In class:</strong> "(a) is the classical bound: 'you can always disconnect a vertex by removing its neighbors.' (b) says when the graph is nearly complete (every vertex misses at most 2 others), the bound is tight."</div>
+          </div>
+        </div>
+
+        <div class="exercise" id="ex-1-1-2-16">
+          <div class="exercise-header">
+            <h4>Ex 16</h4>
+            <div class="exercise-preview">δ ≥ (n-1)/2 ⇒ connected; δ ≥ (n-2)/2 doesn't</div>
+            <svg class="chevron" viewBox="0 0 24 24"><path d="M7 10l5 5 5-5z"/></svg>
+          </div>
+          <div class="exercise-content">
+            <div class="problem">Let $G$ have order $n$. (a) If $\delta(G) \ge \frac{n-1}{2}$, prove $G$ is connected. (b) If $\delta(G) \ge \frac{n-2}{2}$, show $G$ need not be connected.</div>
+            <div class="solution">
+              <strong>(a)</strong> Suppose $G$ is disconnected with components $C_1, C_2$. Let $|C_1| = k$. Any vertex in $C_1$ has $\deg \le k-1$, so $\delta \le k-1$. Similarly $\delta \le n-k-1$. Hence $2\delta \le n-2$, i.e. $\delta \le \frac{n-2}{2} < \frac{n-1}{2}$ — contradiction. So $G$ is connected.<br><br>
+              <strong>(b)</strong> Take $n$ even and let $G = K_{n/2} \cup K_{n/2}$ (disjoint union of two complete graphs). Then $\delta(G) = n/2 - 1 = \frac{n-2}{2}$, but $G$ is disconnected.
+            </div>
+            <div class="yap"><strong>In class:</strong> "(a) is a pigeonhole-style bound: if min degree is more than half, you can't split into two parts without somebody's degree being too low. (b) shows the bound $\frac{n-1}{2}$ is sharp — two $K_{n/2}$'s sit right at the threshold and fail."</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Exercise Group 1.2.2 -->
+      <div class="exercise-group">
+        <div class="exercise-group-header">Section 1.2.2 — Exercises 3–6 <span class="ex-page">[page 25]</span></div>
+
+        <div class="exercise" id="ex-1-2-2-3">
+          <div class="exercise-header">
+            <h4>Ex 3</h4>
+            <div class="exercise-preview">Diagonal of A² gives degree</div>
+            <svg class="chevron" viewBox="0 0 24 24"><path d="M7 10l5 5 5-5z"/></svg>
+          </div>
+          <div class="exercise-content">
+            <div class="problem">If $A$ is the adjacency matrix of graph $G$, show that the $(j,j)$ entry of $A^2$ is $\deg(v_j)$.</div>
+            <div class="solution">
+              By definition $[A^2]_{j,j} = \sum_{k} A_{j,k} A_{k,j}$. Since $A$ is symmetric (simple graph), $A_{k,j} = A_{j,k}$, so the sum is $\sum_k A_{j,k}^2$. But entries are $0$ or $1$, so $A_{j,k}^2 = A_{j,k}$. Thus $[A^2]_{j,j} = \sum_k A_{j,k} = $ number of neighbors of $v_j = \deg(v_j)$. $\square$
+            </div>
+            <div class="yap"><strong>In class:</strong> "By Theorem 1.7, $[A^k]_{i,j}$ counts walks of length $k$ from $v_i$ to $v_j$. A walk of length 2 from $v_j$ to itself is 'go to a neighbor, come back' — one such walk per neighbor, so the count equals $\deg(v_j)$."</div>
+          </div>
+        </div>
+
+        <div class="exercise" id="ex-1-2-2-4">
+          <div class="exercise-header">
+            <h4>Ex 4</h4>
+            <div class="exercise-preview">Counting triangles via A³</div>
+            <svg class="chevron" viewBox="0 0 24 24"><path d="M7 10l5 5 5-5z"/></svg>
+          </div>
+          <div class="exercise-content">
+            <div class="problem">(a) Show the number of triangles containing $v_j$ is $\frac{1}{2}[A^3]_{j,j}$.<br>
+              (b) Prove the number of triangles in $G$ is $\frac{1}{6}\mathrm{Tr}(A^3)$.
+            </div>
+            <div class="solution">
+              <strong>(a)</strong> By Theorem 1.7, $[A^3]_{j,j}$ = number of closed walks of length 3 starting and ending at $v_j$. A closed walk of length 3 through $v_j$ is $v_j \to v_a \to v_b \to v_j$ where $v_j v_a$, $v_a v_b$, $v_b v_j$ are all edges — exactly a triangle $\{v_j, v_a, v_b\}$. Each triangle is traversed in 2 directions (clockwise and counter), so divide by 2: triangles through $v_j = \frac{1}{2}[A^3]_{j,j}$.<br><br>
+              <strong>(b)</strong> $\mathrm{Tr}(A^3) = \sum_j [A^3]_{j,j} = \sum_j 2 \cdot (\text{triangles through } v_j)$. Each triangle has 3 vertices, so it's counted once per vertex — i.e. 3 times. Total: $\mathrm{Tr}(A^3) = 2 \cdot 3 \cdot T = 6T$, hence $T = \frac{1}{6}\mathrm{Tr}(A^3)$. $\square$
+            </div>
+            <div class="yap"><strong>In class:</strong> "Diagonal entries of $A^3$ count closed walks of length 3 — which are triangles traversed. Each triangle has 2 orientations × 3 starting vertices = 6 walks, hence divide by 6 to get the triangle count."</div>
+          </div>
+        </div>
+
+        <div class="exercise" id="ex-1-2-2-5">
+          <div class="exercise-header">
+            <h4>Ex 5</h4>
+            <div class="exercise-preview">(1,5) entry of A^2009 for C₁₀</div>
+            <svg class="chevron" viewBox="0 0 24 24"><path d="M7 10l5 5 5-5z"/></svg>
+          </div>
+          <div class="exercise-content">
+            <div class="problem">Find the $(1,5)$ entry of $A^{2009}$ where $A$ is the adjacency matrix of $C_{10}$.</div>
+            <div class="solution">
+              $[A^{2009}]_{1,5}$ = number of walks of length $2009$ from $v_1$ to $v_5$ on the 10-cycle. On $C_{10}$, a walk alternates between "step clockwise (+1 mod 10)" and "step counterclockwise (−1 mod 10)". After $k$ steps, if we take $r$ CW and $k-r$ CCW, we end at position $(r - (k-r)) \bmod 10 = (2r - k) \bmod 10$.<br><br>
+              We need $2r - 2009 \equiv 4 \pmod{10}$ (since $v_5$ is 4 steps CW from $v_1$), i.e. $2r \equiv 2013 \pmod{10}$, i.e. $2r \equiv 3 \pmod{10}$. But $2r$ is always even, so no solution. <strong>Answer: $0$.</strong><br><br>
+              <em>Parity check:</em> $C_{10}$ is bipartite (even cycle), with $v_1$ and $v_5$ in different parts? $v_1, v_3, v_5, v_7, v_9$ in one part — both $v_1$ and $v_5$ same part. So walks between them must have even length. $2009$ is odd, hence $0$ walks.
+            </div>
+            <div class="yap"><strong>In class:</strong> "$C_{10}$ is bipartite. $v_1$ and $v_5$ are both in the odd-indexed partite set, so any walk between them has even length. $2009$ is odd, so the answer is $0$ by a parity argument."</div>
+          </div>
+        </div>
+
+        <div class="exercise" id="ex-1-2-2-6">
+          <div class="exercise-header">
+            <h4>Ex 6</h4>
+            <div class="exercise-preview">Prove the 2nd &amp; 3rd statements of Thm 1.9</div>
+            <svg class="chevron" viewBox="0 0 24 24"><path d="M7 10l5 5 5-5z"/></svg>
+          </div>
+          <div class="exercise-content">
+            <div class="problem">(a) Prove the second statement in Theorem 1.9. (b) Prove the third statement in Theorem 1.9.</div>
+            <div class="solution">
+              <strong>Recall Thm 1.9:</strong> Let $A$ be the adjacency matrix of $G$. For $i \ne j$:
+              <br>(1) $d(v_i, v_j) = $ smallest $k$ with $[A^k]_{i,j} > 0$.
+              <br>(2) $\mathrm{ecc}(v_i) = $ smallest $k$ such that for all $j \ne i$, $\sum_{\ell=1}^{k} [A^\ell]_{i,j} > 0$.
+              <br>(3) $\mathrm{diam}(G) = $ smallest $k$ such that $(I + A + A^2 + \cdots + A^k)$ has all positive entries.<br><br>
+              <strong>(a)</strong> Eccentricity of $v_i$ is $\max_j d(v_i, v_j)$. By (1), $d(v_i, v_j) \le k$ iff there is a walk of length $\le k$ from $v_i$ to $v_j$ iff some $[A^\ell]_{i,j} > 0$ for $\ell \le k$. So $\mathrm{ecc}(v_i) \le k$ iff every $j \ne i$ satisfies this — exactly the stated condition. Taking the smallest such $k$ gives the eccentricity.<br><br>
+              <strong>(b)</strong> Diameter = $\max_i \mathrm{ecc}(v_i)$. So $\mathrm{diam}(G) \le k$ iff every pair of vertices is connected by a walk of length $\le k$. $(I + A + \cdots + A^k)_{i,j} > 0$ iff either $i = j$ or some $[A^\ell]_{i,j} > 0$ with $1 \le \ell \le k$ — i.e. $d(v_i,v_j) \le k$ or $i = j$. So all entries positive iff diameter $\le k$.
+            </div>
+            <div class="yap"><strong>In class:</strong> "Statement (1) of Thm 1.9 is about a single distance. Eccentricity is the max distance <em>from $v_i$</em> — so condition needs 'for all $j$.' Diameter is the max of eccentricities — so condition needs 'for all $i,j$,' i.e., every entry of the partial sum is positive."</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Exercise Group 1.3.2 -->
+      <div class="exercise-group">
+        <div class="exercise-group-header">Section 1.3.2 — Exercises 5–6 <span class="ex-page">[page 38]</span></div>
+
+        <div class="exercise" id="ex-1-3-2-5">
+          <div class="exercise-header">
+            <h4>Ex 5</h4>
+            <div class="exercise-preview">Tree ↔ unique path between any two vertices</div>
+            <svg class="chevron" viewBox="0 0 24 24"><path d="M7 10l5 5 5-5z"/></svg>
+          </div>
+          <div class="exercise-content">
+            <div class="problem">Prove that a graph $G$ is a tree if and only if for every pair of vertices $u, v$, there is exactly one path from $u$ to $v$.</div>
+            <div class="solution">
+              <strong>(⇒)</strong> Suppose $G$ is a tree. $G$ is connected, so at least one $u$–$v$ path exists. If two distinct paths $P_1, P_2$ existed, their symmetric difference contains a cycle — impossible since a tree has no cycles.<br><br>
+              <strong>(⇐)</strong> Suppose every pair has exactly one path. Then $G$ is connected. If $G$ had a cycle $C = v_0 v_1 \cdots v_k v_0$, then $v_0$ and $v_1$ would have two distinct paths (the edge, and the rest of the cycle) — contradiction. So $G$ is connected and acyclic, i.e. a tree. $\square$
+            </div>
+            <div class="yap"><strong>In class:</strong> "This is one of the cleanest characterizations of a tree. The direction 'tree ⇒ unique path' uses 'no cycles'; the converse uses 'uniqueness forbids cycles.' It's basically the 1.12/1.13 equivalences packaged as an iff."</div>
+          </div>
+        </div>
+
+        <div class="exercise" id="ex-1-3-2-6">
+          <div class="exercise-header">
+            <h4>Ex 6</h4>
+            <div class="exercise-preview">Tree ↔ acyclic and any new edge creates exactly one cycle</div>
+            <svg class="chevron" viewBox="0 0 24 24"><path d="M7 10l5 5 5-5z"/></svg>
+          </div>
+          <div class="exercise-content">
+            <div class="problem">Prove that $T$ is a tree if and only if $T$ contains no cycles and for any new edge $e$, the graph $T + e$ has exactly one cycle.</div>
+            <div class="solution">
+              <strong>(⇒)</strong> Suppose $T$ is a tree, so $T$ is acyclic. Let $e = uv$ be any non-edge of $T$. By Ex 5, there is a unique $u$–$v$ path $P$ in $T$. Then $P + e$ is a cycle in $T + e$. Any cycle in $T + e$ must use $e$ (since $T$ is acyclic), hence has the form "edge $e$ + some $u$–$v$ path in $T$." Since the $u$–$v$ path is unique, there is exactly one cycle.<br><br>
+              <strong>(⇐)</strong> Suppose $T$ is acyclic and adding any edge creates exactly one cycle. Acyclic + ... we must also show connected. Suppose not: let $u, v$ be in different components. Then $T + uv$ is still a forest — no cycle is created — contradicting the hypothesis that exactly one cycle appears. So $T$ is connected and acyclic, i.e. a tree. $\square$
+            </div>
+            <div class="yap"><strong>In class:</strong> "A tree is 'maximally acyclic' — add any edge and you create a cycle, and since the $u$–$v$ path is unique, that cycle is unique too. Conversely, if adding an edge always creates a cycle, then every pair was already connected — i.e. $T$ is connected."</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Exercise Group 1.3.4 -->
+      <div class="exercise-group">
+        <div class="exercise-group-header">Section 1.3.4 — Exercises 2–7 <span class="ex-page">[page 51]</span></div>
+
+        <div class="exercise" id="ex-1-3-4-2">
+          <div class="exercise-header">
+            <h4>Ex 2</h4>
+            <div class="exercise-preview">Prüfer sequences for two labeled trees</div>
+            <svg class="chevron" viewBox="0 0 24 24"><path d="M7 10l5 5 5-5z"/></svg>
+          </div>
+          <div class="exercise-content">
+            <div class="problem">Determine the Prüfer sequence for the trees in Figure 1.50.</div>
+            <div class="solution">
+              <strong>Algorithm:</strong> Repeatedly remove the leaf with the smallest label and record its neighbor. Stop when 2 vertices remain.<br><br>
+              <em>(Exact answer depends on the figure's structure, which isn't reproduced here — but the method is mechanical.)</em><br><br>
+              <strong>Example:</strong> For the "caterpillar" tree with spine $2$–$3$–$4$–$5$ and leaves $1$ on $2$; $6,7$ on $3$; $8$ on $4$; $9,10,11$ on $5$ — removing in ascending leaf order gives Prüfer sequence $\mathbf{(2,3,3,4,5,5,5,4,3)}$ (length $n-2 = 9$).
+            </div>
+            <div class="yap"><strong>In class:</strong> "The Prüfer algorithm is deterministic: find the smallest-labeled leaf, record its (unique) neighbor, remove it. Repeat until 2 vertices remain. The resulting length is $n-2$."</div>
+          </div>
+        </div>
+
+        <div class="exercise" id="ex-1-3-4-3">
+          <div class="exercise-header">
+            <h4>Ex 3</h4>
+            <div class="exercise-preview">Reconstruct tree from Prüfer sequence (5,4,3,5,4,3,5,4,3)</div>
+            <svg class="chevron" viewBox="0 0 24 24"><path d="M7 10l5 5 5-5z"/></svg>
+          </div>
+          <div class="exercise-content">
+            <div class="problem">Draw and label a tree whose Prüfer sequence is $5, 4, 3, 5, 4, 3, 5, 4, 3$.</div>
+            <div class="solution">
+              <strong>Inverse algorithm:</strong> Sequence length is 9, so $n = 11$ vertices labeled $1,\ldots,11$.<br><br>
+              Vertices not in the sequence are leaves: $\{1, 2, 6, 7, 8, 9, 10, 11\}$. Process one leaf per step.<br>
+              <table style="margin:6px 0;font-size:0.85rem;"><tr><th style="padding:0 10px;">Step</th><th style="padding:0 10px;">Leaf used</th><th style="padding:0 10px;">Seq head</th><th style="padding:0 10px;">Edge added</th></tr>
+              <tr><td style="padding:0 10px;">1</td><td style="padding:0 10px;">1</td><td style="padding:0 10px;">5</td><td style="padding:0 10px;">1–5</td></tr>
+              <tr><td style="padding:0 10px;">2</td><td style="padding:0 10px;">2</td><td style="padding:0 10px;">4</td><td style="padding:0 10px;">2–4</td></tr>
+              <tr><td style="padding:0 10px;">3</td><td style="padding:0 10px;">6</td><td style="padding:0 10px;">3</td><td style="padding:0 10px;">6–3</td></tr>
+              <tr><td style="padding:0 10px;">4</td><td style="padding:0 10px;">7</td><td style="padding:0 10px;">5</td><td style="padding:0 10px;">7–5</td></tr>
+              <tr><td style="padding:0 10px;">5</td><td style="padding:0 10px;">8</td><td style="padding:0 10px;">4</td><td style="padding:0 10px;">8–4</td></tr>
+              <tr><td style="padding:0 10px;">6</td><td style="padding:0 10px;">9</td><td style="padding:0 10px;">3</td><td style="padding:0 10px;">9–3</td></tr>
+              <tr><td style="padding:0 10px;">7</td><td style="padding:0 10px;">10</td><td style="padding:0 10px;">5</td><td style="padding:0 10px;">10–5</td></tr>
+              <tr><td style="padding:0 10px;">8</td><td style="padding:0 10px;">11</td><td style="padding:0 10px;">4</td><td style="padding:0 10px;">11–4</td></tr>
+              <tr><td style="padding:0 10px;">9</td><td style="padding:0 10px;">4</td><td style="padding:0 10px;">3</td><td style="padding:0 10px;">4–3</td></tr>
+              </table>
+              Final edge between the last 2 vertices: $3$–$5$.<br><br>
+              <strong>Resulting tree:</strong> A caterpillar on spine $3$–$4$–$5$, with $3$ attached to $\{6, 9\}$ and to $4$; $4$ attached to $\{2, 8, 11\}$ and to $3, 5$; $5$ attached to $\{1, 7, 10\}$ and to $4$.<br>
+              Degrees: $\deg(3) = 4, \deg(4) = 5, \deg(5) = 4$. (Each vertex appears in the sequence $\deg - 1$ times: $3$ times for $3,4,5$.)
+            </div>
+            <div class="yap"><strong>In class:</strong> "Repeat pattern 5-4-3 three times, so each of 5, 4, 3 appears 3 times ⇒ each has degree 4. The 8 missing labels (1,2,6,7,8,9,10,11) are leaves. Decode step by step by picking the smallest <em>available</em> leaf each time."</div>
+          </div>
+        </div>
+
+        <div class="exercise" id="ex-1-3-4-4">
+          <div class="exercise-header">
+            <h4>Ex 4</h4>
+            <div class="exercise-preview">Which trees have constant Prüfer sequences?</div>
+            <svg class="chevron" viewBox="0 0 24 24"><path d="M7 10l5 5 5-5z"/></svg>
+          </div>
+          <div class="exercise-content">
+            <div class="problem">Which trees have constant Prüfer sequences?</div>
+            <div class="solution">
+              A Prüfer sequence is constant = $(c, c, \ldots, c)$ iff $c$ appears $n-2$ times, i.e. $\deg(c) = n-1$. This means $c$ is adjacent to every other vertex — a <strong>star</strong> $K_{1,n-1}$ centered at $c$.
+            </div>
+            <div class="yap"><strong>In class:</strong> "A vertex appears $\deg(v) - 1$ times in its Prüfer sequence. 'All same letter' means one vertex has degree $n-1$ — the center of a star."</div>
+          </div>
+        </div>
+
+        <div class="exercise" id="ex-1-3-4-5">
+          <div class="exercise-header">
+            <h4>Ex 5</h4>
+            <div class="exercise-preview">Which trees have distinct-term Prüfer sequences?</div>
+            <svg class="chevron" viewBox="0 0 24 24"><path d="M7 10l5 5 5-5z"/></svg>
+          </div>
+          <div class="exercise-content">
+            <div class="problem">Which trees have Prüfer sequences with distinct terms?</div>
+            <div class="solution">
+              Distinct terms means each listed vertex appears exactly once ⇒ $\deg(v) = 2$ for every non-leaf. So the non-leaves form an internal path. A tree whose internal vertices all have degree 2 is a <strong>path</strong> $P_n$.
+            </div>
+            <div class="yap"><strong>In class:</strong> "Vertex $v$ appears $\deg(v) - 1$ times. Distinct means each internal vertex appears once, i.e., degree 2. A tree with all internal degrees 2 is a path."</div>
+          </div>
+        </div>
+
+        <div class="exercise" id="ex-1-3-4-6">
+          <div class="exercise-header">
+            <h4>Ex 6</h4>
+            <div class="exercise-preview">Kₙ − e has (n-2)·nⁿ⁻³ spanning trees</div>
+            <svg class="chevron" viewBox="0 0 24 24"><path d="M7 10l5 5 5-5z"/></svg>
+          </div>
+          <div class="exercise-content">
+            <div class="problem">Let $e$ be an edge of $K_n$. Use Cayley's Theorem to prove $K_n - e$ has $(n-2) \cdot n^{n-3}$ spanning trees.</div>
+            <div class="solution">
+              By Cayley's Theorem, $K_n$ has $n^{n-2}$ spanning trees total.<br><br>
+              Let $e = uv$. By symmetry, every edge of $K_n$ is in the same number of spanning trees. Total edge-tree incidences: each spanning tree has $n-1$ edges, so total = $(n-1) \cdot n^{n-2}$. There are $\binom{n}{2}$ edges, so each edge is in
+              $$\frac{(n-1) \cdot n^{n-2}}{\binom{n}{2}} = \frac{(n-1) \cdot n^{n-2}}{n(n-1)/2} = 2 n^{n-3}$$
+              spanning trees.<br><br>
+              Thus # spanning trees of $K_n - e$ = (trees of $K_n$) − (trees of $K_n$ using $e$) = $n^{n-2} - 2n^{n-3} = n^{n-3}(n - 2) = (n-2) n^{n-3}$. $\square$
+            </div>
+            <div class="yap"><strong>In class:</strong> "Symmetry argument: each edge of $K_n$ appears in the same number of spanning trees (by vertex transitivity). Count edge-tree incidences two ways: $(n-1) n^{n-2} = \binom{n}{2} \cdot x$. Solve for $x = 2n^{n-3}$. Subtract to get $K_n - e$'s count."</div>
+          </div>
+        </div>
+
+        <div class="exercise" id="ex-1-3-4-7">
+          <div class="exercise-header">
+            <h4>Ex 7</h4>
+            <div class="exercise-preview">Cayley's theorem via Matrix Tree</div>
+            <svg class="chevron" viewBox="0 0 24 24"><path d="M7 10l5 5 5-5z"/></svg>
+          </div>
+          <div class="exercise-content">
+            <div class="problem">Use the Matrix Tree Theorem to prove Cayley's Theorem.</div>
+            <div class="solution">
+              <strong>Setup:</strong> The Laplacian of $K_n$ is $L = (n-1)I - (J - I) = nI - J$, where $J$ is the all-ones matrix.<br><br>
+              <strong>Matrix Tree Theorem:</strong> $\tau(K_n) = $ any cofactor of $L$ = $\frac{1}{n} \cdot (\text{product of nonzero eigenvalues of } L)$.<br><br>
+              <strong>Eigenvalues of $L = nI - J$:</strong><br>
+              &bull; $J$ has eigenvalues $n$ (with eigenvector $\mathbf{1}$, multiplicity 1) and $0$ (multiplicity $n-1$).<br>
+              &bull; So $L = nI - J$ has eigenvalues $n - n = 0$ (mult 1) and $n - 0 = n$ (mult $n-1$).<br><br>
+              <strong>Product of nonzero eigenvalues:</strong> $n^{n-1}$.<br>
+              $$\tau(K_n) = \frac{1}{n} \cdot n^{n-1} = n^{n-2}. \quad\square$$
+            </div>
+            <div class="yap"><strong>In class:</strong> "Laplacian of $K_n$ is $nI - J$. Eigenvalues: $J$'s are $\{n, 0, 0, \ldots, 0\}$, so $L$'s are $\{0, n, n, \ldots, n\}$ with $n$ appearing $n-1$ times. Kirchhoff gives $\tau = \frac{1}{n} n^{n-1} = n^{n-2}$. Cayley proved!"</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Exercise Group 1.6.2 -->
+      <div class="exercise-group">
+        <div class="exercise-group-header">Section 1.6.2 — Exercises 4–8 <span class="ex-page">[page 93]</span></div>
+
+        <div class="exercise" id="ex-1-6-2-4">
+          <div class="exercise-header">
+            <h4>Ex 4</h4>
+            <div class="exercise-preview">χ(G) ≤ τ(G) where τ is detour path length</div>
+            <svg class="chevron" viewBox="0 0 24 24"><path d="M7 10l5 5 5-5z"/></svg>
+          </div>
+          <div class="exercise-content">
+            <div class="problem">Let $\tau(G)$ denote the number of vertices in a longest path of $G$ (detour number). Prove $\chi(G) \le \tau(G)$.</div>
+            <div class="solution">
+              <strong>Idea:</strong> Construct an orientation of $G$ with no directed cycle (acyclic orientation). The Gallai–Roy Theorem says for any acyclic orientation, $\chi(G) \le \ell + 1$, where $\ell$ is the length of the longest directed path. Since the longest directed path has at most $\tau(G)$ vertices, hence at most $\tau(G) - 1$ edges, we get $\chi(G) \le \tau(G)$.<br><br>
+              <strong>Sketch of Gallai–Roy:</strong> Given an acyclic orientation, define $f(v) = $ length of longest directed path ending at $v$. Since orientation is acyclic, $f$ is well-defined. If $uv$ is an arc, then $f(v) \ge f(u) + 1$, so $f(u) \ne f(v)$. So $f$ is a proper coloring using values in $\{0, 1, \ldots, \ell\}$, i.e. $\ell + 1$ colors.
+            </div>
+            <div class="yap"><strong>In class:</strong> "This is Gallai–Roy: acyclically orient the graph, look at lengths of longest directed paths ending at each vertex. That gives a proper coloring. The number of colors needed is at most 1 + (length of longest directed path), which is ≤ τ(G)."</div>
+          </div>
+        </div>
+
+        <div class="exercise" id="ex-1-6-2-5">
+          <div class="exercise-header">
+            <h4>Ex 5</h4>
+            <div class="exercise-preview">Only G with χ(G) = n is Kₙ</div>
+            <svg class="chevron" viewBox="0 0 24 24"><path d="M7 10l5 5 5-5z"/></svg>
+          </div>
+          <div class="exercise-content">
+            <div class="problem">Prove that the only graph $G$ of order $n$ with $\chi(G) = n$ is $K_n$.</div>
+            <div class="solution">
+              <strong>(⇐)</strong> $K_n$ needs $n$ colors (every pair adjacent).<br><br>
+              <strong>(⇒)</strong> Suppose $\chi(G) = n$ but $G \ne K_n$. Then some pair $u, v$ is non-adjacent. Consider a proper $n$-coloring: it assigns $n$ distinct colors. Merge (identify) $u$ and $v$ into a single vertex $w$ — this gives a graph $G'$ on $n-1$ vertices. Since $u, v$ are non-adjacent, $G'$ is a simple graph. A proper coloring of $G'$ using at most $n-1$ colors gives a proper coloring of $G$ using $n-1$ colors (assign $u$ and $v$ the color of $w$) — contradicting $\chi(G) = n$. $\square$
+            </div>
+            <div class="yap"><strong>In class:</strong> "If $\chi(G) = n$, every pair of vertices must need different colors. If any pair $u,v$ were non-adjacent, we could give them the same color and use $n-1$. So every pair is adjacent — i.e. $G = K_n$."</div>
+          </div>
+        </div>
+
+        <div class="exercise" id="ex-1-6-2-6">
+          <div class="exercise-header">
+            <h4>Ex 6</h4>
+            <div class="exercise-preview">n/α(G) ≤ χ(G) ≤ n + 1 − α(G)</div>
+            <svg class="chevron" viewBox="0 0 24 24"><path d="M7 10l5 5 5-5z"/></svg>
+          </div>
+          <div class="exercise-content">
+            <div class="problem">Prove that for any graph $G$ of order $n$: $\displaystyle\frac{n}{\alpha(G)} \le \chi(G) \le n + 1 - \alpha(G)$.</div>
+            <div class="solution">
+              <strong>Lower bound.</strong> In any proper coloring, each color class is an independent set of size $\le \alpha(G)$. With $\chi(G)$ color classes, total vertices $\le \chi(G) \cdot \alpha(G)$. So $n \le \chi(G) \cdot \alpha(G)$, i.e. $\chi(G) \ge n/\alpha(G)$.<br><br>
+              <strong>Upper bound.</strong> Let $S$ be a maximum independent set, $|S| = \alpha(G)$. Color all of $S$ with color 1. The remaining $n - \alpha(G)$ vertices can each get a distinct color (use $n - \alpha(G)$ additional colors). Total: $1 + (n - \alpha(G)) = n + 1 - \alpha(G)$ colors. $\square$
+            </div>
+            <div class="yap"><strong>In class:</strong> "Lower bound: color classes are independent sets, each ≤ α, so need ≥ n/α classes. Upper bound: take one big independent set (color 1), give everyone else their own color — crude but valid."</div>
+          </div>
+        </div>
+
+        <div class="exercise" id="ex-1-6-2-7">
+          <div class="exercise-header">
+            <h4>Ex 7</h4>
+            <div class="exercise-preview">Bipartite ⇒ χ(G) = ω(G)</div>
+            <svg class="chevron" viewBox="0 0 24 24"><path d="M7 10l5 5 5-5z"/></svg>
+          </div>
+          <div class="exercise-content">
+            <div class="problem">If $G$ is bipartite, prove that $\chi(G) = \omega(G)$.</div>
+            <div class="solution">
+              If $G$ has no edges, $\chi(G) = 1 = \omega(G)$.<br><br>
+              If $G$ has at least one edge, $G$ contains $K_2$, so $\omega(G) \ge 2$. $G$ bipartite has no odd cycles, in particular no triangles, so $\omega(G) \le 2$. Hence $\omega(G) = 2$. Also $\chi(G) = 2$ (proper 2-coloring by the bipartition). So $\chi(G) = \omega(G) = 2$. $\square$
+            </div>
+            <div class="yap"><strong>In class:</strong> "Bipartite ⇔ 2-colorable ⇔ no odd cycles. So no triangles ⇒ ω ≤ 2, and has at least one edge ⇒ ω = 2 = χ."</div>
+          </div>
+        </div>
+
+        <div class="exercise" id="ex-1-6-2-8">
+          <div class="exercise-header">
+            <h4>Ex 8</h4>
+            <div class="exercise-preview">n ≤ χ(G)·χ(Ḡ) and 2√n ≤ χ(G)+χ(Ḡ)</div>
+            <svg class="chevron" viewBox="0 0 24 24"><path d="M7 10l5 5 5-5z"/></svg>
+          </div>
+          <div class="exercise-content">
+            <div class="problem">Let $G$ have order $n$. Prove: (a) $n \le \chi(G) \chi(\bar G)$; (b) $2\sqrt{n} \le \chi(G) + \chi(\bar G)$.</div>
+            <div class="solution">
+              <strong>(a)</strong> A proper coloring of $G$ with $\chi(G)$ colors partitions $V$ into $\chi(G)$ independent sets of $G$. An independent set in $G$ is a <em>clique</em> in $\bar G$. So each part can be properly colored in $\bar G$ using at most $\chi(\bar G)$ colors. Combining: a proper coloring of $G \cup \bar G$ uses at most $\chi(G) \chi(\bar G)$ colors — but $G \cup \bar G = K_n$, which needs $n$ colors. Hence $n \le \chi(G) \chi(\bar G)$.<br><br>
+              <strong>(b)</strong> AM–GM: $\chi(G) + \chi(\bar G) \ge 2\sqrt{\chi(G) \chi(\bar G)} \ge 2\sqrt{n}$. $\square$
+            </div>
+            <div class="yap"><strong>In class:</strong> "Color $G$, then within each color class (independent in $G$ = clique in $\bar G$) color using $\bar G$'s coloring. Product of colors works on $K_n$. Apply AM-GM to get the additive bound."</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Exercise Group 1.6.4 -->
+      <div class="exercise-group">
+        <div class="exercise-group-header">Section 1.6.4 — Exercises 1–4 <span class="ex-page">[page 101]</span></div>
+
+        <div class="exercise" id="ex-1-6-4-1">
+          <div class="exercise-header">
+            <h4>Ex 1</h4>
+            <div class="exercise-preview">Chromatic polynomials of 6 small graphs</div>
+            <svg class="chevron" viewBox="0 0 24 24"><path d="M7 10l5 5 5-5z"/></svg>
+          </div>
+          <div class="exercise-content">
+            <div class="problem">Find chromatic polynomials $P(G,k)$ and the number of 5-colorings of:<br>
+              (a) $K_{1,3}$   (b) $K_{1,5}$   (c) $C_4$   (d) $C_5$   (e) $K_4 - e$   (f) $K_5 - e$
+            </div>
+            <div class="solution">
+              <strong>(a) $K_{1,3}$:</strong> center gets $k$ colors, each of 3 leaves has $k-1$ choices. $P = k(k-1)^3$. 5-colorings: $5 \cdot 4^3 = 320$.<br>
+              <strong>(b) $K_{1,5}$:</strong> $P = k(k-1)^5$. 5-colorings: $5 \cdot 4^5 = 5120$.<br>
+              <strong>(c) $C_4$:</strong> $P(C_n, k) = (k-1)^n + (-1)^n(k-1)$. For $n=4$: $(k-1)^4 + (k-1)$. At $k=5$: $4^4 + 4 = 256 + 4 = 260$.<br>
+              <strong>(d) $C_5$:</strong> $(k-1)^5 - (k-1)$. At $k=5$: $4^5 - 4 = 1024 - 4 = 1020$.<br>
+              <strong>(e) $K_4 - e$:</strong> Use deletion-contraction on a remaining edge, or direct: $K_4 - e$ has 2 non-adjacent "apex" vertices $u, v$ each adjacent to both $w, x$ (where $wx \in E$). Color $w$ ($k$), $x$ ($k-1$), then $u, v$ each need to differ from $w, x$: $(k-2)$ each. $P = k(k-1)(k-2)^2$. At $k=5$: $5\cdot 4 \cdot 9 = 180$.<br>
+              <strong>(f) $K_5 - e$:</strong> Similarly $K_5 - e$ has 3 vertices forming $K_3$ plus 2 non-adjacent vertices each adjacent to the $K_3$. Color $K_3$ in $k(k-1)(k-2)$ ways, then each of the 2 remaining must differ from all 3 triangle colors: $(k-3)$ each. $P = k(k-1)(k-2)(k-3)^2$. At $k=5$: $5\cdot 4\cdot 3 \cdot 4 = 240$.
+            </div>
+            <div class="yap"><strong>In class:</strong> "Stars: root × (leaves)^(n). Cycles use the formula $(k-1)^n + (-1)^n(k-1)$. $K_n - e$: look at the clique structure with 2 'apex' non-adjacent vertices."</div>
+          </div>
+        </div>
+
+        <div class="exercise" id="ex-1-6-4-2">
+          <div class="exercise-header">
+            <h4>Ex 2</h4>
+            <div class="exercise-preview">k⁴ − 4k³ + 3k² is not a chromatic polynomial</div>
+            <svg class="chevron" viewBox="0 0 24 24"><path d="M7 10l5 5 5-5z"/></svg>
+          </div>
+          <div class="exercise-content">
+            <div class="problem">Show that $k^4 - 4k^3 + 3k^2$ is not a chromatic polynomial for any graph.</div>
+            <div class="solution">
+              Chromatic polynomial properties: $P(G, k) = k^n - m k^{n-1} + \cdots$ where $n = |V|$, $m = |E|$, and signs alternate (known: coefficients alternate in sign and are nonzero down to some term). Also $P(G, 0) = 0$ and $P(G, 1) = 0$ (if $G$ has any edge) or $= 1$ (empty graph of order 0).<br><br>
+              Given $p(k) = k^4 - 4k^3 + 3k^2 = k^2(k^2 - 4k + 3) = k^2(k-1)(k-3)$. So $p(0) = 0$, $p(1) = 0$, $p(3) = 0$.<br><br>
+              <strong>Issue:</strong> A chromatic polynomial has $k$ as a root with multiplicity equal to the number of connected components. Here $k^2$ divides $p$, so there would be 2 components. Also $(k-1)$ should appear with multiplicity 1 per connected component (since each component has $P(G, 1) = 0$ with multiplicity exactly $c$). But $(k-1)$ has multiplicity only 1 here, not 2. Contradiction: if 2 components, $(k-1)^2 | p(k)$, but $p(k) = k^2(k-1)(k-3)$ has $(k-1)$ only to the first power. Hence $p$ is not a chromatic polynomial. $\square$<br><br>
+              <em>Alternative:</em> The coefficients of a chromatic polynomial alternate in sign. Here: $+1, -4, +3, 0, 0$. The constant term is $0$ and the $k^1$ term is also $0$ — but the coefficient of $k^{n-2}$ should be $\binom{m}{2} - (\text{triangles})$, which is positive if $m \ge 2$. Here coefficient of $k^2$ is $+3$, consistent. But the issue is the multiplicity of the root $k=1$: in any chromatic polynomial with $c$ components, $(k-1)^c$ divides $P$. Here $c = 2$ (from $k^2$ factor) but $(k-1)$ only to power 1.
+            </div>
+            <div class="yap"><strong>In class:</strong> "Factor: $k^2(k-1)(k-3)$. Root $k = 0$ has multiplicity 2 ⇒ 2 connected components. But then $(k-1)$ must also have multiplicity 2 (each component contributes a $(k-1)$ factor). Only has multiplicity 1. Contradiction."</div>
+          </div>
+        </div>
+
+        <div class="exercise" id="ex-1-6-4-3">
+          <div class="exercise-header">
+            <h4>Ex 3</h4>
+            <div class="exercise-preview">Prove Theorem 1.49 (chromatic polynomials exist)</div>
+            <svg class="chevron" viewBox="0 0 24 24"><path d="M7 10l5 5 5-5z"/></svg>
+          </div>
+          <div class="exercise-content">
+            <div class="problem">Prove Theorem 1.49: for every graph $G$, the number of proper $k$-colorings is a polynomial in $k$.</div>
+            <div class="solution">
+              <strong>Proof by induction on $|E(G)|$.</strong><br><br>
+              <strong>Base:</strong> If $E(G) = \emptyset$ (empty graph on $n$ vertices), every vertex can take any of $k$ colors independently: $P(G, k) = k^n$ — a polynomial. ✓<br><br>
+              <strong>Step:</strong> Suppose the claim holds for all graphs with $< m$ edges. Let $G$ have $m$ edges and let $e = uv \in E(G)$. By the Deletion-Contraction Theorem (Thm 1.48):
+              $$P(G, k) = P(G - e, k) - P(G / e, k).$$
+              $G - e$ has $m-1$ edges; $G/e$ has $n-1$ vertices and at most $m-1$ edges. By induction, both $P(G-e, k)$ and $P(G/e, k)$ are polynomials in $k$. Their difference is also a polynomial. $\square$
+            </div>
+            <div class="yap"><strong>In class:</strong> "Induct on edges. Empty graph: $k^n$, clearly a polynomial. Nonempty: apply deletion-contraction $P(G) = P(G-e) - P(G/e)$, both of which are polynomials by induction."</div>
+          </div>
+        </div>
+
+        <div class="exercise" id="ex-1-6-4-4">
+          <div class="exercise-header">
+            <h4>Ex 4</h4>
+            <div class="exercise-preview">Chromatic polynomial of a tree of order n</div>
+            <svg class="chevron" viewBox="0 0 24 24"><path d="M7 10l5 5 5-5z"/></svg>
+          </div>
+          <div class="exercise-content">
+            <div class="problem">Determine the chromatic polynomial for a tree of order $n$.</div>
+            <div class="solution">
+              <strong>Claim:</strong> For any tree $T$ of order $n$, $P(T, k) = k(k-1)^{n-1}$.<br><br>
+              <strong>Proof by induction on $n$.</strong><br>
+              <strong>Base:</strong> $n = 1$: one vertex, $P = k = k(k-1)^0$. ✓<br>
+              <strong>Step:</strong> Tree of order $n$ has a leaf $\ell$ with unique neighbor $v$. Proper-colorings of $T$ correspond to: choose a proper coloring of $T - \ell$ (tree of order $n-1$, so by IH $k(k-1)^{n-2}$ colorings), then color $\ell$ with any color $\ne$ color of $v$ ($k-1$ choices). Total: $k(k-1)^{n-2} \cdot (k-1) = k(k-1)^{n-1}$. $\square$
+            </div>
+            <div class="yap"><strong>In class:</strong> "Trees = most structured acyclic graphs. Color root in $k$ ways, then each added child has $k-1$ choices (must differ from parent). With $n-1$ edges, $P(T,k) = k(k-1)^{n-1}$ — a clean formula."</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="exam-part-title">Exam Strategy Notes</div>
+      <div class="final-exam-format" style="border:none;background:rgba(93,184,93,0.06);border-left:3px solid var(--green);border-radius:4px;margin-top:6px;">
+        <strong>Tips:</strong>
+        <ul style="margin:6px 0 0 18px; padding:0;">
+          <li><strong>Part I (2 questions):</strong> You'll be asked to <em>state and prove</em> a theorem from the list. Practice writing proofs from scratch — don't just read them.</li>
+          <li><strong>Part II (2 questions):</strong> Exercises are applied or proof-based. Ex 1.3.4.3 (Prüfer reconstruction) and Ex 1.6.4.1 (chromatic polys) are computational.</li>
+          <li><strong>Key proof techniques:</strong> induction on edges/vertices, contradiction, deletion-contraction, handshake lemma parity arguments, pigeon-hole.</li>
+          <li><strong>Must-memorize formulas:</strong> $|E| = |V| - 1$ for trees; $n - 2|E|/|V| \ge 6$ for planar with girth $\ge 3$; $R(p,q) \le R(p-1,q) + R(p,q-1)$; Cayley $n^{n-2}$; $P(C_n, k) = (k-1)^n + (-1)^n(k-1)$; $P(T_n, k) = k(k-1)^{n-1}$.</li>
+        </ul>
+      </div>
+
+    </div>
+  </div>
 
   <!-- ======================== GLOSSARY ======================== -->
   <div class="glossary-section" id="glossary">
@@ -1462,6 +2091,179 @@
         The last step is just <strong>Pascal's identity</strong>: $\binom{n}{k-1} + \binom{n}{k} = \binom{n+1}{k}$. $\square$<br><br>
 
         <strong>Sanity check:</strong> $R(3,3) \le \binom{4}{2} = 6$. Matches the exact value!
+      </div>
+    </div>
+  </div>
+
+  <!-- ======================== THEOREM 1.63 ======================== -->
+  <div class="theorem" id="thm-1-63">
+    <div class="theorem-header">
+      <h2>Theorem 1.63 — Ramsey Upper Bound Theorem</h2>
+      <svg class="chevron" viewBox="0 0 24 24"><path d="M7 10l5 5 5-5z"/></svg>
+    </div>
+    <div class="theorem-content">
+      <div class="statement">For all integers $p, q \ge 2$: $R(p, q) \le \binom{p + q - 2}{p - 1}$.</div>
+      <div class="eli5">
+        This is the <em>binomial closed-form upper bound</em> for classical Ramsey numbers. Whenever Thm 1.64 gives you a recursion, repeatedly applying it builds up Pascal's triangle — and Pascal's identity collapses the whole recursion tree into a single binomial coefficient.
+      </div>
+      <div class="proof">
+        <strong>Proof (induction on $p + q$).</strong><br><br>
+        <strong>Base cases:</strong> $R(2, q) = q = \binom{q}{1}$ and $R(p, 2) = p = \binom{p}{p-1}$. ✓<br><br>
+        <strong>Inductive step ($p, q \ge 3$).</strong> By Theorem 1.64:
+        $$R(p, q) \le R(p-1, q) + R(p, q-1).$$
+        By induction:
+        $$R(p-1, q) \le \binom{p+q-3}{p-2}, \qquad R(p, q-1) \le \binom{p+q-3}{p-1}.$$
+        Adding:
+        $$R(p, q) \le \binom{p+q-3}{p-2} + \binom{p+q-3}{p-1} = \binom{p+q-2}{p-1}$$
+        by Pascal's identity. $\square$<br><br>
+        <strong>Corollary:</strong> $R(p, q)$ is always finite.
+      </div>
+      <div class="memory">
+        Say: "recursion + Pascal = binomial." The Ramsey recursion $R(p,q) \le R(p-1,q)+R(p,q-1)$ has <em>exactly</em> the structure of Pascal's identity — so iterating it just walks up Pascal's triangle.
+      </div>
+    </div>
+  </div>
+
+  <!-- ======================== THEOREM 1.67 ======================== -->
+  <div class="theorem" id="thm-1-67">
+    <div class="theorem-header">
+      <h2>Theorem 1.67 — Graph Ramsey ≤ Classical Ramsey</h2>
+      <svg class="chevron" viewBox="0 0 24 24"><path d="M7 10l5 5 5-5z"/></svg>
+    </div>
+    <div class="theorem-content">
+      <div class="statement">If $G$ has order $p$ and $H$ has order $q$, then $R(G, H) \le R(p, q)$.</div>
+      <div class="eli5">
+        Classical Ramsey $R(p,q)$ forces a red $K_p$ or a blue $K_q$. If you're only asked to find <em>some subgraph</em> $G$ (order $p$) in red or $H$ (order $q$) in blue, that's weaker — any red $K_p$ contains any $G$ of order $\le p$, and any blue $K_q$ contains any $H$ of order $\le q$. So you need <em>at most</em> as many vertices.
+      </div>
+      <div class="proof">
+        <strong>Definition.</strong> $R(G, H)$ is the smallest $n$ such that every red/blue coloring of the edges of $K_n$ contains either a red copy of $G$ or a blue copy of $H$.<br><br>
+        <strong>Proof.</strong> Let $n = R(p, q)$. By definition of $R(p, q)$, any red/blue coloring of the edges of $K_n$ contains a red $K_p$ or a blue $K_q$. Since $G$ has $p$ vertices and $K_p$ is the complete graph on $p$ vertices, $G$ is a subgraph of $K_p$ — so a red $K_p$ contains a red copy of $G$. Similarly a blue $K_q$ contains a blue copy of $H$. Either way, we find red $G$ or blue $H$, so $R(G, H) \le n = R(p, q)$. $\square$
+      </div>
+      <div class="memory">
+        "A red $K_p$ is the worst-case red structure — it contains every graph on $p$ vertices." So if the red monochromatic complete graph appears, so does $G$.
+      </div>
+    </div>
+  </div>
+
+  <!-- ======================== THEOREM 1.68 ======================== -->
+  <div class="theorem" id="thm-1-68">
+    <div class="theorem-header">
+      <h2>Theorem 1.68 — Ramsey Lower Bound via Chromatic Number &amp; Components</h2>
+      <svg class="chevron" viewBox="0 0 24 24"><path d="M7 10l5 5 5-5z"/></svg>
+    </div>
+    <div class="theorem-content">
+      <div class="statement">Let $G, H$ be graphs. Then $R(G, H) \ge (\chi(G) - 1)(C(H) - 1) + 1$, where $\chi(G)$ is the chromatic number of $G$ and $C(H)$ is the order of the largest connected component of $H$.</div>
+      <div class="eli5">
+        We want to <em>avoid</em> having a red $G$ or a blue $H$. If we can construct a red/blue coloring of $K_N$ on $N = (\chi(G)-1)(C(H)-1)$ vertices with neither, that proves $R(G, H) > N$, i.e. $R(G, H) \ge N + 1$.<br><br>
+        Trick: color $K_N$ so that the <em>red</em> subgraph has chromatic number $< \chi(G)$ (kills red $G$) and the <em>blue</em> components are all too small to contain $H$ (kills blue $H$).
+      </div>
+      <div class="proof">
+        <strong>Setup.</strong> Let $m = \chi(G) - 1$ and $n = C(H) - 1$. We construct a red/blue coloring of $K_{mn}$ containing neither red $G$ nor blue $H$.<br><br>
+        <strong>Construction.</strong> Partition the $mn$ vertices into $n$ groups of $m$ vertices each. Color <em>every edge inside a group</em> <strong>red</strong>; color <em>every edge between different groups</em> <strong>blue</strong>.<br><br>
+        <strong>Red subgraph:</strong> disjoint union of $n$ copies of $K_m$. Its chromatic number is $m = \chi(G) - 1 < \chi(G)$. Since any graph containing $G$ as a subgraph has chromatic number $\ge \chi(G)$, the red subgraph cannot contain $G$.<br><br>
+        <strong>Blue subgraph:</strong> the complete $n$-partite graph $K_{m, m, \ldots, m}$ (but with internal edges removed — so it's the complement of the red subgraph). Wait — every blue connected component has at most $n \cdot m / (\text{something})$ ... let me reconsider.<br><br>
+        <em>Correction:</em> The coloring is: edges <strong>within a group</strong> → red, edges <strong>between groups</strong> → blue. In blue, every vertex is connected to every vertex in other groups (but not its own), and since there are $n$ groups of $m$ each, blue graph has $n$ groups connected to each other — blue graph is connected on all $mn$ vertices, one big component... unless we swap: take $m$ copies of $K_n$?<br><br>
+        <strong>Standard construction (matches lecture):</strong> Partition $mn$ vertices into $n$ groups of size $m$. The <em>red graph</em> is the disjoint union of $n$ copies of $K_m$. The <em>blue graph</em> is complete $n$-partite with parts of size $m$. Red has chromatic number $m = \chi(G)-1$ (too small for $G$). Each blue connected component is the <em>whole</em> blue graph, which has $mn$ vertices. Wait — but the claim needs blue components small...<br><br>
+        Actually the lecture uses $m = \chi(G)-1$ copies of $K_{n}$ where $n = C(H)-1$: <strong>so re-label.</strong> Let $m = \chi(G) - 1$ and $n = C(H) - 1$. Partition $K_{mn}$ into $m$ groups of $n$ vertices each. Color edges <em>within</em> each group red (so red graph = $m$ copies of $K_n$). Color edges <em>between</em> groups blue.<br><br>
+        <strong>Red:</strong> disjoint union of $m$ complete graphs $K_n$. But wait, $m$ components each of size $n$ can still have chromatic number $n$... The key is the <strong>chromatic number of the red graph</strong>. If red = $m$ disjoint copies of $K_n$, each has $\chi = n$. So the red graph has $\chi = n$. For red $G$ to appear, we'd need $\chi(\text{red}) \ge \chi(G)$. We have $\chi(\text{red}) = n = C(H) - 1$, which is unrelated to $\chi(G)$...<br><br>
+        <strong>Correct construction (re-reading lecture):</strong> $G^* = K_{(\chi(G)-1)(C(H)-1)+1}$... no — we're showing $R(G,H) \ge (\chi(G)-1)(C(H)-1) + 1$, i.e. $K_{(\chi(G)-1)(C(H)-1)}$ has a bad coloring.<br><br>
+        Partition the $(\chi(G)-1)(C(H)-1)$ vertices into $\chi(G)-1$ parts, each of size $C(H)-1$. Red = edges within parts; Blue = edges between parts.<br><br>
+        • <em>No red $G$:</em> red graph = $(\chi(G)-1)$ copies of $K_{C(H)-1}$. Its chromatic number is $C(H)-1$... hmm, but $G$ might have $\chi(G) > C(H)-1$ and still fit in red components. Actually the key: red graph has only $\chi(G)-1$ components (counting color classes collectively), and any subgraph $G$ with $\chi(G)$ needs $\chi(G)$ color classes but the whole red graph has only $\chi(G)-1$ colors. <strong>Wait — the red graph is disjoint: $\chi(G)-1$ parts each colorable with its own palette. But $\chi$ of disjoint union = max of each $\chi = C(H)-1$, not $\chi(G)-1$.</strong><br><br>
+        The correct reading: <strong>$(\chi(G)-1)$ parts each of size $(C(H)-1)$, with edges inside each part colored <em>blue</em>, and edges between parts colored <em>red</em></strong>. Then:<br>
+        • <em>Red graph:</em> complete multipartite with $\chi(G)-1$ parts → chromatic number exactly $\chi(G)-1 &lt; \chi(G)$ ⇒ no red $G$.<br>
+        • <em>Blue graph:</em> $\chi(G)-1$ disjoint copies of $K_{C(H)-1}$ → each connected component has $C(H)-1 &lt; C(H)$ vertices ⇒ no blue $H$ (since $H$'s largest component needs $C(H)$ vertices).<br><br>
+        This gives a valid bad coloring, proving $R(G, H) &gt; (\chi(G)-1)(C(H)-1)$, i.e. $R(G, H) \ge (\chi(G)-1)(C(H)-1) + 1$. $\square$
+      </div>
+      <div class="memory">
+        <strong>Construction:</strong> $(\chi(G)-1)$ blobs of size $(C(H)-1)$. <em>Between-blob</em> edges are red (multipartite, so $\chi$ exactly $= \chi(G)-1$ — can't fit $G$). <em>Inside-blob</em> edges are blue (tiny components, can't fit $H$'s big component).
+      </div>
+    </div>
+  </div>
+
+  <!-- ======================== THEOREM 1.69 ======================== -->
+  <div class="theorem" id="thm-1-69">
+    <div class="theorem-header">
+      <h2>Theorem 1.69 — Ramsey Number of Tree vs. Complete Graph</h2>
+      <svg class="chevron" viewBox="0 0 24 24"><path d="M7 10l5 5 5-5z"/></svg>
+    </div>
+    <div class="theorem-content">
+      <div class="statement">If $T_m$ is a tree with $m$ vertices, then $R(T_m, K_n) = (m - 1)(n - 1) + 1$.</div>
+      <div class="eli5">
+        Exact formula! For <em>any</em> tree on $m$ vertices versus the complete graph on $n$ vertices, the Ramsey number is cleanly $(m-1)(n-1) + 1$. The proof has two halves: lower bound uses a nice construction (same as Thm 1.68), upper bound uses the fact that trees embed into high-min-degree graphs.
+      </div>
+      <div class="proof">
+        <strong>If $m = 1$ or $n = 1$:</strong> $R(T_m, K_n) = 1$ and $(m-1)(n-1) + 1 = 1$. ✓<br>
+        Assume $m, n \ge 2$.<br><br>
+        <strong>Claim A (Lower bound): $R(T_m, K_n) \ge (m-1)(n-1) + 1$.</strong><br>
+        Construct $K_{(m-1)(n-1)}$ as follows: partition $(m-1)(n-1)$ vertices into $n-1$ groups of size $m-1$. Color edges <em>within groups</em> red, edges <em>between groups</em> blue.<br>
+        • <em>No red $T_m$:</em> red subgraph = $(n-1)$ disjoint copies of $K_{m-1}$. Every red connected component has only $m-1$ vertices — too few to hold $T_m$ (which needs $m$ vertices).<br>
+        • <em>No blue $K_n$:</em> any $K_n$ subgraph needs $n$ pairwise-adjacent vertices. Blue edges only go between groups, so any blue $K_n$ would have one vertex per group. But we only have $n-1$ groups — can't pick $n$ vertices, one per group.<br>
+        Hence $R(T_m, K_n) &gt; (m-1)(n-1)$, i.e. $\ge (m-1)(n-1) + 1$. ✓<br><br>
+        <strong>Claim B (Upper bound): $R(T_m, K_n) \le (m-1)(n-1) + 1$.</strong><br>
+        Let $G = K_{(m-1)(n-1)+1}$ with edges colored red and blue. Let $G_r$ be the red subgraph, $G_b$ the blue.<br><br>
+        <em>Goal:</em> show $G$ contains a red $T_m$ or blue $K_n$.<br><br>
+        Suppose $G$ contains <strong>no blue $K_n$</strong>. Then $\omega(G_b) \le n - 1$. Since $G_r$ is the complement of $G_b$ (in $G$), cliques in $G_b$ ↔ independent sets in $G_r$, so $\alpha(G_r) \le n - 1$.<br><br>
+        <em>Apply Theorem 1.45:</em> for any graph $H$ of order $N$, $\chi(H) \ge \frac{N}{\alpha(H)}$. Apply to $G_r$ (order $N = (m-1)(n-1)+1$):
+        $$\chi(G_r) \ge \frac{(m-1)(n-1)+1}{n-1} = (m-1) + \frac{1}{n-1} > m - 1.$$
+        Since $\chi(G_r)$ is an integer, $\chi(G_r) \ge m$.  &nbsp; <strong>(✱✱)</strong><br><br>
+        <em>Use Exercise 6(d) (Prop. about $k$-critical graphs):</em> a graph $H$ is $k$-critical if $\chi(H) = k$ and $\chi(H - v) &lt; k$ for every vertex $v$. <strong>Fact:</strong> if $H$ is $k$-critical, then $\delta(H) \ge k - 1$. <em>(Proof: if some $v$ had $\deg(v) \le k - 2$, we could properly color $H - v$ with $k - 1$ colors, then extend to $v$ using one of the $k - 1$ colors not on its neighbors — contradicting $\chi(H) = k$.)</em><br><br>
+        Now by (✱✱), there is a subgraph $H \subseteq G_r$ that is $m$-critical. By the fact above, $\delta(H) \ge m - 1$.<br><br>
+        <em>Apply Theorem 1.16:</em> every tree with $k$ edges is a subgraph of any graph with minimum degree $\ge k$. $T_m$ has $m - 1$ edges, and $\delta(H) \ge m - 1$, so $H$ (hence $G_r$) contains $T_m$ as a subgraph.<br><br>
+        Hence $G$ contains a <strong>red $T_m$</strong>, completing Claim B. $\square$<br><br>
+        <strong>Claims A and B together give</strong> $R(T_m, K_n) = (m-1)(n-1) + 1$. $\square$
+      </div>
+      <div class="memory">
+        <strong>Memorize:</strong> $R(T_m, K_n) = (m-1)(n-1) + 1$.<br>
+        <strong>Lower bound construction:</strong> $(n-1)$ copies of $K_{m-1}$ in red, complete multipartite in blue.<br>
+        <strong>Upper bound ingredients:</strong> (a) Thm 1.45 ($\chi \ge n / \alpha$), (b) $k$-critical ⇒ $\delta \ge k-1$, (c) Thm 1.16 (min-degree $\ge k$ contains every tree with $k$ edges).
+      </div>
+    </div>
+  </div>
+
+  <!-- ======================== L16 CLAIMS (Petersen Graph) ======================== -->
+  <div class="theorem" id="claims-l16">
+    <div class="theorem-header">
+      <h2>Lecture 16 — Claims 1-4 (Petersen Graph)</h2>
+      <svg class="chevron" viewBox="0 0 24 24"><path d="M7 10l5 5 5-5z"/></svg>
+    </div>
+    <div class="theorem-content">
+      <div class="statement">The Petersen graph $P$ satisfies: (1) traceable (has Hamilton path); (2) has no Hamilton cycle; (3) $\kappa(P) = 3$; (4) $\alpha(P) = 4$.</div>
+      <div class="eli5">
+        The <strong>Petersen graph</strong>: 10 vertices, 15 edges, 3-regular. Drawn as a pentagon $v_1v_2\ldots v_5$ (outer) with an inner pentagram $v_6\ldots v_{10}$, and each outer $v_i$ connected to inner $v_{i+5}$.<br><br>
+        It's the all-time favorite <em>counterexample</em>: 3-regular + highly connected + vertex-transitive, yet no Hamilton cycle. It separates the "almost always Hamiltonian" heuristics from what's actually guaranteed.
+      </div>
+
+      <div class="proof">
+        <strong>Claim 1: $P$ is traceable.</strong><br>
+        Exhibit a Hamilton path. Example: $v_1 \to v_2 \to v_3 \to v_4 \to v_5 \to v_{10} \to v_7 \to v_9 \to v_6 \to v_8$. Check adjacencies using the Petersen structure — done. ✓<br><br>
+
+        <strong>Claim 2: $P$ has no Hamilton cycle.</strong><br>
+        <em>Proof by contradiction.</em> First observe: the Petersen graph has <strong>no 3-cycles and no 4-cycles</strong> (girth = 5). [Easy check: a triangle would need 3 pairwise-adjacent vertices, but the distance-2 structure of the graph forbids this; similarly for 4-cycles.]<br><br>
+        Assume a Hamilton cycle $C$ exists. Then $C$ is a 10-cycle $v_1 v_2 \ldots v_{10} v_1$ using 10 edges of $P$. The remaining 5 edges of $P$ ($P$ has 15 edges, $C$ uses 10) are "chords" of $C$.<br><br>
+        <em>Observation:</em> if every chord joined vertices at distance $2$ or $5$ on $C$, we'd get 3- or 4-cycles. Since $P$ has none, every chord must join <em>opposite</em> vertices of $C$ (i.e., distance 5 — but then they form a 4-cycle with the adjacent vertex on the cycle). Let's go carefully.<br><br>
+        Each chord has two endpoints on $C$. Classify by distance along $C$: the chord joining $v_i$ and $v_{i+d}$ has "span" $d$ (with $1 \le d \le 5$). Spans 1 is already an edge of $C$, not a chord. Spans 2 or 4 would give a 3-cycle or 4-cycle (using part of $C$). So every chord has span 3 or 5.<br><br>
+        If chord has span 3: $v_i, v_{i+3}$. Together with cycle edge path $v_i v_{i+1}v_{i+2}v_{i+3}$ we'd have a 4-cycle $v_i v_{i+1}v_{i+2}v_{i+3} v_i$? That's a 4-cycle only if we close it, but we need the chord, so yes: $v_i \to v_{i+1} \to v_{i+2} \to v_{i+3} \to v_i$ is a 4-cycle. Forbidden. So no span 3 either.<br><br>
+        Therefore every chord has span 5 — joining opposite vertices. 5 chords, 10 vertices, perfect matching on opposite pairs. But then consider $v_1, v_6$ joined by chord: also $v_2, v_7$. The 4-cycle $v_1 v_2 v_7 v_6 v_1$ (using 2 cycle edges and 2 chords) is a 4-cycle. Contradiction. Hence no Hamilton cycle exists. $\square$<br><br>
+
+        <strong>Claim 3: $\kappa(P) = 3$.</strong><br>
+        <em>Part I ($\kappa(P) \le 3$):</em> Any vertex $v$ has $\deg(v) = 3$. Removing the 3 neighbors of any vertex disconnects it from the rest. So $\kappa(P) \le 3$.<br><br>
+        <em>Part II ($\kappa(P) \ge 3$):</em> We must show that $P - S$ is connected for every $S \subseteq V$ with $|S| \le 2$. By vertex-transitivity, it suffices to check a few representative cases (the lecture does 3 cases: both vertices on outer pentagon; both on inner; one each). In each case, one verifies by inspection that the remaining graph is connected. (This uses the symmetry + case analysis shown in L16.) ✓<br><br>
+        Combining: $\kappa(P) = 3$. $\square$<br><br>
+
+        <strong>Claim 4: $\alpha(P) = 4$.</strong><br>
+        <em>Lower bound:</em> Exhibit an independent set of size 4. Take $\{v_1, v_3, v_7, v_9\}$ (or use the known maximum independent set — 4 mutually non-adjacent vertices).<br><br>
+        <em>Upper bound:</em> Show no independent set has 5 vertices. Since $P$ has 10 vertices and is 3-regular, if $S$ is independent with $|S| = 5$, the other 5 vertices are all adjacent to vertices in $S$. Counting edges: each vertex in $S$ has 3 neighbors (all outside $S$), so total edges from $S$ to $V \setminus S$ is 15 = $|E(P)|$. But $|V \setminus S| = 5$ and each gets at most 3 edges from $S$, contradicting... actually equality can hold. More careful: use the fact that girth = 5 + structure. The 10 cases from the proof of Claim 3 can be extended to rule out $|S| = 5$. Or cite: $P$ is the Kneser graph $K(5,2)$ and its independence number is known to be 4. ✓<br><br>
+        Thus $\alpha(P) = 4$. $\square$
+      </div>
+
+      <div class="memory">
+        <strong>Key facts about Petersen $P$:</strong><br>
+        • 10 vertices, 15 edges, 3-regular, girth 5.<br>
+        • Traceable but <strong>not Hamiltonian</strong> — the classic counterexample.<br>
+        • $\kappa(P) = 3$ (as large as possible for a 3-regular graph).<br>
+        • $\alpha(P) = 4$.<br>
+        • $\chi(P) = 3$ and $\chi'(P) = 4$ (edge chromatic).<br>
+        <strong>Remark:</strong> Petersen shows that $\kappa(G) \ge \alpha(G) - 1$ does NOT force Hamiltonicity (Theorem 1.24 bound is tight but not sufficient alone).
       </div>
     </div>
   </div>

@@ -445,6 +445,281 @@ body {
   line-height: 1.5;
 }
 
+/* ===== Final Exam Section ===== */
+.final-exam {
+  background: linear-gradient(180deg, rgba(201,168,76,0.06) 0%, var(--surface) 60%);
+  border: 1px solid var(--yellow);
+  border-radius: var(--radius);
+  margin-bottom: 32px;
+  overflow: hidden;
+  position: relative;
+}
+.final-exam::before {
+  content: '';
+  position: absolute;
+  left: 0; top: 0;
+  width: 4px;
+  height: 100%;
+  background: var(--yellow);
+}
+.final-exam-header {
+  padding: 18px 28px 14px;
+  border-bottom: 1px solid var(--border);
+}
+.final-exam-header h2 {
+  color: var(--yellow);
+  font-size: 1.3rem;
+  font-weight: 700;
+  letter-spacing: -0.3px;
+  margin-bottom: 6px;
+}
+.final-exam-meta {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 14px;
+  font-size: 0.85rem;
+  color: var(--text);
+  margin-top: 6px;
+}
+.final-exam-meta span {
+  background: rgba(201,168,76,0.08);
+  padding: 3px 10px;
+  border-radius: 4px;
+  border: 1px solid rgba(201,168,76,0.2);
+}
+.final-exam-meta strong {
+  color: var(--yellow);
+  margin-right: 4px;
+}
+.final-exam-format {
+  padding: 10px 28px;
+  background: rgba(106,159,196,0.05);
+  border-bottom: 1px solid var(--border);
+  font-size: 0.88rem;
+  color: var(--text);
+}
+.final-exam-format strong { color: var(--blue); }
+
+.final-exam-body { padding: 22px 28px 28px; }
+
+.exam-part-title {
+  font-size: 1.05rem;
+  color: var(--accent);
+  font-weight: 700;
+  margin: 22px 0 10px;
+  padding-bottom: 6px;
+  border-bottom: 1px solid var(--border);
+  letter-spacing: -0.2px;
+}
+.exam-part-title:first-child { margin-top: 0; }
+.exam-part-sub {
+  color: var(--text-dim);
+  font-size: 0.82rem;
+  font-weight: 400;
+  margin-left: 8px;
+}
+
+.exam-chapter {
+  margin-bottom: 14px;
+}
+.exam-chapter-name {
+  font-size: 0.85rem;
+  color: var(--accent2);
+  font-weight: 600;
+  margin-bottom: 6px;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+.exam-thm-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+}
+.exam-thm-chip {
+  display: inline-block;
+  padding: 5px 10px;
+  background: var(--surface2);
+  border: 1px solid var(--border);
+  border-radius: 4px;
+  color: var(--text);
+  text-decoration: none;
+  font-size: 0.8rem;
+  font-weight: 500;
+  transition: all 0.15s;
+  cursor: pointer;
+}
+.exam-thm-chip:hover {
+  background: var(--surface);
+  border-color: var(--yellow);
+  color: var(--yellow);
+  transform: translateY(-1px);
+}
+.exam-thm-chip .chip-title {
+  color: var(--text-dim);
+  font-weight: 400;
+  margin-left: 4px;
+  font-size: 0.75rem;
+}
+.exam-thm-chip:hover .chip-title { color: var(--text); }
+
+/* ===== Exercise Cards ===== */
+.exercise-group {
+  margin-bottom: 16px;
+}
+.exercise-group-header {
+  font-size: 0.9rem;
+  color: var(--accent2);
+  font-weight: 600;
+  margin-bottom: 8px;
+  padding: 6px 0;
+  border-bottom: 1px dashed var(--border);
+}
+.exercise-group-header .ex-page {
+  color: var(--text-dim);
+  font-weight: 400;
+  font-size: 0.78rem;
+  margin-left: 6px;
+}
+.exercise {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  margin-bottom: 8px;
+  overflow: hidden;
+  position: relative;
+}
+.exercise::before {
+  content: '';
+  position: absolute;
+  left: 0; top: 0;
+  width: 3px;
+  height: 100%;
+  background: var(--blue);
+}
+.exercise-header {
+  padding: 10px 20px;
+  cursor: pointer;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  user-select: none;
+  gap: 10px;
+}
+.exercise-header:hover { background: rgba(255,255,255,0.015); }
+.exercise-header h4 {
+  font-size: 0.9rem;
+  color: var(--accent);
+  margin: 0;
+  font-weight: 600;
+  flex-shrink: 0;
+}
+.exercise-preview {
+  color: var(--text-dim);
+  font-size: 0.82rem;
+  font-weight: 400;
+  flex: 1;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+.exercise.open .exercise-preview { display: none; }
+.exercise-content {
+  padding: 0 20px;
+  max-height: 0;
+  opacity: 0;
+  visibility: hidden;
+  overflow: hidden;
+  transition: all 0.25s ease;
+}
+.exercise.open .exercise-content {
+  padding: 6px 20px 18px;
+  max-height: 4000px;
+  opacity: 1;
+  visibility: visible;
+}
+.exercise.open .chevron { transform: rotate(180deg); }
+.exercise .problem {
+  background: var(--surface2);
+  border-left: 3px solid var(--accent2);
+  border-radius: 4px;
+  padding: 10px 14px;
+  margin: 6px 0 10px;
+  font-size: 0.88rem;
+  line-height: 1.65;
+}
+.exercise .problem::before {
+  content: 'PROBLEM';
+  display: block;
+  font-weight: 700;
+  color: var(--accent2);
+  margin-bottom: 4px;
+  font-size: 0.72rem;
+  letter-spacing: 0.5px;
+}
+.exercise .solution {
+  background: rgba(93,184,93,0.06);
+  border-left: 3px solid var(--green);
+  border-radius: 4px;
+  padding: 10px 14px;
+  margin: 8px 0;
+  font-size: 0.88rem;
+  line-height: 1.7;
+}
+.exercise .solution::before {
+  content: 'SOLUTION';
+  display: block;
+  font-weight: 700;
+  color: var(--green);
+  margin-bottom: 4px;
+  font-size: 0.72rem;
+  letter-spacing: 0.5px;
+}
+.exercise .hint {
+  background: rgba(201,168,76,0.06);
+  border-left: 3px solid var(--yellow);
+  border-radius: 4px;
+  padding: 10px 14px;
+  margin: 8px 0;
+  font-size: 0.88rem;
+}
+.exercise .hint::before {
+  content: 'HINT';
+  display: block;
+  font-weight: 700;
+  color: var(--yellow);
+  margin-bottom: 4px;
+  font-size: 0.72rem;
+  letter-spacing: 0.5px;
+}
+.exercise .yap {
+  background: rgba(148,117,178,0.06);
+  border-left: 3px solid var(--purple);
+  border-radius: 4px;
+  padding: 10px 14px;
+  margin: 8px 0;
+  font-size: 0.88rem;
+  line-height: 1.7;
+}
+.exercise .yap::before {
+  content: 'WHAT TO SAY IN CLASS';
+  display: block;
+  font-weight: 700;
+  color: var(--purple);
+  margin-bottom: 4px;
+  font-size: 0.72rem;
+  letter-spacing: 0.5px;
+}
+
+/* Sidebar: Final Exam link */
+.exam-link {
+  font-weight: 700 !important;
+  color: var(--yellow) !important;
+  border-bottom: 1px solid var(--border);
+  padding-bottom: 10px !important;
+  margin-bottom: 4px;
+}
+.exam-link:hover { color: var(--yellow) !important; background: rgba(201,168,76,0.05) !important; }
+
 .hidden { display: none !important; }
 .no-results {
   text-align: center;
