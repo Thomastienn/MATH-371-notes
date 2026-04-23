@@ -89,6 +89,18 @@ function openSection(targetEl) {
   const link = document.querySelector(`.sidebar a[href="#${targetEl.id}"]`);
   if (link) link.classList.add('active');
   
+  // Force any canvas inside the opened section to reset/redraw
+  const canvases = targetEl.querySelectorAll('canvas');
+  canvases.forEach(canvas => {
+    canvas.hasDrawnOnce = false;
+    const id = canvas.id;
+    const idMap = {
+      'canvas-petersen': () => typeof vizPetersen !== 'undefined' && vizPetersen.reset(),
+      'canvas-ramsey-lb': () => typeof vizRamseyLB !== 'undefined' && vizRamseyLB.showBoth()
+    };
+    if (idMap[id]) try { idMap[id](); } catch(_) {}
+  });
+
   // Scroll to it
   setTimeout(() => {
     targetEl.scrollIntoView({ behavior: 'smooth', block: 'start' });
@@ -111,7 +123,25 @@ document.querySelectorAll('.theorem-header, .glossary-header').forEach(header =>
 // Exercise accordion (independent of theorem strict accordion — multiple open OK)
 document.querySelectorAll('.exercise-header').forEach(header => {
   header.addEventListener('click', function(e) {
-    this.parentElement.classList.toggle('open');
+    const ex = this.parentElement;
+    ex.classList.toggle('open');
+    // Force any canvas inside to redraw (in case it rendered while hidden)
+    if (ex.classList.contains('open')) {
+      const canvases = ex.querySelectorAll('canvas');
+      canvases.forEach(canvas => {
+        canvas.hasDrawnOnce = false; // trigger fresh draw path in clearCanvas
+        // Dispatch custom event so viz modules can re-render if needed
+        const reset = canvas.getAttribute('data-reset');
+        // Best effort: call a global reset matching the canvas id
+        const idMap = {
+          'canvas-prufer': () => vizPrufer && vizPrufer.reset && vizPrufer.reset(),
+          'canvas-bowtie': () => vizBowtie && vizBowtie.showNormal && vizBowtie.showNormal(),
+          'canvas-triangle-count': () => vizTriangleCount && vizTriangleCount.reset && vizTriangleCount.reset(),
+          'canvas-chrom-poly': () => vizChromPoly && vizChromPoly.reset && vizChromPoly.reset()
+        };
+        if (idMap[canvas.id]) try { idMap[canvas.id](); } catch(_) {}
+      });
+    }
   });
 });
 

@@ -225,6 +225,15 @@
               <strong>(c) FALSE.</strong> Counter: two triangles sharing a single vertex. No edge is a bridge (every edge is on a triangle), but the shared vertex is a cut vertex.
             </div>
             <div class="yap"><strong>In class:</strong> "Bridges and cut vertices are closely tied but <em>not</em> equivalent. (b) is the safe direction — no cut vertices implies no bridges. But (c) fails: bowtie graph kills it."</div>
+            <div class="viz-container">
+              <canvas id="canvas-bowtie" width="600" height="300"></canvas>
+              <div class="viz-controls">
+                <button onclick="vizBowtie.showNormal()">The Bowtie</button>
+                <button onclick="vizBowtie.showCycles()">Every edge on a cycle</button>
+                <button onclick="vizBowtie.showRemove()">Remove c (disconnects!)</button>
+              </div>
+              <div class="viz-label">The counterexample for (c): no bridges, but c is a cut vertex.</div>
+            </div>
           </div>
         </div>
 
@@ -326,6 +335,15 @@
               <strong>(b)</strong> $\mathrm{Tr}(A^3) = \sum_j [A^3]_{j,j} = \sum_j 2 \cdot (\text{triangles through } v_j)$. Each triangle has 3 vertices, so it's counted once per vertex — i.e. 3 times. Total: $\mathrm{Tr}(A^3) = 2 \cdot 3 \cdot T = 6T$, hence $T = \frac{1}{6}\mathrm{Tr}(A^3)$. $\square$
             </div>
             <div class="yap"><strong>In class:</strong> "Diagonal entries of $A^3$ count closed walks of length 3 — which are triangles traversed. Each triangle has 2 orientations × 3 starting vertices = 6 walks, hence divide by 6 to get the triangle count."</div>
+            <div class="viz-container">
+              <canvas id="canvas-triangle-count" width="600" height="300"></canvas>
+              <div class="viz-controls">
+                <button onclick="vizTriangleCount.prev()">Prev</button>
+                <button onclick="vizTriangleCount.next()">Next Triangle</button>
+                <button class="secondary" onclick="vizTriangleCount.reset()">Reset</button>
+              </div>
+              <div class="viz-label">In K₄, vertex 1 is in 3 triangles. Total triangles = 4 = (1/6)·Tr(A³).</div>
+            </div>
           </div>
         </div>
 
@@ -452,6 +470,15 @@
               Degrees: $\deg(3) = 4, \deg(4) = 5, \deg(5) = 4$. (Each vertex appears in the sequence $\deg - 1$ times: $3$ times for $3,4,5$.)
             </div>
             <div class="yap"><strong>In class:</strong> "Repeat pattern 5-4-3 three times, so each of 5, 4, 3 appears 3 times ⇒ each has degree 4. The 8 missing labels (1,2,6,7,8,9,10,11) are leaves. Decode step by step by picking the smallest <em>available</em> leaf each time."</div>
+            <div class="viz-container">
+              <canvas id="canvas-prufer" width="600" height="320"></canvas>
+              <div class="viz-controls">
+                <button onclick="vizPrufer.prev()">Prev</button>
+                <button onclick="vizPrufer.next()">Next Step</button>
+                <button onclick="vizPrufer.autoPlay()">Auto-Play</button>
+                <button class="secondary" onclick="vizPrufer.reset()">Reset</button>
+              </div>
+            </div>
           </div>
         </div>
 
@@ -634,6 +661,15 @@
               <strong>(f) $K_5 - e$:</strong> Similarly $K_5 - e$ has 3 vertices forming $K_3$ plus 2 non-adjacent vertices each adjacent to the $K_3$. Color $K_3$ in $k(k-1)(k-2)$ ways, then each of the 2 remaining must differ from all 3 triangle colors: $(k-3)$ each. $P = k(k-1)(k-2)(k-3)^2$. At $k=5$: $5\cdot 4\cdot 3 \cdot 4 = 240$.
             </div>
             <div class="yap"><strong>In class:</strong> "Stars: root × (leaves)^(n). Cycles use the formula $(k-1)^n + (-1)^n(k-1)$. $K_n - e$: look at the clique structure with 2 'apex' non-adjacent vertices."</div>
+            <div class="viz-container">
+              <canvas id="canvas-chrom-poly" width="600" height="300"></canvas>
+              <div class="viz-controls">
+                <button onclick="vizChromPoly.prev()">Prev</button>
+                <button onclick="vizChromPoly.next()">Next Graph</button>
+                <button class="secondary" onclick="vizChromPoly.reset()">Reset</button>
+              </div>
+              <div class="viz-label">Cycle through K₁,₃ → C₄ → C₅ → K₄−e with their chromatic polynomials.</div>
+            </div>
           </div>
         </div>
 
@@ -2217,6 +2253,15 @@
         <strong>Lower bound construction:</strong> $(n-1)$ copies of $K_{m-1}$ in red, complete multipartite in blue.<br>
         <strong>Upper bound ingredients:</strong> (a) Thm 1.45 ($\chi \ge n / \alpha$), (b) $k$-critical ⇒ $\delta \ge k-1$, (c) Thm 1.16 (min-degree $\ge k$ contains every tree with $k$ edges).
       </div>
+      <div class="viz-container">
+        <canvas id="canvas-ramsey-lb" width="600" height="300"></canvas>
+        <div class="viz-controls">
+          <button onclick="vizRamseyLB.showBoth()">Full Coloring</button>
+          <button onclick="vizRamseyLB.showRed()">Red Only (within-blob)</button>
+          <button onclick="vizRamseyLB.showBlue()">Blue Only (between-blob)</button>
+        </div>
+        <div class="viz-label" id="ramsey-lb-label">Example: m=4, n=4 → K₉ partitioned into 3 blobs of 3.</div>
+      </div>
     </div>
   </div>
 
@@ -2265,6 +2310,17 @@
         • $\chi(P) = 3$ and $\chi'(P) = 4$ (edge chromatic).<br>
         <strong>Remark:</strong> Petersen shows that $\kappa(G) \ge \alpha(G) - 1$ does NOT force Hamiltonicity (Theorem 1.24 bound is tight but not sufficient alone).
       </div>
+      <div class="viz-container">
+        <canvas id="canvas-petersen" width="600" height="320"></canvas>
+        <div class="viz-controls">
+          <button onclick="vizPetersen.setMode('overview')">Overview</button>
+          <button onclick="vizPetersen.setMode('ham-path')">Claim 1: Ham. Path</button>
+          <button onclick="vizPetersen.setMode('no-ham-cycle')">Claim 2: No Ham. Cycle</button>
+          <button onclick="vizPetersen.setMode('connectivity')">Claim 3: κ=3</button>
+          <button onclick="vizPetersen.setMode('independence')">Claim 4: α=4</button>
+        </div>
+        <div class="viz-label" id="petersen-label">Petersen: 10 vertices, 15 edges, 3-regular</div>
+      </div>
     </div>
   </div>
 
@@ -2277,5 +2333,6 @@
 <script src="js/visualizations/planarity.js"></script>
 <script src="js/visualizations/coloring.js"></script>
 <script src="js/visualizations/quiz5.js"></script>
+<script src="js/visualizations/final.js"></script>
 </body>
 </html>
